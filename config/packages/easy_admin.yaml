@@ -1,0 +1,11 @@
+easy_admin:
+    site_name: OneMinute Administration
+
+    design:
+        menu:
+            - { entity: 'Category', label: 'Catégories', icon: '' }
+            - { entity: 'User', label: 'Utilisateurs', icon: '' }
+
+    entities:
+        - App\Entity\Category
+        - App\Entity\User

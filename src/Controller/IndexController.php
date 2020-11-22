@@ -1,7 +1,8 @@
 <?php
-// src/Controller/LuckyController.php
+
 namespace App\Controller;
 
+use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,10 +15,11 @@ class IndexController extends AbstractController
 	*/
 	public function index(): Response
     {
-        $number = random_int(0, 100);
+        $categories = $this->getDoctrine()->getRepository(Category::class)
+            ->allCategories();
 
         return $this->render('index.html.twig', [
-            'number' => $number
+            'categories' => $categories
         ]);
     }
 

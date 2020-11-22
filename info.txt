@@ -1,0 +1,2 @@
+#Pour se rendre sur la page administration des données
+http://localhost/oneminute/public/index.php/admin/
