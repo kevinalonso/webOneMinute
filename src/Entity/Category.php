@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -26,6 +27,11 @@ class Category
      * @ORM\Column(type="boolean")
      */
     private $IsActive;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Announcement", mappedBy="Category")
+     */
+    private $Announcements;
 
     public function getId(): ?int
     {
@@ -54,5 +60,23 @@ class Category
         $this->IsActive = $IsActive;
 
         return $this;
+    }
+
+    public function __construct()
+    {
+        $this->Announcements = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Annoucement[]
+     */
+    public function getAnnouncements()
+    {
+        return $this->Announcements;
+    }
+
+    public function __toString()
+    {
+        return $this->Name;
     }
 }

@@ -1,11 +1,22 @@
 easy_admin:
-    site_name: OneMinute Administration
-
-    design:
-        menu:
-            - { entity: 'Category', label: 'Catégories', icon: '' }
-            - { entity: 'User', label: 'Utilisateurs', icon: '' }
-
     entities:
-        - App\Entity\Category
-        - App\Entity\User
+        Category:
+            class: App\Entity\Category
+            label: 'Catégories'
+            form:  # <-- 'form' is applied to both 'new' and 'edit' views
+                fields:
+                    - 'Name'
+                    - 'IsActive'
+
+        Announcement:
+            class: App\Entity\Announcement
+            label: 'Annonces'
+            form:  # <-- 'form' is applied to both 'new' and 'edit' views
+                fields:
+                    - 'Title'
+                    - 'Description'
+                    - 'DatePublish'
+                    - 'IsActive'
+                    - 'Price'
+                    - 'Image'
+                    - 'Category'
