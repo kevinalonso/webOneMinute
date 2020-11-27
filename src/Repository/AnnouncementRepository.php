@@ -27,6 +27,14 @@ class AnnouncementRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
+    public function getAnnouncementById(int $id): array
+    {
+        $dql = 'SELECT a FROM App\Entity\Announcement a WHERE a.id =:id';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('id',$id);
+        return $query->execute();
+    }
+
     // /**
     //  * @return Announcement[] Returns an array of Announcement objects
     //  */

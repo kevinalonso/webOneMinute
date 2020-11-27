@@ -4,3 +4,6 @@ index:
 category:
     path: /category/{id}
     controller: App\Controller\CategoryController::category
+announcement:
+    path: /announcement/{id}
+    controller: App\Controller\DetailAnnouncenementController::announcement

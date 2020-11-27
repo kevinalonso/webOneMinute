@@ -13,10 +13,10 @@
 					<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 					<div class="card-body">
 						<h4 class="card-title">
-						  <a href="#">{{announcement.Title}}</a>
+						  <a href="{{ path('announcement', {'id': announcement.id}) }}">{{announcement.Title}}</a>
 						</h4>
 						<h5>{{announcement.Price}}€</h5>
-						<p class="card-text">{{announcement.Description}}</p>
+						<p class="card-text">{{announcement.Description|length > 200 ? announcement.Description|slice(0, 200) ~ '...' : announcement.Description}}</p>
 					</div>
 					<div class="card-footer">
 						<small class="text-muted"></small>
