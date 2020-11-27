@@ -19,9 +19,6 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-    /**
-     * @return Product[]
-     */
     public function allCategories(): array
     {
         $entityManager = $this->getEntityManager();

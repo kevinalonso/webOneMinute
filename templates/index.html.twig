@@ -1,20 +1,20 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-	<div class="container">
-		<div class="row">
+  <div class="container">
 
-      <div class="col-lg-3">
-        <h1 class="my-4">One Minute</h1>
-        <div class="list-group">
+      <div class="row">
+        <div class="col-lg-3">
+          <h1 class="my-4">One Minute</h1>
+          <div class="list-group">
           {% for category in categories %}
               {% if category.IsActive %}
-                <a href="#" class="list-group-item">{{category.Name}}</a>
+                <a href="{{ path('category', {'id': category.id}) }}" class="list-group-item">{{category.Name}}</a>
               {% endif %}
           {% endfor %}
         </div>
       </div>
-
+    
       <div class="col-lg-9">
       	<div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
           <ol class="carousel-indicators">
@@ -43,6 +43,5 @@
           </a>
         </div>
       </div>
-
-	</div>
+  </div>
 {% endblock %}

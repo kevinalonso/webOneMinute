@@ -19,6 +19,14 @@ class AnnouncementRepository extends ServiceEntityRepository
         parent::__construct($registry, Announcement::class);
     }
 
+    public function getAnnoucementFromCategory(int $idCat): array
+    {
+        $dql = 'SELECT a FROM App\Entity\Announcement a WHERE a.Category =:idCat';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('idCat',$idCat);
+        return $query->execute();
+    }
+
     // /**
     //  * @return Announcement[] Returns an array of Announcement objects
     //  */
