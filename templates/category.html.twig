@@ -3,14 +3,20 @@
 {% block body %}
 
 	<div class="row mt-10 mb-10">
-		<h5 class="w-100 text-center">Annonces de {{titleCat.Category.Name}}</h5>
+		{% if announcements != null %}
+			<h5 class="w-100 text-center">Annonces de {{titleCat.Category.Name}}</h5>
+		{% else %}
+			<h5 class="w-100 text-center">{{titleCat}}</h5>
+		{% endif %}
+		
 	</div>
 
 	<div class="row">
 		{% for announcement in announcements %}
 			<div class="col-lg-4 col-md-6 mb-4 ml-5">
 				<div class="card h-100">
-					<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+					<!--http://placehold.it/700x400-->
+					<a href="#"><img class="card-img-top" src="{{ announcement.image }}" alt=""></a>
 					<div class="card-body">
 						<h4 class="card-title">
 						  <a href="{{ path('announcement', {'id': announcement.id}) }}">{{announcement.Title}}</a>

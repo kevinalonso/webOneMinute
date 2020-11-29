@@ -18,7 +18,22 @@ class CategoryController extends AbstractController
     	$announcements = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnoucementFromCategory($id);
 
-        $catName = $announcements[0];
+        if ($announcements != null) {
+
+            $catName = $announcements[0];
+
+            return $this->render('category.html.twig', [
+                'announcements' => $announcements,
+                'titleCat' => $catName
+            ]);
+
+        } else {
+            return $this->render('category.html.twig', [
+                'announcements' => $announcements,
+                'titleCat' => 'Aucune annonce pour cette catégorie'
+            ]);
+        }
+        
       
     	return $this->render('category.html.twig', [
             'announcements' => $announcements,
