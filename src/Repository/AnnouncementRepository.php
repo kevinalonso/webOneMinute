@@ -27,12 +27,28 @@ class AnnouncementRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
+    public function getAnnoucementFromUser(int $idUser): array
+    {
+        $dql = 'SELECT a FROM App\Entity\Announcement a WHERE a.User =:idUser';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('idUser',$idUser);
+        return $query->execute();
+    }
+
     public function getAnnouncementById(int $id): array
     {
         $dql = 'SELECT a FROM App\Entity\Announcement a WHERE a.id =:id';
         $query = $this->getEntityManager()->createQuery($dql)
             ->setParameter('id',$id);
         return $query->execute();
+    }
+
+    public function deleteAnnouncement(int $id)
+    {
+        $dql = 'DELETE App\Entity\Announcement a WHERE a.id =:id';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('id',$id);
+        $query->execute();
     }
 
     // /**

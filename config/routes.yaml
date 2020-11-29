@@ -16,3 +16,6 @@ login:
 logout:
     path: /logout
     controller: App\Controller\LoginController::logout
+deleteAnnouncement:
+    path: /account/delete/{id}
+    controller: App\Controller\AccountController::delete

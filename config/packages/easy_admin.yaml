@@ -20,6 +20,7 @@ easy_admin:
                     - 'Price'
                     - 'Image'
                     - 'Category'
+                    - 'User'
 
         User:
             class: App\Entity\User
@@ -29,7 +30,6 @@ easy_admin:
                     - 'FirstName'
                     - 'LastName'
                     - 'Email'
-                    - 'Password'
                     - 'Address'
                     - 'CodePoste'
                     - 'City'

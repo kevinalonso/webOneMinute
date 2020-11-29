@@ -47,16 +47,39 @@ class Announcement
      */
     private $Image;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="Announcements")
-     */
-    private $Category;
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /////////////////////////Link between Annnouncement & User////////////////////
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="Announcements")
+     */
+    private $User;
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
+
+        return $this;
+    }
+
+    ////////////////////////////////////////////
+
+
+    ////////////////////////Link between Annnouncement & Category////////////////////
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="Announcements")
+     */
+    private $Category;
 
     public function getCategory(): ?Category
     {
@@ -69,6 +92,8 @@ class Announcement
 
         return $this;
     }
+
+    /////////////////////////////////////////////////////////////////////
 
     public function getTitle(): ?string
     {

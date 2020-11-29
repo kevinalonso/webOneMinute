@@ -2,13 +2,13 @@
   background-color: #23d85b;
 }
 
-.footer {
+/*.footer {
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
   text-align: center;
-}
+}*/
 
 .profile-userpic img {
   float: none;

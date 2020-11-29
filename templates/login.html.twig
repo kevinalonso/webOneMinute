@@ -2,33 +2,38 @@
 
 {% block body %}
   <form method="post">
+    
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Connectez-vous !</h1>
-
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    
-    <label for="inputPassword">Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}">
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+    <div class="container">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Connectez-vous !</h4>
         </div>
-    #}
+        <div class="modal-body mx-3">
+          <div class="md-form mb-5">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+            <label data-error="wrong" data-success="right" for="defaultForm-email">Email</label>
+          </div>
 
-    <button class="btn btn-lg btn-primary" type="submit">Connexion</button>
+          <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+            <input type="password" name="password" id="inputPassword" class="form-control" required>
+            <input type="hidden" name="_csrf_token"
+             value="{{ csrf_token('authenticate') }}">
+            <label data-error="wrong" data-success="right" for="defaultForm-pass">Mot de passe</label>
+          </div>
+
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button class="btn btn btn-default" type="submit">Connexion</button>
+        </div>
+      </div>
+    </div>
   </form>
-
+    
 {% endblock %}

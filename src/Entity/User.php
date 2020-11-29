@@ -52,12 +52,22 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $Phone;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $Address;
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $IsActive;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Announcement", mappedBy="Category")
+     */
+    private $Announcements;
 
     /**
      * @ORM\Column(type="json")
@@ -101,6 +111,18 @@ class User implements UserInterface
     public function setEmail(string $Email): self
     {
         $this->Email = $Email;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->Phone;
+    }
+
+    public function setPhone(string $Phone): self
+    {
+        $this->Phone = $Phone;
 
         return $this;
     }
@@ -163,6 +185,25 @@ class User implements UserInterface
         $this->IsActive = $IsActive;
 
         return $this;
+    }
+
+    public function __construct()
+    {
+        $this->Announcements = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Annoucement[]
+     */
+    public function getAnnouncements()
+    {
+        return $this->Announcements;
+    }
+
+    public function __toString()
+    {   
+        $fullName = $this->FirstName." ".$this->LastName;
+        return $fullName;
     }
 
     //Function from interface
