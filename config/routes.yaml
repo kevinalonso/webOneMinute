@@ -7,3 +7,6 @@ category:
 announcement:
     path: /announcement/{id}
     controller: App\Controller\DetailAnnouncenementController::announcement
+account:
+    path: /account
+    controller: App\Controller\AccountController::account

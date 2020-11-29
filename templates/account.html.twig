@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="container mt-5 mb-80">
+	<div class="row">
+		<div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+	    	 <div class="well profile">
+	            <div class="col-sm-12">
+	                <div class="col-xs-12 col-sm-8">
+	                    <h2>Nicole Pearson</h2>
+	                    <p><strong>Téléphone: </strong> Web Designer / UI. </p>
+	                    <p><strong>Email: </strong> Web Designer / UI. </p>
+	                    <p><strong>Adresse: </strong> Web Designer / UI. </p>
+	                    <p><strong>Code Postale : </strong> Read, out with friends, listen to music, draw and learn new things. </p>
+	                    <p><strong>Ville: </strong> Web Designer / UI. </p>
+	                </div>             
+	            </div>            
+	    	 </div>                 
+		</div>
+
+
+		 <div class="col-md-2 ml-18 text-center">
+ 			<div class="profile-userpic">
+				<img src="https://i.stack.imgur.com/l60Hf.png" class="img-responsive" alt="">
+			</div>
+        	<p><strong>Votre crédit</strong></p>
+            <h2><strong> 20 € </strong></h2>                    
+            <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span>Ajouter</button>
+        </div>
+	</div>
+</div>
+
+<div class="container">
+	<h2>Liste de mes annonces</h2>
+	<div class="row">
+		{% for announcement in announcements %}
+			<div class="col-lg-4 col-md-6 mb-4 ml-5">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title">
+						  <a href="{{ path('announcement', {'id': announcement.id}) }}">{{announcement.Title}}</a>
+						</h4>
+						<h5>{{announcement.Price}}€</h5>
+						<p class="card-text">{{announcement.Description|length > 200 ? announcement.Description|slice(0, 200) ~ '...' : announcement.Description}}</p>
+					</div>
+					<div class="card-footer">
+						<small class="text-muted"></small>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}
