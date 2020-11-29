@@ -4,11 +4,13 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -51,6 +53,16 @@ class User
      * @ORM\Column(type="string", length=255)
      */
     private $Address;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $IsActive;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $Roles = [];
 
     public function getId(): ?int
     {
@@ -140,4 +152,98 @@ class User
 
         return $this;
     }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->IsActive;
+    }
+
+    public function setIsActive(bool $IsActive): self
+    {
+        $this->IsActive = $IsActive;
+
+        return $this;
+    }
+
+    //Function from interface
+
+    public function getUsername()
+    {
+        return $this->Email;
+    }
+
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->Roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
+    public function setRoles(array $roles): self
+    {
+        $this->Roles = $roles;
+        return $this;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->IsActive;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->Email,
+            $this->Password,
+            // see section on salt below
+            // $this->salt,
+            $this->IsActive
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->Email,
+            $this->Password,
+            // see section on salt below
+            // $this->salt
+            $this->IsActive
+        ) = unserialize($serialized);
+    }
+
+
 }

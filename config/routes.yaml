@@ -10,3 +10,9 @@ announcement:
 account:
     path: /account
     controller: App\Controller\AccountController::account
+login:
+    path: /login
+    controller: App\Controller\LoginController::login
+logout:
+    path: /logout
+    controller: App\Controller\LoginController::logout

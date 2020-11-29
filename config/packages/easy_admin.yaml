@@ -20,3 +20,17 @@ easy_admin:
                     - 'Price'
                     - 'Image'
                     - 'Category'
+
+        User:
+            class: App\Entity\User
+            label: 'Utilisateurs'
+            form:  # <-- 'form' is applied to both 'new' and 'edit' views
+                fields:
+                    - 'FirstName'
+                    - 'LastName'
+                    - 'Email'
+                    - 'Password'
+                    - 'Address'
+                    - 'CodePoste'
+                    - 'City'
+                    - 'IsActive'
