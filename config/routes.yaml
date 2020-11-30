@@ -19,3 +19,9 @@ logout:
 deleteAnnouncement:
     path: /account/delete/{id}
     controller: App\Controller\AccountController::delete
+contact:
+    path: /contact
+    controller: App\Controller\ContactController::contact
+sendmail:
+    path: /sendmail
+    controller: App\Controller\ContactController::sendMail
