@@ -32,7 +32,6 @@ class ContactController extends AbstractController
         $message = (new \Swift_Message($obj))
             ->setFrom($email)
             ->setTo('k.alonso@iia-laval.fr')
-            -set
             ->setBody($msg);
 
         $mailer->send($message);
