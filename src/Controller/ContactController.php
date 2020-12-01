@@ -22,12 +22,20 @@ class ContactController extends AbstractController
     /** 
    * @Route("/sendmail") 
     */ 
-    public function sendMail(Request $request)
+    public function sendMail(Request $request, \Swift_Mailer $mailer)
     {
         $email = $request->request->get('email');
+        $name = $request->request->get('name');
+        $obj = $request->request->get('obj');
+        $msg = $request->request->get('msg');
 
-        
-        
+        $message = (new \Swift_Message($obj))
+            ->setFrom($email)
+            ->setTo('k.alonso@iia-laval.fr')
+            -set
+            ->setBody($msg);
+
+        $mailer->send($message);
         
         return new JsonResponse(array(
             'status' => 'OK',
