@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+	<div class="container">
+		<h1>Créer Votre Annonce</h1>
+		<form id="contact-form" name="contact-form" method="POST">
+			<div class="row mt-5">
+				<input type="text" id="name" name="title" class="form-control" required="required">
+                <label for="title" class="">Titre</label>
+			</div>
+			<div class="row mt-5">
+				<select class="form-control">
+  					<option>Catégorie</option>
+  					{% for category in categories %}
+  						{% if category.IsActive %}
+			                <option value="{{ category.id }}">{{category.Name}}</option>
+			             {% endif %}
+  					{% endfor %}
+				</select>
+			</div>
+			<div class="row mt-5">
+				<textarea type="text" required="required" id="message" name="desc" rows="10" class="form-control md-textarea"></textarea>
+                <label for="desc" class="">Description</label>
+			</div>
+			<div class="row mt-5">
+				<input type="text" id="price" name="name" class="form-control" required="required">
+                <label for="price" class="">Prix</label>
+			</div>
+
+			 <div class="row mt-5 mb-5">
+                <a class="btn btn-primary" type="submit">Créer l'annonce</a>
+            </div>
+		</form>
+	</div>
+
+{% endblock %}
