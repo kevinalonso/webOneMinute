@@ -27,7 +27,7 @@ function sendMailClick(){
 		        // so we need to check for its value ("OK" in my case)
 		        if (data.status == "OK")
 		        {
-		            console.log("mail send success");
+		            document.getElementById("alert-mail").style.visibility= 'visible' ;
 		        }
 		    }
 		});
