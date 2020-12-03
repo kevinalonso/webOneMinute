@@ -64,6 +64,14 @@ class AnnouncementRepository extends ServiceEntityRepository
         $query->execute();
     }
 
+    public function getTop10Annoucement(): array
+    {
+        $dql = 'SELECT a FROM App\Entity\Announcement a ORDER BY a.id DESC';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setMaxResults(10);
+        return $query->execute();
+    }
+
     // /**
     //  * @return Announcement[] Returns an array of Announcement objects
     //  */
