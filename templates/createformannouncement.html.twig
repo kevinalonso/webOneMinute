@@ -6,12 +6,12 @@
 		<h1>Créer Votre Annonce</h1>
 		<form id="contact-form" name="contact-form" method="POST">
 			<div class="row mt-5">
-				<input type="text" id="name" name="title" class="form-control" required="required">
+				<input type="text" id="title" name="title" class="form-control" required="required">
                 <label for="title" class="">Titre</label>
 			</div>
 			<div class="row mt-5">
-				<select class="form-control">
-  					<option>Catégorie</option>
+				<select id="category" class="form-control">
+  					<option name="category">Catégorie</option>
   					{% for category in categories %}
   						{% if category.IsActive %}
 			                <option value="{{ category.id }}">{{category.Name}}</option>
@@ -20,18 +20,22 @@
 				</select>
 			</div>
 			<div class="row mt-5">
-				<textarea type="text" required="required" id="message" name="desc" rows="10" class="form-control md-textarea"></textarea>
+				<textarea type="text" required="required" id="desc" name="desc" rows="10" class="form-control md-textarea"></textarea>
                 <label for="desc" class="">Description</label>
 			</div>
 			<div class="row mt-5">
-				<input type="text" id="price" name="name" class="form-control" required="required">
+				<input type="text" id="price" name="price" class="form-control" required="required">
                 <label for="price" class="">Prix</label>
 			</div>
 
 			 <div class="row mt-5 mb-5">
-                <a class="btn btn-primary" type="submit">Créer l'annonce</a>
+                <a class="btn btn-primary" onclick="createAnnouncement()">Créer l'annonce</a>
             </div>
 		</form>
 	</div>
+
+	{% block javascripts %} 
+	    <script type="text/javascript" src="/oneminute/src/js/ajaxCreate.js"></script>
+	{% endblock %}
 
 {% endblock %}

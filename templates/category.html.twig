@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-
+	{{dump(cat)}}
 	<div class="row mt-10 mb-10">
 		{% if announcements != null %}
 			<h5 class="w-100 text-center">Annonces de {{titleCat.Category.Name}}</h5>

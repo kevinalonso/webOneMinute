@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Announcement;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,18 @@ class AnnouncementRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Announcement::class);
+    }
+
+    public function insert(Announcement $a, int $categoryId)
+    {
+        //Get relationship with category and annoucenemnt
+        $category = $this->getEntityManager()->getReference('App\Entity\Category', $categoryId);
+        $a->setCategory($category);
+
+        //insert in table announcement new item
+        $em = $this->getEntityManager();
+        $em->persist($a);
+        $em->flush();
     }
 
     public function getAnnoucementFromCategory(int $idCat): array

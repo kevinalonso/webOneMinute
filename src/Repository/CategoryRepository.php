@@ -25,11 +25,18 @@ class CategoryRepository extends ServiceEntityRepository
 
         $query = $entityManager->createQuery(
             'SELECT cat
-            FROM App\Entity\Category cat'
-        );
+            FROM App\Entity\Category cat');
 
         // returns an array of Product objects
         return $query->getResult();
+    }
+
+    public function getCategory(int $id)
+    {
+        $dql = 'SELECT c FROM App\Entity\Category c WHERE c.id =:id';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('id',$id);
+        return $query->execute();
     }
 
     // /**
