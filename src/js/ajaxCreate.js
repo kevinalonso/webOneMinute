@@ -34,3 +34,42 @@ function createAnnouncement(){
 		//Add response her if error
 	}
 }
+
+function createAccount(){
+
+	var firstname = $("#firstname").val();
+	var lastname = $("#lastname").val();
+	var phone = $("#phone").val();
+	var password = $("#password").val();
+	var email = $("#email").val();
+	var siret = $("#siret").val();
+	var factory = $("#factory").val();
+	var address = $("#address").val();
+	var cp= $("#cp").val();
+	var city = $("#city").val();
+
+	$.ajax({
+	    type: "POST",
+	    url: "/oneminute/public/accountcreate",
+	    data: {
+		    	firstname: firstname,
+	            lastname: lastname,
+	            phone: phone,
+	            password: password,
+	            email: email,
+	            siret: siret,
+	            factory: factory,
+	            address: address,
+	            cp: cp,
+	            city: city
+	    	}
+	})
+	.done(function(data){
+		if (data.status == "OK")
+        {
+            location.href = '/oneminute/public/account';
+        }
+	});
+
+
+}

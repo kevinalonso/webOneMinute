@@ -25,6 +25,15 @@ class AccountController extends AbstractController
     }
 
     /**
+    * @Route("/accountcreate")
+    */
+    public function createAccount(): Response
+    {
+
+        return $this->render('createaccount.html.twig', []);
+    }
+
+    /**
     * @Route("/account/delete/{id}")
     */
     public function delete(UserInterface $user,int $id): Response

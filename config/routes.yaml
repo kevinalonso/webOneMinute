@@ -19,6 +19,9 @@ logout:
 deleteAnnouncement:
     path: /account/delete/{id}
     controller: App\Controller\AccountController::delete
+createAccount:
+    path: /accountcreate
+    controller: App\Controller\AccountController::createAccount
 createannouncementview:
     path: /account/create/announcement
     controller: App\Controller\AnnouncementController::createView
