@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -60,9 +61,24 @@ class User implements UserInterface
     private $Address;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Siret;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Factory;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $IsActive;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $IsPro;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Announcement", mappedBy="Category")
@@ -99,6 +115,30 @@ class User implements UserInterface
     public function setLastName(string $LastName): self
     {
         $this->LastName = $LastName;
+
+        return $this;
+    }
+
+    public function getSiret(): ?string
+    {
+        return $this->Siret;
+    }
+
+    public function setSiret(string $Siret): self
+    {
+        $this->Siret = $Siret;
+
+        return $this;
+    }
+
+    public function getFactory(): ?string
+    {
+        return $this->Factory;
+    }
+
+    public function setFactory(string $Factory): self
+    {
+        $this->Factory = $Factory;
 
         return $this;
     }
@@ -183,6 +223,18 @@ class User implements UserInterface
     public function setIsActive(bool $IsActive): self
     {
         $this->IsActive = $IsActive;
+
+        return $this;
+    }
+
+    public function getIsPro(): ?bool
+    {
+        return $this->IsPro;
+    }
+
+    public function setIsPro(bool $IsPro): self
+    {
+        $this->IsPro = $IsPro;
 
         return $this;
     }

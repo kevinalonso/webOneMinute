@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Entity\Announcement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
@@ -27,6 +28,13 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->setParameter('email', $username)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function insertUser(User $user)
+    {   
+        $em = $this->getEntityManager();
+        $em->persist($user);
+        $em->flush();
     }
 
     /*

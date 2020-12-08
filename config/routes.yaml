@@ -10,6 +10,9 @@ announcement:
 account:
     path: /account
     controller: App\Controller\AccountController::account
+createuser:
+    path: /createuser
+    controller: App\Controller\AccountController::create
 login:
     path: /login
     controller: App\Controller\LoginController::login
