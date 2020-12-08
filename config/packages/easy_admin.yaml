@@ -29,6 +29,7 @@ easy_admin:
                 fields:
                     - 'FirstName'
                     - 'LastName'
+                    - 'Password'
                     - 'Email'
                     - 'Address'
                     - 'CodePoste'
