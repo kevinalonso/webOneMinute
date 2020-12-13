@@ -21,9 +21,9 @@
 
 
 		 <div class="col-md-2 ml-18 text-center">
- 			<div class="profile-userpic">
+ 			<!--<div class="profile-userpic">
 				<img src="https://i.stack.imgur.com/l60Hf.png" class="img-responsive" alt="">
-			</div>
+			</div>-->
         	<p><strong>Votre crédit</strong></p>
             <h2><strong> 20 € </strong></h2>                    
             <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span>Créditer Compte</button>
@@ -41,7 +41,9 @@
 </div>
 
 <div class="container">
-	<h2>Liste de mes annonces</h2>
+	{% if announcements|length > 0 %}
+		<h2>Liste de mes annonces</h2>
+	{% endif %}
 	<div class="row">
 		{% for announcement in announcements %}
 			<div class="col-lg-4 col-md-6 mb-4 ml-5">

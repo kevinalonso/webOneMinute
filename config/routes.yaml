@@ -37,3 +37,6 @@ contact:
 sendmail:
     path: /sendmail
     controller: App\Controller\ContactController::sendMail
+declaration:
+    path: /declaration
+    controller: App\Controller\TaxDeclarationController::declaration
