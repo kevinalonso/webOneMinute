@@ -48,16 +48,17 @@ function createAccount(){
 	var address = $("#address").val();
 	var cp = $("#cp").val();
 	var city = $("#city").val();
+	var ispro = false;
 
 	if(document.getElementById('inlineRadio2').checked || document.getElementById('inlineRadio2').checked){
-		var ispro = ($("#inlineRadio2").val() == "1") ? true : false ;
+		ispro = ($("#inlineRadio2").val() == "1") ? true : false ;
 	}
 
 	if (password == confirm && typeof password != "undefined" && typeof confirm != "undefined") {
 
 		if ( typeof firstname != "undefined" && typeof lastname != "undefined" && typeof phone != "undefined"
 		&& typeof password != "undefined" && typeof email != "undefined" && typeof address != "undefined"
-		&& typeof cp != "undefined" && typeof city != "undefined" && typeof ispro != "undefined") {
+		&& typeof cp != "undefined" && typeof city != "undefined") {
 
 			if (ispro == true) {
 				if (typeof factory != "undefined") {

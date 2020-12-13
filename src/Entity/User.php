@@ -174,8 +174,6 @@ class User implements UserInterface
 
     public function setPassword(string $Password): self
     {
-        //$EncodePassword = $passwordEncoder->encodePassword($this, $Password);
-        //$this->Password = $EncodePassword;
         $this->Password = $Password;
 
         return $this;
