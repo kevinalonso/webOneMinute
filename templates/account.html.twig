@@ -2,73 +2,105 @@
 
 {% block body %}
 
-<div class="container mt-5 mb-80">
-	<div class="row">
-		<div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-	    	 <div class="well profile">
-	            <div class="col-sm-12">
-	                <div class="col-xs-12 col-sm-8">
-	                    <h2>{{ user.getFirstName }} {{ user.getLastName }}</h2>
-	                    <p><strong>Téléphone: </strong> {{user.getPhone}} </p>
-	                    <p><strong>Email: </strong> {{ user.getUsername }} </p>
-	                    <p><strong>Adresse: </strong> {{ user.getAddress }} </p>
-	                    <p><strong>Code Postale : </strong> {{ user.getCodePoste }} </p>
-	                    <p><strong>Ville: </strong> {{user.getCity}} </p>
-	                </div>             
-	            </div>            
-	    	 </div>                 
-		</div>
+	<div class="container mt-5 mb-80">
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+				<div class="well profile">
+					<div class="col-sm-12">
+						<div class="col-xs-12 col-sm-8">
+							<h2>{{ user.getFirstName }} {{ user.getLastName }}</h2>
+							<p><strong>Téléphone: </strong> {{user.getPhone}} </p>
+							<p><strong>Email: </strong> {{ user.getUsername }} </p>
+							<p><strong>Adresse: </strong> {{ user.getAddress }} </p>
+							<p><strong>Code Postale : </strong> {{ user.getCodePoste }} </p>
+							<p><strong>Ville: </strong> {{user.getCity}} </p>
+						</div>             
+					</div>            
+				</div>                 
+			</div>
 
 
-		 <div class="col-md-2 ml-18 text-center">
+			<div class="col-md-2 ml-18 text-center">
  			<!--<div class="profile-userpic">
 				<img src="https://i.stack.imgur.com/l60Hf.png" class="img-responsive" alt="">
 			</div>-->
-        	<p><strong>Votre crédit</strong></p>
-            <h2><strong> 20 € </strong></h2>                    
-            <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span>Créditer Compte</button>
+			<p><strong>Votre crédit</strong></p>
+			<h2><strong> 20 € </strong></h2>                    
+			<button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span>Créditer Compte</button>
 
-             <div class="mb-3 mt-20">
-            	<a class="btn btn-success btn-block" href="{{ path('createannouncementview') }}">Créer Annonce</a>
-        	</div>
+			<div class="mb-3 mt-20">
+				<a class="btn btn-primary btn-block" href="{{ path('createannouncementview') }}">Créer Annonce</a>
+			</div>
 
-            <div class="mb-3 mt-20">
-            	<a class="btn btn-danger btn-block" href="{{ path('app_logout') }}">Déconnexion</a>
-        	</div>
+			<div class="mb-3 mt-20">
+				<a class="btn btn-danger btn-block" href="{{ path('app_logout') }}">Déconnexion</a>
+			</div>
 
-        </div>
+		</div>
 	</div>
 </div>
 
+
 <div class="container">
-	{% if announcements|length > 0 %}
-		<h2>Liste de mes annonces</h2>
-	{% endif %}
-	<div class="row">
-		{% for announcement in announcements %}
-			<div class="col-lg-4 col-md-6 mb-4 ml-5">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top" src="{{announcement.Image}}" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-						  <a href="{{ path('announcement', {'id': announcement.id}) }}">{{announcement.Title}}</a>
-						</h4>
-						<h5>{{announcement.Price}}€</h5>
-						<p class="card-text">{{announcement.Description|length > 200 ? announcement.Description|slice(0, 200) ~ '...' : announcement.Description}}</p>
-					</div>
-					<div class="card-footer">
-						<a href="{{ path('deleteAnnouncement', {'id': announcement.id}) }}">Supprimer
-							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
-							  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
-							</svg>
-						</a>
-						<small class="text-muted"></small>
+
+	<div class="accordion" id="accordionExample">
+		<div class="card">
+			<div class="card-header" id="headingOne">
+				<h2 class="mb-0">
+					<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						Liste des mes annonces
+					</button>
+				</h2>
+			</div>
+
+			<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+				<div class="card-body">
+					<!--Announcements-->
+					<div class="row">
+						{% for announcement in announcements %}
+							<div class="col-lg-4 col-md-6 mb-4 ml-5">
+								<div class="card h-100">
+									<a href="#"><img class="card-img-top" src="{{announcement.Image}}" alt=""></a>
+									<div class="card-body">
+										<h4 class="card-title">
+											<a href="{{ path('announcement', {'id': announcement.id}) }}">{{announcement.Title}}</a>
+										</h4>
+										<h5>{{announcement.Price}}€</h5>
+										<p class="card-text">{{announcement.Description|length > 200 ? announcement.Description|slice(0, 200) ~ '...' : announcement.Description}}</p>
+									</div>
+									<div class="card-footer">
+										<a href="{{ path('deleteAnnouncement', {'id': announcement.id}) }}">Supprimer
+											<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+												<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+											</svg>
+										</a>
+										<small class="text-muted"></small>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
 					</div>
 				</div>
 			</div>
-		{% endfor %}
+		</div>
+		<div class="card">
+			<div class="card-header" id="headingTwo">
+				<h2 class="mb-0">
+					<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+						Les services que j'ai payé
+					</button>
+				</h2>
+			</div>
+			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+				<div class="card-body">
+					<!--I have paie-->
+					
+				</div>
+			</div>
+		</div>
 	</div>
+
 </div>
 
 {% endblock %}

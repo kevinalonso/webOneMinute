@@ -17,11 +17,13 @@ class AdminController extends EasyAdminController
 
     private function encodeUserPlainPassword($user)
     {
-        $plainPassword = $user->getPassword();
+        if (property_exists($user, 'getPassword()')) {
+            $plainPassword = $user->getPassword();
 
-        if (!empty($plainPassword)) {
-            $encoded = $this->passwordEncoder->encodePassword($user, $plainPassword);
-            $user->setPassword($encoded);
+            if (!empty($plainPassword)) {
+                $encoded = $this->passwordEncoder->encodePassword($user, $plainPassword);
+                $user->setPassword($encoded);
+            }
         }
     }
 

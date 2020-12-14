@@ -25,7 +25,14 @@
 						<!--<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>-->
 						
 						<div class="action mb-3">
-							<a href="#"class="btn btn-success btn-block" type="button">Payer le service</a>
+							{% if app.user %}
+								<a href="#"class="btn btn-success btn-block" type="button">Payer le service</a>
+							{% else %}
+								<div class="alert alert-danger text-center" role="alert">
+  									<span>Veuillez vous connecter pour payer</span>
+								</div>
+							{% endif %}
+							
 						</div>
 					</div>
 				</div>
