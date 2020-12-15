@@ -81,7 +81,7 @@ class User implements UserInterface
     private $IsPro;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Announcement", mappedBy="Category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Announcement", mappedBy="User")
      */
     private $Announcements;
 
