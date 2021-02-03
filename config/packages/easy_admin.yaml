@@ -1,4 +1,8 @@
 easy_admin:
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
     entities:
         Category:
             class: App\Entity\Category
@@ -37,3 +41,22 @@ easy_admin:
                     - 'City'
                     - 'IsActive'
                     - 'IsPro'
+
+        Sale:
+            class: App\Entity\Sale
+            label: 'Transactions'
+            form:
+                fields:
+                    - 'SellerName'
+                    - 'BuyerName'
+                    - 'DateofSale'
+                    - 'Price'
+
+        ImageCategory:
+            class: App\Entity\ImageCategory
+            label: 'Images Catégories'
+            form:  # <-- 'form' is applied to both 'new' and 'edit' views
+                fields:
+                    #- { property: 'virtualFilename', type: 'file_upload', type_options: {upload_dir: 'templates/imagescat',upload_filename: '[uuid].[extension]' }}
+                    - { property: 'Path', type: 'file_upload', type_options: { upload_dir: 'templates/imagescat/' } }
+                    - 'Category'
