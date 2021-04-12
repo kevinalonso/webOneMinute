@@ -38,9 +38,11 @@
 			      	{% if app.user %}
 			      		<a class="nav-link" href="{{ path('account') }}">Mon Compte</a>
 			      	{% else %}
-			      		<a class="nav-link" href="{{ path('login') }}">Connexion</a>	
+			      		<a class="nav-link" href="{{ path('login') }}">Connexion</a>
 			      	{% endif %}
-			       
+			      </li>
+			      <li class="nav-item">
+			      	<a class="nav-link" href="{{ path('createAccount') }}">Inscription</a>
 			      </li>
 			      <li class="nav-item">
 			        <a class="nav-link" href="{{ path('declaration') }}">Aide déclaration revenues</a>

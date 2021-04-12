@@ -60,3 +60,10 @@ easy_admin:
                     #- { property: 'virtualFilename', type: 'file_upload', type_options: {upload_dir: 'templates/imagescat',upload_filename: '[uuid].[extension]' }}
                     - { property: 'Path', type: 'file_upload', type_options: { upload_dir: 'templates/imagescat/' } }
                     - 'Category'
+
+        Payment:
+            class: App\Entity\Payment
+            label: 'Paramétrage paiment'
+            form:
+                fields:
+                    - 'pbx_site'
