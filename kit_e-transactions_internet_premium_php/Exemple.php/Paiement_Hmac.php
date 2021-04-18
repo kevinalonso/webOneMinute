@@ -3,12 +3,12 @@
 // --------------- VARIABLES A MODIFIER ---------------
 
 // Ennonciation de variables
-$pbx_site = 'votre n° de site';									//variable de test 1999888
-$pbx_rang = 'votre n° de rang';									//variable de test 32
-$pbx_identifiant = 'votre n° d identifiant site';				//variable de test 3
-$pbx_cmd = 'votre n° de commande';								//variable de test cmd_test1
-$pbx_porteur = 'email de l acheteur';							//variable de test test@test.fr
-$pbx_total = 'votre montant';									//variable de test 100
+$pbx_site = '1999888';//'votre n° de site';									//variable de test 1999888
+$pbx_rang = '32';//'votre n° de rang';									//variable de test 32
+$pbx_identifiant = '3';//'votre n° d identifiant site';				//variable de test 3
+$pbx_cmd = 'cmd_test1';//'votre n° de commande';								//variable de test cmd_test1
+$pbx_porteur = 'test@test.fr';//'email de l acheteur';							//variable de test test@test.fr
+$pbx_total = '100';//'votre montant';									//variable de test 100
 // Suppression des points ou virgules dans le montant						
 	$pbx_total = str_replace(",", "", $pbx_total);
 	$pbx_total = str_replace(".", "", $pbx_total);
@@ -25,8 +25,8 @@ $pbx_retour = 'Mt:M;Ref:R;Auto:A;Erreur:E';
 // Connection à la base de données
 // mysql_connect...
 // On récupère la clé secrète HMAC (stockée dans une base de données par exemple) et que l’on renseigne dans la variable $keyTest;
-//$keyTest = '0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF';
-$keyTest = 'votre clé générée depuis le back office (admin.paybox.com)';
+$keyTest = '0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF';
+//$keyTest = 'votre clé générée depuis le back office (admin.paybox.com)';
 
 
 
@@ -53,11 +53,11 @@ break;}
 if(!$serveurOK){
 die("Erreur : Aucun serveur n'a été trouvé");}
 // Activation de l'univers de préproduction
-//$serveurOK = 'preprod-tpeweb.paybox.com';
+$serveurOK = 'preprod-tpeweb.paybox.com';
 
 //Création de l'url cgi paybox
 $serveurOK = 'https://'.$serveurOK.'/cgi/MYchoix_pagepaiement.cgi';
-// echo $serveurOK;
+echo $serveurOK;
 
 
 
@@ -81,7 +81,7 @@ $msg = "PBX_SITE=".$pbx_site.
 "&PBX_REFUSE=".$pbx_refuse.
 "&PBX_HASH=SHA512".
 "&PBX_TIME=".$dateTime;
-// echo $msg;
+echo $msg;
 
 // Si la clé est en ASCII, On la transforme en binaire
 $binKey = pack("H*", $keyTest);
@@ -98,12 +98,14 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
 // On crée le formulaire à envoyer
 // ATTENTION : l'ordre des champs est extrêmement important, il doit
 // correspondre exactement à l'ordre des champs dans la chaîne hachée
+echo $hmac;
+
 ?>
 
 
 
 <!------------------ ENVOI DES INFORMATIONS A PAYBOX (Formulaire) ------------------>
-<form method="POST" action="<?php echo $serveurOK; ?>">
+<form method="GET" action="<?php echo $serveurOK; ?>">
 <input type="hidden" name="PBX_SITE" value="<?php echo $pbx_site; ?>">
 <input type="hidden" name="PBX_RANG" value="<?php echo $pbx_rang; ?>">
 <input type="hidden" name="PBX_IDENTIFIANT" value="<?php echo $pbx_identifiant; ?>">

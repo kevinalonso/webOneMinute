@@ -40,3 +40,6 @@ sendmail:
 declaration:
     path: /declaration
     controller: App\Controller\TaxDeclarationController::declaration
+payment:
+    path: /payment
+    controller: App\Controller\PaymentController::payment
