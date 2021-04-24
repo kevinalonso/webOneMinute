@@ -9,24 +9,30 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Payment;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpClient\HttpClient;
+use App\Entity\Announcement;
 
 class PaymentController extends AbstractController
 {
 	/**
-	* @Route("/payment")
+	* @Route("/payment/{id}")
 	*/
-	public function payment(): Response
+	public function payment(int $id): Response
     {
-    	//Ici mettre la requete en place pour compléter les valeur pour paybox
+    	$announcement = $this->getDoctrine()->getRepository(Announcement::class)
+            ->getAnnouncementById($id);
+
+    	//Paybox values
     	$settingPbx = $this->getDoctrine()->getRepository(Payment::class)
             ->getSettingPbx();
+
+        //$user = $this->getUser();
 
     	$pbx_site = $settingPbx[0]->getPbxSite();//'1999888'; //variable de test 1999888
 		$pbx_rang = $settingPbx[0]->getPbxRang();//'32'; //variable de test 32
 		$pbx_identifiant = $settingPbx[0]->getPbxIdentifiant();//'3'; //variable de test 3
-		$pbx_cmd = 'cmd_test1'; //variable de test cmd_test1
+		$pbx_cmd = 'cmd_test1';//$announcement[0]->getTitle()''; //variable de test cmd_test1
 		$pbx_porteur = 'test@test.fr'; //mail de l'acheteur
-		$pbx_total = '100'; //variable de test 100
+		$pbx_total ='1OO'; //variable de test 100
 		$pbx_devise = $settingPbx[0]->getPbxDevise();//'978';
 		$pbx_hash = $settingPbx[0]->getPbxHash();//'SHA512';
 
@@ -104,8 +110,6 @@ class PaymentController extends AbstractController
 		"&PBX_ANNULE=".$pbx_annule.
 		"&PBX_REFUSE=".$pbx_refuse.
 		"&PBX_HASH=".$pbx_hash.
-		/*"&PBX_TYPEPAIEMENT=CARTE".
-		"&PBX_TYPECARTE=CB".*/
 		"&PBX_TIME=".$dateTime;
 
 		// Si la clé est en ASCII, On la transforme en binaire
@@ -129,9 +133,7 @@ class PaymentController extends AbstractController
 			'PBX_REFUSE'=>$pbx_refuse,
 			'PBX_HASH'=>$pbx_hash,
 			'PBX_TIME'=>$dateTime,
-			'PBX_HMAC'=>$hmac/*,
-			'PBX_TYPEPAIEMENT'=>'CARTE',
-			'PBX_TYPECARTE'=>'CB'*/
+			'PBX_HMAC'=>$hmac
 		];
 
 		$params = http_build_query($paybox);
@@ -149,9 +151,16 @@ class PaymentController extends AbstractController
         ]);
     }
 
-    public function cart(): Response
+    /**
+	* @Route("/cart/{id}")
+	*/
+    public function cart(int $id): Response
     {
+    	 $announcement = $this->getDoctrine()->getRepository(Announcement::class)
+            ->getAnnouncementById($id);
+
     	return $this->render('cart.html.twig', [
+    		'announcement' => $announcement
         ]);
     }
 }

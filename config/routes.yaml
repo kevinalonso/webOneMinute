@@ -41,8 +41,8 @@ declaration:
     path: /declaration
     controller: App\Controller\TaxDeclarationController::declaration
 payment:
-    path: /payment
+    path: /payment/{id}
     controller: App\Controller\PaymentController::payment
 cart:
-    path: /cart
+    path: /cart/{id}
     controller: App\Controller\PaymentController::cart
