@@ -121,7 +121,5 @@ echo $hmac;
 <input type="hidden" name="PBX_HASH" value="SHA512">
 <input type="hidden" name="PBX_TIME" value="<?php echo $dateTime; ?>">
 <input type="hidden" name="PBX_HMAC" value="<?php echo $hmac; ?>">
-<input type="hidden" name="PBX_TYPECARTE" value="CB">
-<input type="hidden" name="PBX_TYPEPAIEMENT" value="CARTE">
 <input type="submit" value="Envoyer">
 </form>

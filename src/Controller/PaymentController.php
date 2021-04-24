@@ -21,18 +21,19 @@ class PaymentController extends AbstractController
     	$announcement = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnouncementById($id);
 
-    	//Paybox values
+    	//Paybox
     	$settingPbx = $this->getDoctrine()->getRepository(Payment::class)
             ->getSettingPbx();
 
-        //$user = $this->getUser();
+        //Important il faut multiplier le prix par cent
+        $price = strval($announcement[0]->getPrice()*100);
 
     	$pbx_site = $settingPbx[0]->getPbxSite();//'1999888'; //variable de test 1999888
 		$pbx_rang = $settingPbx[0]->getPbxRang();//'32'; //variable de test 32
 		$pbx_identifiant = $settingPbx[0]->getPbxIdentifiant();//'3'; //variable de test 3
-		$pbx_cmd = 'cmd_test1';//$announcement[0]->getTitle()''; //variable de test cmd_test1
+		$pbx_cmd = $announcement[0]->getTitle(); //variable de test cmd_test1
 		$pbx_porteur = 'test@test.fr'; //mail de l'acheteur
-		$pbx_total ='1OO'; //variable de test 100
+		$pbx_total = $price; //variable de test 100
 		$pbx_devise = $settingPbx[0]->getPbxDevise();//'978';
 		$pbx_hash = $settingPbx[0]->getPbxHash();//'SHA512';
 
@@ -110,6 +111,8 @@ class PaymentController extends AbstractController
 		"&PBX_ANNULE=".$pbx_annule.
 		"&PBX_REFUSE=".$pbx_refuse.
 		"&PBX_HASH=".$pbx_hash.
+		/*"&PBX_TYPEPAIEMENT=CARTE".
+		"&PBX_TYPECARTE=CB".*/
 		"&PBX_TIME=".$dateTime;
 
 		// Si la clé est en ASCII, On la transforme en binaire
@@ -133,7 +136,9 @@ class PaymentController extends AbstractController
 			'PBX_REFUSE'=>$pbx_refuse,
 			'PBX_HASH'=>$pbx_hash,
 			'PBX_TIME'=>$dateTime,
-			'PBX_HMAC'=>$hmac
+			'PBX_HMAC'=>$hmac/*,
+			'PBX_TYPEPAIEMENT'=>'CARTE',
+			'PBX_TYPECARTE'=>'CB'*/
 		];
 
 		$params = http_build_query($paybox);
