@@ -105,7 +105,7 @@ echo $hmac;
 
 
 <!------------------ ENVOI DES INFORMATIONS A PAYBOX (Formulaire) ------------------>
-<form method="GET" action="<?php echo $serveurOK; ?>">
+<form method="POST" action="<?php echo $serveurOK; ?>">
 <input type="hidden" name="PBX_SITE" value="<?php echo $pbx_site; ?>">
 <input type="hidden" name="PBX_RANG" value="<?php echo $pbx_rang; ?>">
 <input type="hidden" name="PBX_IDENTIFIANT" value="<?php echo $pbx_identifiant; ?>">
@@ -121,5 +121,7 @@ echo $hmac;
 <input type="hidden" name="PBX_HASH" value="SHA512">
 <input type="hidden" name="PBX_TIME" value="<?php echo $dateTime; ?>">
 <input type="hidden" name="PBX_HMAC" value="<?php echo $hmac; ?>">
+<input type="hidden" name="PBX_TYPECARTE" value="CB">
+<input type="hidden" name="PBX_TYPEPAIEMENT" value="CARTE">
 <input type="submit" value="Envoyer">
 </form>

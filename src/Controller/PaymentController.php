@@ -6,49 +6,56 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Payment;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpClient\HttpClient;
 
 class PaymentController extends AbstractController
 {
 	/**
 	* @Route("/payment")
 	*/
-	public function payment(): RedirectResponse
+	public function payment(): Response
     {
     	//Ici mettre la requete en place pour compléter les valeur pour paybox
+    	$settingPbx = $this->getDoctrine()->getRepository(Payment::class)
+            ->getSettingPbx();
 
-
-    	$pbx_site = '1999888'; //variable de test 1999888
-		$pbx_rang = '32'; //variable de test 32
-		$pbx_identifiant = '3'; //variable de test 3
+    	$pbx_site = $settingPbx[0]->getPbxSite();//'1999888'; //variable de test 1999888
+		$pbx_rang = $settingPbx[0]->getPbxRang();//'32'; //variable de test 32
+		$pbx_identifiant = $settingPbx[0]->getPbxIdentifiant();//'3'; //variable de test 3
 		$pbx_cmd = 'cmd_test1'; //variable de test cmd_test1
-		$pbx_porteur = 'test@test.fr'; //variable de test test@test.fr
+		$pbx_porteur = 'test@test.fr'; //mail de l'acheteur
 		$pbx_total = '100'; //variable de test 100
-		$pbx_devise = '978';
-		$pbx_hash = 'SHA512';
+		$pbx_devise = $settingPbx[0]->getPbxDevise();//'978';
+		$pbx_hash = $settingPbx[0]->getPbxHash();//'SHA512';
+
+		$pbx_serveur_primaire = $settingPbx[0]->getServeurPrimaire();
+		$pbx_serveur_secondaire = $settingPbx[0]->getServeurSecondaire();
 
 		// Suppression des points ou virgules dans le montant						
 		$pbx_total = str_replace(",", "", $pbx_total);
 		$pbx_total = str_replace(".", "", $pbx_total);
 
 		// Paramétrage des urls de redirection après paiement
-		$pbx_effectue = 'http://www.votre-site.extention/page-de-confirmation';
-		$pbx_annule = 'http://www.votre-site.extention/page-d-annulation';
-		$pbx_refuse = 'http://www.votre-site.extention/page-de-refus';
+		$pbx_effectue = $settingPbx[0]->getPbxEffectue();//'http://www.votre-site.extention/page-de-confirmation';
+		$pbx_annule = $settingPbx[0]->getPbxAnnule();//'http://www.votre-site.extention/page-d-annulation';
+		$pbx_refuse = $settingPbx[0]->getPbxRefuse();//'http://www.votre-site.extention/page-de-refus';
 
 		// Paramétrage de l'url de retour back office site
-		$pbx_repondre_a = 'http://www.votre-site.extention/page-de-back-office-site';
+		$pbx_repondre_a = $settingPbx[0]->getPbxRepondreA();//'http://www.votre-site.extention/page-de-back-office-site';
 
 		// Paramétrage du retour back office site
-		$pbx_retour = 'Mt:M;Ref:R;Auto:A;Erreur:E';
+		$pbx_retour = $settingPbx[0]->getPbxRetour();//'Mt:M;Ref:R;Auto:A;Erreur:E';
 
 		// Connection à la base de données
 		// mysql_connect...
 		// On récupère la clé secrète HMAC (stockée dans une base de données par exemple) et que l’on renseigne dans la variable $keyTest;
-		$keyTest = '0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF';
+		$keyTest = $settingPbx[0]->getHMAC();//'0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF';
 
-		$serveurs = array('tpeweb.paybox.com', //serveur primaire
-		'tpeweb1.paybox.com'); //serveur secondaire
+		$serveurs = array($pbx_serveur_primaire, //serveur primaire
+		$pbx_serveur_secondaire); //serveur secondaire
+		
 		$serveurOK = "";
 
 		//phpinfo(); <== voir paybox
@@ -97,6 +104,8 @@ class PaymentController extends AbstractController
 		"&PBX_ANNULE=".$pbx_annule.
 		"&PBX_REFUSE=".$pbx_refuse.
 		"&PBX_HASH=".$pbx_hash.
+		/*"&PBX_TYPEPAIEMENT=CARTE".
+		"&PBX_TYPECARTE=CB".*/
 		"&PBX_TIME=".$dateTime;
 
 		// Si la clé est en ASCII, On la transforme en binaire
@@ -120,10 +129,29 @@ class PaymentController extends AbstractController
 			'PBX_REFUSE'=>$pbx_refuse,
 			'PBX_HASH'=>$pbx_hash,
 			'PBX_TIME'=>$dateTime,
-			'PBX_HMAC'=>$hmac
+			'PBX_HMAC'=>$hmac/*,
+			'PBX_TYPEPAIEMENT'=>'CARTE',
+			'PBX_TYPECARTE'=>'CB'*/
 		];
-      	
+
 		$params = http_build_query($paybox);
-		return new RedirectResponse('https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?'. $params);
+      	
+      	$httpClient = HttpClient::create();
+      	$response = $httpClient->request('POST','https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?'. $params);
+
+		/*return new RedirectResponse('https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?'. $params);*/
+
+		//return new RedirectResponse($response);
+
+		//$response->getInfo()['url']
+		return $this->render('payment.html.twig', [
+            'paybox' => $response->getInfo()['url']
+        ]);
+    }
+
+    public function cart(): Response
+    {
+    	return $this->render('cart.html.twig', [
+        ]);
     }
 }

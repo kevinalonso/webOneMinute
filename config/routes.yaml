@@ -43,3 +43,6 @@ declaration:
 payment:
     path: /payment
     controller: App\Controller\PaymentController::payment
+cart:
+    path: /cart
+    controller: App\Controller\PaymentController::cart

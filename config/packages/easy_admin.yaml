@@ -67,3 +67,15 @@ easy_admin:
             form:
                 fields:
                     - 'pbx_site'
+                    - 'pbx_rang'
+                    - 'pbx_identifiant'
+                    - 'pbx_devise'
+                    - 'pbx_hash'
+                    - 'pbx_effectue'
+                    - 'pbx_annule'
+                    - 'pbx_refuse'
+                    - 'pbx_repondre_a'
+                    - 'pbx_retour'
+                    - 'HMAC'
+                    - 'serveur_primaire'
+                    - 'serveur_secondaire'
