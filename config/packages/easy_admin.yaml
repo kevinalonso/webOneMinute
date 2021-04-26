@@ -79,3 +79,13 @@ easy_admin:
                     - 'HMAC'
                     - 'serveur_primaire'
                     - 'serveur_secondaire'
+
+        Email:
+            class: App\Entity\Email
+            label: 'Emails automatique'
+            form:
+                fields:
+                    - 'KeyEmail'
+                    - 'EmailAddress'
+                    - 'Object'
+                    - 'Message'

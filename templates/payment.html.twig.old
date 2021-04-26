@@ -5,7 +5,6 @@
 
 <div class="container">
 	<div class="row">
-		{{dump(paybox)}}
 		<iframe name="paybox-iframe" scrolling="no" frameborder="0" onload="resizeIframe(this)" class="col-md-12" src="{{paybox}}"></iframe>
 		}
 	</div>

@@ -16,7 +16,7 @@ class PaymentController extends AbstractController
 	/**
 	* @Route("/payment/{id}")
 	*/
-	public function payment(int $id): Response
+	public function payment(int $id): RedirectResponse
     {
     	$announcement = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnouncementById($id);
@@ -111,8 +111,6 @@ class PaymentController extends AbstractController
 		"&PBX_ANNULE=".$pbx_annule.
 		"&PBX_REFUSE=".$pbx_refuse.
 		"&PBX_HASH=".$pbx_hash.
-		/*"&PBX_TYPEPAIEMENT=CARTE".
-		"&PBX_TYPECARTE=CB".*/
 		"&PBX_TIME=".$dateTime;
 
 		// Si la clé est en ASCII, On la transforme en binaire
@@ -136,24 +134,21 @@ class PaymentController extends AbstractController
 			'PBX_REFUSE'=>$pbx_refuse,
 			'PBX_HASH'=>$pbx_hash,
 			'PBX_TIME'=>$dateTime,
-			'PBX_HMAC'=>$hmac/*,
-			'PBX_TYPEPAIEMENT'=>'CARTE',
-			'PBX_TYPECARTE'=>'CB'*/
+			'PBX_HMAC'=>$hmac
 		];
 
 		$params = http_build_query($paybox);
       	
       	$httpClient = HttpClient::create();
-      	$response = $httpClient->request('POST','https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?'. $params);
+      	/*$response = $httpClient->request('POST','https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?'. $params);*/
 
-		/*return new RedirectResponse('https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?'. $params);*/
+		return new RedirectResponse('https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?'. $params);
 
 		//return new RedirectResponse($response);
 
-		//$response->getInfo()['url']
-		return $this->render('payment.html.twig', [
+		/*return $this->render('payment.html.twig', [
             'paybox' => $response->getInfo()['url']
-        ]);
+        ]);*/
     }
 
     /**
@@ -166,6 +161,37 @@ class PaymentController extends AbstractController
 
     	return $this->render('cart.html.twig', [
     		'announcement' => $announcement
+        ]);
+    }
+
+    public function confirmation(Request $request,\Swift_Mailer $mailer): Response
+    {	
+    	//get response paybox
+    	$montant = 1000;//$request->request->get('montant');
+    	$ref_com = $request->request->get('ref');
+    	$auto = $request->request->get('auto');
+    	$trans = $request->request->get('trans');
+
+    	$ttc = $montant * 1.20;
+
+    	//Send mail confirmation
+    	$email = $request->request->get('email@commercant.fr');
+        $obj = $request->request->get('Confirmation de paiement');
+        $msg = $request->request->get('msg');
+
+        $message = (new \Swift_Message($obj))
+            ->setFrom($email)
+            ->setTo('mail@internaute.fr')
+            ->setBody($msg);
+
+        $mailer->send($message);
+
+    	return $this->render('confirmation.html.twig', [
+    		'montant' => $montant,
+    		'ref_com' => $ref_com,
+    		'auto' => $auto,
+    		'trans' => $trans,
+    		'ttc' => $ttc
         ]);
     }
 }

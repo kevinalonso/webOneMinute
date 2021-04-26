@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		
+		
+        <div class="mt-20 text-center">
+            <h1>Confirmation de paiement</h1>
+        </div>
+        </span>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th></th>
+                    <th class="text-center"></th>
+                    <th class="text-center">Prix</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-md-9"><em>Annonce titre</em></h4></td>
+                    <td class="col-md-1" style="text-align: center"></td>
+                    <td class="col-md-1 text-center"></td>
+                    <td class="col-md-1 text-center">{{montant}}€</td>
+                </tr>
+                
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td class="text-right">
+	                    <p>
+	                        <strong>Total: </strong>
+	                    </p>
+	                    <p>
+	                        <strong>TVA: </strong>
+	                    </p>
+                	</td>
+                    <td class="text-center">
+	                    <p>
+	                        <strong>{{montant}}€</strong>
+	                    </p>
+	                    <p>
+	                        <strong>20%</strong>
+	                    </p>
+                	</td>
+                </tr>
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td class="text-right">
+                    	<h4><strong>Total: </strong></h4>
+                    </td>
+                    <td class="text-center text-danger">
+                    	<h4><strong>{{ttc}}€</strong></h4>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+         <a href="{{ path('index') }}"class="btn btn-success btn-block mb-20" type="button">Retour vers l'accueil</a>
+       
+	</div>
+</div>
+
+{% endblock %}
