@@ -1,4 +1,8 @@
 easy_admin:
+    design:
+        form_theme:
+            - '@EasyAdmin/form/bootstrap_4.html.twig'
+            - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
     formats:
         date:     'd/m/Y'
         time:     'H:i'
@@ -88,4 +92,4 @@ easy_admin:
                     - 'KeyEmail'
                     - 'EmailAddress'
                     - 'Object'
-                    - 'Message'
+                    - { property: 'Message', type: 'fos_ckeditor'}

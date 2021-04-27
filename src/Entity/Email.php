@@ -33,7 +33,7 @@ class Email
     private $Object;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", length=65535)
      */
     private $Message;
 
