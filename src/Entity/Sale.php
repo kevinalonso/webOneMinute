@@ -18,24 +18,34 @@ class Sale
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $SellerName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Command;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $BuyerName;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $DateofSale;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $Price;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $Cgv;
 
     public function getId(): ?int
     {
@@ -86,6 +96,30 @@ class Sale
     public function setPrice(float $Price): self
     {
         $this->Price = $Price;
+
+        return $this;
+    }
+
+    public function getCommand(): ?string
+    {
+        return $this->Command;
+    }
+
+    public function setCommand(string $Command): self
+    {
+        $this->Command = $Command;
+
+        return $this;
+    }
+
+    public function getCgv(): ?bool
+    {
+        return $this->Cgv;
+    }
+
+    public function setCgv(bool $Cgv): self
+    {
+        $this->Cgv = $Cgv;
 
         return $this;
     }

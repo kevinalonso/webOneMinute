@@ -19,32 +19,11 @@ class EmailRepository extends ServiceEntityRepository
         parent::__construct($registry, Email::class);
     }
 
-    // /**
-    //  * @return Email[] Returns an array of Email objects
-    //  */
-    /*
-    public function findByExampleField($value)
+   public function getEmail(string $key): array
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $dql = 'SELECT e FROM App\Entity\Email e WHERE e.KeyEmail =:key';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('key',$key);
+        return $query->execute();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Email
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

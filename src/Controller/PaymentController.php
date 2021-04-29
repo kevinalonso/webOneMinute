@@ -10,6 +10,9 @@ use App\Entity\Payment;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpClient\HttpClient;
 use App\Entity\Announcement;
+use App\Entity\Email;
+use App\Entity\Sale;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class PaymentController extends AbstractController
 {
@@ -21,6 +24,11 @@ class PaymentController extends AbstractController
     	$announcement = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnouncementById($id);
 
+         //Create command
+    	$cmd = $this->generateRandomString(10);
+    	$command = $this->getDoctrine()->getRepository(Sale::class)
+            ->insertSale($cmd,$announcement[0]->getPrice());
+
     	//Paybox
     	$settingPbx = $this->getDoctrine()->getRepository(Payment::class)
             ->getSettingPbx();
@@ -31,7 +39,7 @@ class PaymentController extends AbstractController
     	$pbx_site = $settingPbx[0]->getPbxSite();//'1999888'; //variable de test 1999888
 		$pbx_rang = $settingPbx[0]->getPbxRang();//'32'; //variable de test 32
 		$pbx_identifiant = $settingPbx[0]->getPbxIdentifiant();//'3'; //variable de test 3
-		$pbx_cmd = $announcement[0]->getTitle(); //variable de test cmd_test1
+		$pbx_cmd = $command;//$announcement[0]->getTitle();
 		$pbx_porteur = 'test@test.fr'; //mail de l'acheteur
 		$pbx_total = $price; //variable de test 100
 		$pbx_devise = $settingPbx[0]->getPbxDevise();//'978';
@@ -55,10 +63,7 @@ class PaymentController extends AbstractController
 		// Paramétrage du retour back office site
 		$pbx_retour = $settingPbx[0]->getPbxRetour();//'Mt:M;Ref:R;Auto:A;Erreur:E';
 
-		// Connection à la base de données
-		// mysql_connect...
-		// On récupère la clé secrète HMAC (stockée dans une base de données par exemple) et que l’on renseigne dans la variable $keyTest;
-		$keyTest = $settingPbx[0]->getHMAC();//'0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF';
+		$keyTest = $settingPbx[0]->getHMAC();
 
 		$serveurs = array($pbx_serveur_primaire, //serveur primaire
 		$pbx_serveur_secondaire); //serveur secondaire
@@ -164,10 +169,10 @@ class PaymentController extends AbstractController
         ]);
     }
 
-    public function confirmation(Request $request,\Swift_Mailer $mailer): Response
+    public function confirmation(Request $request,\Swift_Mailer $mailer,AuthenticationUtils $authenticationUtils): Response
     {	
     	//get response paybox
-    	$montant = 1000;//$request->request->get('montant');
+    	$montant = $request->request->get('montant');
     	$ref_com = $request->request->get('ref');
     	$auto = $request->request->get('auto');
     	$trans = $request->request->get('trans');
@@ -175,13 +180,17 @@ class PaymentController extends AbstractController
     	$ttc = $montant * 1.20;
 
     	//Send mail confirmation
-    	$email = $request->request->get('email@commercant.fr');
-        $obj = $request->request->get('Confirmation de paiement');
-        $msg = $request->request->get('msg');
+    	$emailData = $this->getDoctrine()->getRepository(Email::class)
+            ->getEmail("confirmation");
+
+
+    	$email = $request->request->get($emailData[0]->getEmailAddress());
+        $obj = $request->request->get($emailData[0]->getObject());
+        $msg = $request->request->get($emailData[0]->getMessage());
 
         $message = (new \Swift_Message($obj))
             ->setFrom($email)
-            ->setTo('mail@internaute.fr')
+            ->setTo($authenticationUtils->getLastUsername())
             ->setBody($msg);
 
         $mailer->send($message);
@@ -191,7 +200,18 @@ class PaymentController extends AbstractController
     		'ref_com' => $ref_com,
     		'auto' => $auto,
     		'trans' => $trans,
-    		'ttc' => $ttc
+    		'ttc' => $ttc,
+    		'data' => $request->request->get('montant')
         ]);
+    }
+
+    private function generateRandomString($length) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

@@ -48,13 +48,15 @@ easy_admin:
 
         Sale:
             class: App\Entity\Sale
-            label: 'Transactions'
+            label: 'Ventes réalisées'
             form:
                 fields:
+                    - 'Command'
                     - 'SellerName'
                     - 'BuyerName'
                     - 'DateofSale'
                     - 'Price'
+                    - 'Cgv'
 
         ImageCategory:
             class: App\Entity\ImageCategory

@@ -19,32 +19,20 @@ class SaleRepository extends ServiceEntityRepository
         parent::__construct($registry, Sale::class);
     }
 
-    // /**
-    //  * @return Sale[] Returns an array of Sale objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function insertSale(string $cmd,float $price)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        //Get relationship with category and annoucenemnt
+        $sale = new Sale();
 
-    /*
-    public function findOneBySomeField($value): ?Sale
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $sale->setDateofSale(new \DateTime('now'));
+        $sale->setCommand($cmd);
+        $sale->setPrice($price);
+        $sale->setCgv(true);
+
+        //insert in table announcement new item
+        $em = $this->getEntityManager();
+        $em->persist($sale);
+        $em->flush();
+        return $sale->getCommand();
     }
-    */
 }
