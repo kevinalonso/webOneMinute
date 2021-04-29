@@ -13,50 +13,50 @@ easy_admin:
             label: 'Catégories'
             form:  # <-- 'form' is applied to both 'new' and 'edit' views
                 fields:
-                    - 'Name'
-                    - 'IsActive'
+                    - { property: 'Name', label: 'Nom de la catégorie'}
+                    - { property: 'IsActive', label: 'Catégorie active (oui/non)'}
 
         Announcement:
             class: App\Entity\Announcement
             label: 'Annonces'
             form:  # <-- 'form' is applied to both 'new' and 'edit' views
                 fields:
-                    - 'Title'
-                    - 'Description'
-                    - 'DatePublish'
-                    - 'IsActive'
-                    - 'Price'
-                    - 'Image'
-                    - 'Category'
-                    - 'User'
+                    - { property: 'Title', label: 'Titre'}
+                    - { property: 'Description', label: 'Description'}
+                    - { property: 'DatePublish', label: 'Date de publication'}
+                    - { property: 'IsActive', label: 'Rendre visible sur le site'}
+                    - { property: 'Price', label: 'Prix'}
+                    - { property: 'Image', label: 'Image annonce'}
+                    - { property: 'Category', label: 'Catégorie du service'}
+                    - { property: 'User', label: 'Emmetteur'}
 
         User:
             class: App\Entity\User
             label: 'Utilisateurs'
             form:  # <-- 'form' is applied to both 'new' and 'edit' views
                 fields:
-                    - 'FirstName'
-                    - 'LastName'
-                    - 'Phone'
-                    - 'Password'
-                    - 'Email'
-                    - 'Address'
-                    - 'CodePoste'
-                    - 'City'
-                    - 'IsActive'
-                    - 'IsPro'
+                    - { property: 'FirstName', label: 'Prénom'}
+                    - { property: 'LastName', label: 'Nom'}
+                    - { property: 'Phone', label: 'Téléphone'}
+                    - { property: 'Password', label: 'Mot de passe'}
+                    - { property: 'Email', label: 'E-mail'}
+                    - { property: 'Address', label: 'Adresse'}
+                    - { property: 'CodePoste', label: 'Code postale'}
+                    - { property: 'City', label: 'Ville'}
+                    - { property: 'IsActive', label: 'Utilisateur actif'}
+                    - { property: 'IsPro', label: 'Est pro'}
 
         Sale:
             class: App\Entity\Sale
             label: 'Ventes réalisées'
             form:
                 fields:
-                    - 'Command'
-                    - 'SellerName'
-                    - 'BuyerName'
-                    - 'DateofSale'
-                    - 'Price'
-                    - 'Cgv'
+                    - { property: 'Command', label: 'Commande', type_options: { disabled: true }}
+                    - { property: 'SellerName', label: 'Vendeur', type_options: { disabled: true }}
+                    - { property: 'BuyerName', label: 'Acheteur', type_options: { disabled: true }}
+                    - { property: 'DateofSale', label: 'Date de la vente', type_options: { disabled: true }}
+                    - { property: 'Price', label: 'Montant de la commande', type_options: { disabled: true }}
+                    - { property: 'Cgv', label: 'Acceptation des conditions générales de ventes', type_options: { disabled: true }}
 
         ImageCategory:
             class: App\Entity\ImageCategory
@@ -69,29 +69,29 @@ easy_admin:
 
         Payment:
             class: App\Entity\Payment
-            label: 'Paramétrage paiment'
+            label: 'Paramétrage paybox'
             form:
                 fields:
-                    - 'pbx_site'
-                    - 'pbx_rang'
-                    - 'pbx_identifiant'
-                    - 'pbx_devise'
-                    - 'pbx_hash'
-                    - 'pbx_effectue'
-                    - 'pbx_annule'
-                    - 'pbx_refuse'
-                    - 'pbx_repondre_a'
-                    - 'pbx_retour'
-                    - 'HMAC'
-                    - 'serveur_primaire'
-                    - 'serveur_secondaire'
+                    - { property: 'pbx_site', label: 'Site'}
+                    - { property: 'pbx_rang', label: 'Rang'}
+                    - { property: 'pbx_identifiant', label: 'Identifant'}
+                    - { property: 'pbx_devise', label: 'Devise utilisée (€)'}
+                    - { property: 'pbx_hash', label: 'HASH'}
+                    - { property: 'pbx_effectue', label: 'URL page accepte paiement'}
+                    - { property: 'pbx_annule', label: 'URL page annuler paiement'}
+                    - { property: 'pbx_refuse', label: 'URL page refus paiement'}
+                    - { property: 'pbx_repondre_a', label: 'URL backoffice'}
+                    - { property: 'pbx_retour', label: 'Clef retour'}
+                    - { property: 'HMAC', label: 'Clef HMAC'}
+                    - { property: 'serveur_primaire', label: 'Serveur primaire'}
+                    - { property: 'serveur_secondaire', label: 'Serveur Secondaire'}
 
         Email:
             class: App\Entity\Email
             label: 'Emails automatique'
             form:
                 fields:
-                    - 'KeyEmail'
-                    - 'EmailAddress'
-                    - 'Object'
-                    - { property: 'Message', type: 'fos_ckeditor'}
+                    - { property: 'KeyEmail', label: 'Clef du mail'}
+                    - { property: 'EmailAddress', label: 'E-mail adresse'}
+                    - { property: 'Object', label: 'Objet du mail'}
+                    - { property: 'Message', type: 'fos_ckeditor', label: 'Contenu du mail'}
