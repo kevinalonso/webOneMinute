@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Announcement;
 use App\Entity\User;
+use App\Entity\Bank;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -23,9 +24,13 @@ class AccountController extends AbstractController
         $announcements = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnoucementFromUser($user->getId());
 
+        $ribs = $this->getDoctrine()->getRepository(Bank::class)
+            ->getRibFromUser($user->getId());
+
     	return $this->render('account.html.twig', [
             'announcements'=> $announcements,
-            'user' => $user
+            'user' => $user,
+            'ribs' => $ribs
         ]);
     }
 

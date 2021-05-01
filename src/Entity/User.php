@@ -86,6 +86,11 @@ class User implements UserInterface
     private $Announcements;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Bank", mappedBy="Bank")
+     */
+    private $Banks;
+
+    /**
      * @ORM\Column(type="json")
      */
     private $Roles = [];
@@ -242,6 +247,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->Announcements = new ArrayCollection();
+        $this->Banks = new ArrayCollection();
     }
 
     /**
@@ -250,6 +256,14 @@ class User implements UserInterface
     public function getAnnouncements()
     {
         return $this->Announcements;
+    }
+
+    /**
+     * @return Collection|Bank[]
+     */
+    public function getBanks()
+    {
+        return $this->Banks;
     }
 
     public function __toString()

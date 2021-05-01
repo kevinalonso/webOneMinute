@@ -1,3 +1,32 @@
+function createRib(){
+	var iban = $("#iban").val();
+	var bic = $("#bic").val();
+
+	if (typeof iban != "undefined" && typeof bic != "undefined"){
+
+		$.ajax({
+	    type: "POST",
+	    url: "/oneminute/public/createrib",
+	    data: {
+		    	iban: iban,
+	            bic: bic
+	    	}
+		})
+		.done(function(data){
+
+		    if (typeof data.status != "undefined" && data.status != "undefined")
+		    {
+		        // At this point we know that the status is defined,
+		        // so we need to check for its value ("OK" in my case)
+		        if (data.status == "OK")
+		        {
+		            location.href = '/oneminute/public/account';
+		        }
+		    }
+		});
+	}
+}
+
 function createAnnouncement(){
 
 	var title = $("#title").val();

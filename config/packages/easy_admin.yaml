@@ -10,7 +10,7 @@ easy_admin:
     entities:
         Category:
             class: App\Entity\Category
-            label: 'Catégories'
+            label: 'Catégories (menu du site)'
             form:  # <-- 'form' is applied to both 'new' and 'edit' views
                 fields:
                     - { property: 'Name', label: 'Nom de la catégorie'}
@@ -95,3 +95,12 @@ easy_admin:
                     - { property: 'EmailAddress', label: 'E-mail adresse'}
                     - { property: 'Object', label: 'Objet du mail'}
                     - { property: 'Message', type: 'fos_ckeditor', label: 'Contenu du mail'}
+
+        Bank:
+            class: App\Entity\Bank
+            label: 'RIB des vendeurs'
+            form:
+                fields:
+                    - { property: 'Iban', label: 'IBAN vendeur'}
+                    - { property: 'Bic', label: 'Bic vendeur'}
+                    - { property: 'User', label: 'Utilisateur'}

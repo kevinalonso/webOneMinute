@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+	<div class="container">
+		<h1>Ajouter un RIB</h1>
+		<form id="contact-form" name="contact-form" method="POST" onsubmit="createRib()">
+			
+			<div class="row mt-5">
+				<input type="text" id="iban" name="iban" class="form-control" required="required">
+                <label for="iban" class="">IBAN</label>
+			</div>
+			<div class="row mt-5">
+				<input type="text" id="bic" name="bic" class="form-control" required="required">
+                <label for="bic" class="">BIC</label>
+			</div>
+
+			 <div class="row mt-5 mb-5">
+                <a class="btn btn-primary" onclick="createRib()">Enregistrer</a>
+            </div>
+		</form>
+	</div>
+
+	{% block javascripts %} 
+	    <script type="text/javascript" src="/oneminute/src/js/ajaxCreate.js"></script>
+	{% endblock %}
+
+{% endblock %}

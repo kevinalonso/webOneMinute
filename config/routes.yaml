@@ -49,3 +49,9 @@ cart:
 confirmation:
     path: /confirmation
     controller: App\Controller\PaymentController::confirmation
+createribview:
+    path: /account/create/rib
+    controller: App\Controller\RibController::createView
+createrib:
+    path: /createrib
+    controller: App\Controller\RibController::create
