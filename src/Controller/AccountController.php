@@ -86,4 +86,43 @@ class AccountController extends AbstractController
 
         return $this->redirectToRoute('account');
     }
+
+    public function editAccountView(UserInterface $user): Response
+    {
+        return $this->render('editaccount.html.twig', [
+             'user' => $user
+        ]);
+    }
+
+    public function editUser(Request $request,UserInterface $user,UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $updateUser = new User();
+        var_dump($request->request->get('password'));
+        $updateUser->setId($user->getId());
+        $updateUser->setFirstName($request->request->get('firstname'));
+        $updateUser->setLastName($request->request->get('lastname'));
+        $updateUser->setEmail($request->request->get('email'));
+        $updateUser->setPassword($request->request->get('password'));
+        $updateUser->setCity($request->request->get('city'));
+        $updateUser->setCodePoste($request->request->get('cp'));
+        $updateUser->setPhone($request->request->get('phone'));
+        $updateUser->setAddress($request->request->get('address'));
+
+        $password = $passwordEncoder->encodePassword($updateUser, $updateUser->getPassword());
+        $updateUser->setPassword($password);
+
+        if ($request->request->get('pro')) {
+            $updateUser->setSiret($request->request->get('siret'));
+            $updateUser->setFactory($request->request->get('factory'));
+            $updateUser->setIsPro($request->request->get('pro'));
+        } else {
+             $updateUser->setIsPro($request->request->get('individual'));
+        }
+
+
+        $this->getDoctrine()->getRepository(User::class)
+            ->updateUser($updateUser);        
+
+       return $this->redirectToRoute('account');
+    }
 }

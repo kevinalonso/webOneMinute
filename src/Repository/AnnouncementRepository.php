@@ -72,32 +72,10 @@ class AnnouncementRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
-    // /**
-    //  * @return Announcement[] Returns an array of Announcement objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function updateAnnoucement(Announcement $annoucement)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $em = $this->getEntityManager();
+        $em->merge($annoucement);
+        $em->flush();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Announcement
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

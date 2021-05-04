@@ -37,15 +37,10 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         $em->flush();
     }
 
-    /*
-    public function findOneBySomeField($value): ?User
+    public function updateUser(User $user)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $em = $this->getEntityManager();
+        $em->merge($user);
+        $em->flush();
     }
-    */
 }

@@ -55,3 +55,15 @@ createribview:
 createrib:
     path: /createrib
     controller: App\Controller\RibController::create
+editaccount:
+    path: /accountedit
+    controller: App\Controller\AccountController::editAccountView
+edituser:
+    path: /edituser
+    controller: App\Controller\AccountController::editUser
+editbankview:
+    path: /editbankview
+    controller: App\Controller\RibController::editBankView
+editbank:
+    path: /editbank
+    controller: App\Controller\RibController::editBank

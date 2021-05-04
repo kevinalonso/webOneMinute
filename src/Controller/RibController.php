@@ -38,7 +38,30 @@ class RibController extends AbstractController
     	return new JsonResponse(array(
             'status' => 'OK',
         ),
-        200);
-    	
+        200);	
+    }
+
+    public function editBankView(UserInterface $user): Response
+    {
+
+        $ribs = $this->getDoctrine()->getRepository(Bank::class)
+            ->getRibFromUser($user->getId());
+
+        return $this->render('editbank.html.twig', [
+             'rib' => $ribs
+        ]);
+    }
+
+    public function editBank(Request $request): Response
+    {
+        $updateBank = new Bank();
+
+        //TODO add id bak from route
+
+
+        $this->getDoctrine()->getRepository(Bank::class)
+            ->updateBank($updateBank);        
+
+       return $this->redirectToRoute('account');
     }
 }

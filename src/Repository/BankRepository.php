@@ -33,4 +33,11 @@ class BankRepository extends ServiceEntityRepository
         $em->persist($bank);
         $em->flush();
     }
+
+    public function updateBank(Bank $bank)
+    {
+        $em = $this->getEntityManager();
+        $em->merge($bank);
+        $em->flush();
+    }
 }
