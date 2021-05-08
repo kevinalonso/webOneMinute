@@ -5,7 +5,9 @@
 	<div class="container">
 		<h1>Modifier votre RIB</h1>
 
-		<form id="contact-form" name="contact-form" action="{{ path('editbank') }}" method="POST">
+		<form id="contact-form" name="contact-form" onsubmit="updateRib()" method="POST">
+
+			<input type="text" id="id" name="id" class="invisible" value="{{ rib[0].id }}">
 			
 			<div class="row mt-5">
 				<input type="text" id="iban" name="iban" class="form-control" value="{{ rib[0].Iban }}" required="required">
@@ -21,5 +23,9 @@
             </div>
 		</form>
 	</div>
+
+	{% block javascripts %} 
+	    <script type="text/javascript" src="/oneminute/src/js/ajaxUpdate.js"></script>
+	{% endblock %}
 
 {% endblock %}
