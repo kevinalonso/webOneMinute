@@ -72,7 +72,7 @@ class AnnouncementRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
-    public function updateAnnoucement(Announcement $annoucement)
+    public function updateAnnouncement(Announcement $annoucement)
     {
         $em = $this->getEntityManager();
         $em->merge($annoucement);

@@ -62,8 +62,14 @@ edituser:
     path: /edituser
     controller: App\Controller\AccountController::editUser
 editbankview:
-    path: /editbankview
+    path: /editbankview/{id}
     controller: App\Controller\RibController::editBankView
 editbank:
     path: /editbank
     controller: App\Controller\RibController::editBank
+editannoucementview:
+    path: /editannoucementview/{id}
+    controller: App\Controller\AnnouncementController::editAnnoucementView
+editannouncement:
+    path: /editannouncement
+    controller: App\Controller\AnnouncementController::editAnnouncement

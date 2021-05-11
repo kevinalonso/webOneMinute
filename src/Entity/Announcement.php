@@ -52,6 +52,13 @@ class Announcement
         return $this->id;
     }
 
+     public function setId(int $id): self
+    {
+         $this->id = $id;
+
+        return $this;
+    }
+
     /////////////////////////Link between Annnouncement & User////////////////////
 
     /**

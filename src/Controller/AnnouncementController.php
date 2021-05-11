@@ -49,7 +49,58 @@ class AnnouncementController extends AbstractController
     	return new JsonResponse(array(
             'status' => 'OK',
         ),
+        200);	
+    }
+
+    public function editAnnoucementView(int $id): Response
+    {
+
+        $announcement = $this->getDoctrine()->getRepository(Announcement::class)
+            ->getAnnouncementById($id);
+
+        $categories = $this->getDoctrine()->getRepository(Category::class)
+            ->allCategories();
+
+        $test = $this->getDoctrine()->getRepository(Category::class)
+            ->getCategory("14");
+      
+        return $this->render('editformannouncement.html.twig', [
+            'announcement' => $announcement,
+            'categories'=>$categories,
+            'test'=>$test
+        ]);
+    }
+
+    public function editAnnouncement(Request $request, UserInterface $user): Response
+    {
+        $updateAnnouncement = new Announcement();
+        $cat = new Category();
+
+        $updateAnnouncement->setId($request->request->get('id'));
+        $updateAnnouncement->setTitle($request->request->get('title'));
+        $updateAnnouncement->setDescription($request->request->get('desc'));
+        $updateAnnouncement->setPrice($request->request->get('price'));
+        $updateAnnouncement->setDatePublish(new \DateTime('now'));
+        $updateAnnouncement->setIsActive(true);
+        $updateAnnouncement->setImage("");
+
+        $dataCat = $this->getDoctrine()->getRepository(Category::class)
+            ->getCategory($request->request->get('category'));
+
+        $cat->setId($dataCat[0]->getId());
+        $cat->setName($dataCat[0]->getName());
+        $cat->setIsActive($dataCat[0]->getIsActive());
+
+        $updateAnnouncement->setCategory($cat);
+        $updateAnnouncement->setUser($user);
+
+        $this->getDoctrine()->getRepository(Announcement::class)
+            ->updateAnnouncement($updateAnnouncement);   
+
+       
+        return new JsonResponse(array(
+            'status' => 'OK',
+        ),
         200);
-    	
     }
 }

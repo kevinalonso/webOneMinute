@@ -19,11 +19,11 @@ class BankRepository extends ServiceEntityRepository
         parent::__construct($registry, Bank::class);
     }
 
-    public function getRibFromUser(int $idUser): array
+    public function getRibFromUser(int $idBank): array
     {
-        $dql = 'SELECT b FROM App\Entity\Bank b WHERE b.User =:idUser';
+        $dql = 'SELECT b FROM App\Entity\Bank b WHERE b.id =:idBank';
         $query = $this->getEntityManager()->createQuery($dql)
-            ->setParameter('idUser',$idUser);
+            ->setParameter('idBank',$idBank);
         return $query->execute();
     }
 

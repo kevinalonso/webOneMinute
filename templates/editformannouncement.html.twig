@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+	<div class="container">
+		<h1>Modifier Votre Annonce</h1>
+		<form id="contact-form" name="contact-form" method="POST" onsubmit="updateAnnouncement()">
+			<input type="text" id="id" name="id" class="invisible" value="{{ announcement[0].id }}">
+			<div class="row mt-5">
+				<input type="text" id="title" name="title" class="form-control" required="required" value="{{ announcement[0].Title }}">
+                <label for="title" class="">Titre</label>
+			</div>
+			<div class="row mt-5">
+				<select id="category" class="form-control">
+  					<option name="category">Catégorie</option>
+  					{% for category in categories %}
+  						{% if category.IsActive %}
+			                <option value="{{ category.id }}" {{( category.id == announcement[0].Category.id) ? 'selected="selected"' : ''}}>{{category.Name}}</option>
+			             {% endif %}
+  					{% endfor %}
+				</select>
+			</div>
+			<div class="row mt-5">
+				<textarea type="text" required="required" id="desc" name="desc" rows="10" class="form-control md-textarea" >{{ announcement[0].Description }}</textarea>
+                <label for="desc" class="">Description</label>
+			</div>
+			<div class="row mt-5">
+				<input type="text" id="price" name="price" class="form-control" required="required" value="{{ announcement[0].Price }}">
+                <label for="price" class="">Prix</label>
+			</div>
+
+			 <div class="row mt-5 mb-5">
+                <button class="btn btn-primary" type="submit">Modifier l'annonce</button>
+            </div>
+		</form>
+	</div>
+
+	{% block javascripts %} 
+	    <script type="text/javascript" src="/oneminute/src/js/ajaxUpdate.js"></script>
+	{% endblock %}
+
+{% endblock %}
