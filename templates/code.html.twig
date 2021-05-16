@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="mb-25 mt-15">
+			<h5>Veuillez saisir le code reçu par e-mail</h5>
+		</div>
+
+		<form method="post">
+		   <div class="form-content">
+	            <div class="row">
+	                <div class="col-md-12">
+	                    <div class="form-group">
+	                        <input type="text" class="form-control" id="code" placeholder="Votre Code *" value=""/>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="ml-18 w-50">
+	            	<button type="submit" class="btn btn-success btn-block mb-5">Valider le code</button>
+	            </div>         
+	        </div>
+		</form>
+	</div>
+
+{% endblock %}

@@ -48,15 +48,19 @@ easy_admin:
 
         Sale:
             class: App\Entity\Sale
-            label: 'Ventes réalisées'
+            label: 'Ventes'
             form:
                 fields:
                     - { property: 'Command', label: 'Commande', type_options: { disabled: true }}
+                    - { property: 'IdAnnouncement', label: 'Id Annonce', type_options: { disabled: true }}
                     - { property: 'SellerName', label: 'Vendeur', type_options: { disabled: true }}
+                    - { property: 'IdSeller', label: 'Identifiant Vendeur', type_options: { disabled: true }}
                     - { property: 'BuyerName', label: 'Acheteur', type_options: { disabled: true }}
+                    - { property: 'IdBuyer', label: 'Identifiant Acheteur', type_options: { disabled: true }}
                     - { property: 'DateofSale', label: 'Date de la vente', type_options: { disabled: true }}
                     - { property: 'Price', label: 'Montant de la commande', type_options: { disabled: true }}
                     - { property: 'Cgv', label: 'Acceptation des conditions générales de ventes', type_options: { disabled: true }}
+                    - { property: 'State', label: 'Status', type_options: { disabled: true }}
 
         ImageCategory:
             class: App\Entity\ImageCategory
@@ -104,3 +108,13 @@ easy_admin:
                     - { property: 'Iban', label: 'IBAN vendeur'}
                     - { property: 'Bic', label: 'Bic vendeur'}
                     - { property: 'User', label: 'Utilisateur'}
+
+        Code:
+            class: App\Entity\Code
+            label: 'Code validation commande'
+            form:
+                fields:
+                    - { property: 'Code', label: 'Code De Validation',type_options: { disabled: true }}
+                    - { property: 'Command', label: 'Commande',type_options: { disabled: true }}
+                    - { property: 'DateStart', type: datetime, label: 'Date Début Validité',type_options: { disabled: true }}
+                    - { property: 'DateEnd',type: datetime, label: 'Date Fin Validité',type_options: { disabled: true }}

@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Sale;
+use App\Entity\Announcement;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,15 +21,26 @@ class SaleRepository extends ServiceEntityRepository
         parent::__construct($registry, Sale::class);
     }
 
-    public function insertSale(string $cmd,float $price)
+    public function insertSale(string $cmd,Array $announcement, User $userBuyer)
     {
         //Get relationship with category and annoucenemnt
         $sale = new Sale();
 
         $sale->setDateofSale(new \DateTime('now'));
         $sale->setCommand($cmd);
-        $sale->setPrice($price);
+        $sale->setIdAnnouncement($announcement[0]->getId());
+        $sale->setPrice($announcement[0]->getPrice());
         $sale->setCgv(true);
+        $sale->setState("Service non réalisé");
+
+        $sale->setIdSeller($announcement[0]->getUser()->getId());
+        $firstLastName = $announcement[0]->getUser()->getFirstName()." ".$announcement[0]->getUser()->getLastName();
+        $sale->setSellerName($firstLastName);
+
+        $firstLastNameBuyer = $userBuyer->getFirstName()." ".$userBuyer->getLastName();
+
+        $sale->setBuyerName($firstLastNameBuyer);
+        $sale->setIdBuyer($userBuyer->getId());
 
         //insert in table announcement new item
         $em = $this->getEntityManager();

@@ -16,6 +16,9 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class PaymentController extends AbstractController
 {
+
+	private $codeGenerated;
+
 	/**
 	* @Route("/payment/{id}")
 	*/
@@ -24,10 +27,14 @@ class PaymentController extends AbstractController
     	$announcement = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnouncementById($id);
 
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $userBuyer = $this->getUser();
+
          //Create command
     	$cmd = $this->generateRandomString(10);
+    	$this->codeGenerated = $cmd;
     	$command = $this->getDoctrine()->getRepository(Sale::class)
-            ->insertSale($cmd,$announcement[0]->getPrice());
+            ->insertSale($cmd,$announcement, $userBuyer);
 
     	//Paybox
     	$settingPbx = $this->getDoctrine()->getRepository(Payment::class)
@@ -86,7 +93,6 @@ class PaymentController extends AbstractController
 				$serveurOK = $serveur;
 				break;
 			}
-			
 		}
 		//curl_close($ch); <== voir paybox
 		if(!$serveurOK){
@@ -123,7 +129,6 @@ class PaymentController extends AbstractController
 
 		$hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
 
-
 		$paybox = [
 			'PBX_SITE'=>$pbx_site,
 			'PBX_RANG'=>$pbx_rang,
@@ -148,12 +153,6 @@ class PaymentController extends AbstractController
       	/*$response = $httpClient->request('POST','https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?'. $params);*/
 
 		return new RedirectResponse('https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?'. $params);
-
-		//return new RedirectResponse($response);
-
-		/*return $this->render('payment.html.twig', [
-            'paybox' => $response->getInfo()['url']
-        ]);*/
     }
 
     /**
@@ -184,9 +183,11 @@ class PaymentController extends AbstractController
             ->getEmail("confirmation");
 
 
-    	$email = $request->request->get($emailData[0]->getEmailAddress());
-        $obj = $request->request->get($emailData[0]->getObject());
-        $msg = $request->request->get($emailData[0]->getMessage());
+    	$email = $emailData[0]->getEmailAddress();
+        $obj = $emailData[0]->getObject();
+        $msg = $emailData[0]->getMessage();
+
+        $msg = str_replace("@[link]", "http://localhost/oneminute/public/code/".$codeGenerated, $msg);
 
         $message = (new \Swift_Message($obj))
             ->setFrom($email)
@@ -206,7 +207,7 @@ class PaymentController extends AbstractController
     }
 
     private function generateRandomString($length) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {

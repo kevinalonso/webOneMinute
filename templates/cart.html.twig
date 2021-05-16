@@ -95,7 +95,12 @@
 	            </li>
 	          </ul>
 
-	          <a href="{{ path('payment', {'id': announcement[0].Id}) }}"class="btn btn-success btn-block" type="button">Payer</a>
+	          <div class="ml-4 mb-15">
+	          	<input class="form-check-input" type="radio" name="cgv" id="cgv" value="option2" onclick="cgvRadio(this)">
+              	<label class="form-check-label" for="cgv">J'accepte les CGV pour payer*</label>
+           	  </div>
+	          
+	          <a id="payment-button" href="{{ path('payment', {'id': announcement[0].Id}) }}"class="btn btn-success btn-block disabled" type="button">Payer</a>
 
 	        </div>
 	      </div>
@@ -109,5 +114,9 @@
 
 	</section>
 <!--Section: Block Content-->
+
+{% block javascripts %} 
+    <script type="text/javascript" src="/oneminute/src/js/action.js"></script>
+{% endblock %}
 	
 {% endblock %}

@@ -73,3 +73,9 @@ editannoucementview:
 editannouncement:
     path: /editannouncement
     controller: App\Controller\AnnouncementController::editAnnouncement
+codepayment:
+    path: /code/{command}/{idUser}
+    controller: App\Controller\CodeController::code
+codesend:
+    path: /codesend
+    controller: App\Controller\CodeController::sendCode
