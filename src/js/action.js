@@ -19,3 +19,29 @@ function cgvRadio(radioVal){
 		document.getElementById("payment-button").className = document.getElementById("payment-button").className.replace('disabled','');
 	}
 }
+
+function sendCodeClick(){
+
+	var code = $("#code").val();
+
+	$.ajax({
+	    type: "POST",
+	    url: "/oneminute/public/codesend",
+	    data: {
+		    	code: code
+	    	}
+		}).done(function(data){
+
+		    if (typeof data.status != "undefined" && data.status != "undefined")
+		    {
+		        // At this point we know that the status is defined,
+		        // so we need to check for its value ("OK" in my case)
+		        if (data.status == "OK")
+		        {
+		            //location.href = '/oneminute/public/account';
+		        } else if (data.status == "ERROR") {
+
+		        }
+		    }
+		});
+}

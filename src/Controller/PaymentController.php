@@ -187,7 +187,11 @@ class PaymentController extends AbstractController
         $obj = $emailData[0]->getObject();
         $msg = $emailData[0]->getMessage();
 
-        $msg = str_replace("@[link]", "http://localhost/oneminute/public/code/".$codeGenerated, $msg);
+        //Ajouter le mail de l'utilisateur connecté
+		$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $userBuyerId = $this->getUser()->getId();
+
+        $msg = str_replace("@[link]", "http://localhost/oneminute/public/code/".$codeGenerated."/".$userBuyerId, $msg);
 
         $message = (new \Swift_Message($obj))
             ->setFrom($email)

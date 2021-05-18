@@ -12,15 +12,19 @@
 	            <div class="row">
 	                <div class="col-md-12">
 	                    <div class="form-group">
-	                        <input type="text" class="form-control" id="code" placeholder="Votre Code *" value=""/>
+	                        <input type="text" class="form-control" name="codevalue" id="code" placeholder="Votre Code *" value=""/>
 	                    </div>
 	                </div>
 	            </div>
 	            <div class="ml-18 w-50">
-	            	<button type="submit" class="btn btn-success btn-block mb-5">Valider le code</button>
+	            	<button onclick="sendCodeClick()" class="btn btn-success btn-block mb-5">Valider le code</button>
 	            </div>         
 	        </div>
 		</form>
 	</div>
+
+	{% block javascripts %} 
+    	<script type="text/javascript" src="/oneminute/src/js/action.js"></script>
+	{% endblock %}
 
 {% endblock %}

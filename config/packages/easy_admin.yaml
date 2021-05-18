@@ -38,7 +38,6 @@ easy_admin:
                     - { property: 'FirstName', label: 'Prénom'}
                     - { property: 'LastName', label: 'Nom'}
                     - { property: 'Phone', label: 'Téléphone'}
-                    - { property: 'Password', label: 'Mot de passe'}
                     - { property: 'Email', label: 'E-mail'}
                     - { property: 'Address', label: 'Adresse'}
                     - { property: 'CodePoste', label: 'Code postale'}

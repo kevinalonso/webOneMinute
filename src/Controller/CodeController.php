@@ -63,15 +63,26 @@ class CodeController extends AbstractController
     /**
     * @Route("/codesend")
     */
-    public function sendCode(): Response
+    public function sendCode(Request $request): Response
     {
         //Controler le code transmis si il est toujours valide en temps et si il est bien saisie
+        $dateNow = new \DateTime('now');
+        $codeSend = $request->request->get('code');
+        $codeValid = false;
+
 
         //Mettre à jour la vente en base de données
 
         //Afficher confirmation de la saisie du code si OK sinon afficher une page d'erreur avec un bouton regénérer un code
 
-        return $this->render('', []);
+        
+
+        if ($codeValid) {
+           return new JsonResponse(array('status' => 'OK',),200);
+        } else {
+            return new JsonResponse(array('status' => 'ERROR',),500);
+        }
+        
     }
 
     private function generateRandomCode($length) {
