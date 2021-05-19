@@ -97,7 +97,7 @@ class AccountController extends AbstractController
     public function editUser(Request $request,UserInterface $user,UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $updateUser = new User();
-        var_dump($request->request->get('password'));
+       
         $updateUser->setId($user->getId());
         $updateUser->setFirstName($request->request->get('firstname'));
         $updateUser->setLastName($request->request->get('lastname'));

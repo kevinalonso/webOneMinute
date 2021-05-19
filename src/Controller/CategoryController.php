@@ -24,7 +24,7 @@ class CategoryController extends AbstractController
             $catName = $announcements[0];
 
             $cat = $this->getDoctrine()->getRepository(Category::class)
-            ->getCategory(2);
+            ->getCategory($id);
 
             return $this->render('category.html.twig', [
                 'announcements' => $announcements,

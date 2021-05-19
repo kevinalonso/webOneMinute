@@ -48,4 +48,17 @@ class SaleRepository extends ServiceEntityRepository
         $em->flush();
         return $sale->getCommand();
     }
+
+    public function updateSale(string $command,string $value)
+    {
+
+        $dql = 'UPDATE App\Entity\Sale s SET s.State =:value WHERE s.Command =:command';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameters(array('command'=>$command,'value'=>$value));
+        $query->execute();
+
+        /*$em = $this->getEntityManager();
+        $em->merge($sale);
+        $em->flush();*/
+    }
 }

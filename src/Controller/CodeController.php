@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Code;
 use App\Entity\Email;
+use App\Entity\Sale;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CodeController extends AbstractController
 {
@@ -70,8 +72,24 @@ class CodeController extends AbstractController
         $codeSend = $request->request->get('code');
         $codeValid = false;
 
+        $codeFind = $this->getDoctrine()->getRepository(Code::class)
+            ->getCode($codeSend);
 
-        //Mettre à jour la vente en base de données
+        dump($codeSend);
+        dump($codeFind);
+
+        if ($codeFind[0]->getCode() == $codeSend) {
+            $codeValid = true;
+
+            //Update sale
+            $command = "PRLU8LWC7V";
+
+            $this->getDoctrine()->getRepository(Sale::class)
+            ->updateSale($command,"Service fait");
+
+        }
+
+        
 
         //Afficher confirmation de la saisie du code si OK sinon afficher une page d'erreur avec un bouton regénérer un code
 

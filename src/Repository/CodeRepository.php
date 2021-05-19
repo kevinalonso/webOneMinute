@@ -26,4 +26,14 @@ class CodeRepository extends ServiceEntityRepository
         $em->persist($code);
         $em->flush();
     }
+
+     public function getCode(int $code)
+    {
+        $dql = 'SELECT c FROM App\Entity\Code c WHERE c.Code =:code';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('code',$code);
+        return $query->execute();
+    }
+
+    
 }
