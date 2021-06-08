@@ -27,8 +27,21 @@ class AccountController extends AbstractController
         $ribs = $this->getDoctrine()->getRepository(Bank::class)
             ->getRibFromUser($user->getId());
 
+        $buyList = $this->getDoctrine()->getRepository(Announcement::class)
+            ->getAnnouncementBuy($user->getId());
+
+        /*$arrayBuyAnnouncement = new array();
+
+        foreach ($item as $buyList) {
+            $result = $this->getDoctrine()->getRepository(Bank::class)
+            ->getAnnouncementById($item->getId());
+
+            array_push($arrayBuyAnnouncement,$result);
+        }*/
+
     	return $this->render('account.html.twig', [
             'announcements'=> $announcements,
+            'buyList'=> $buyList,
             'user' => $user,
             'ribs' => $ribs
         ]);

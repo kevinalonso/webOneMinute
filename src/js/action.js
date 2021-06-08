@@ -38,7 +38,7 @@ function sendCodeClick(){
 		        // so we need to check for its value ("OK" in my case)
 		        if (data.status == "OK")
 		        {
-		            //location.href = '/oneminute/public/account';
+		            location.href = '/oneminute/public/codeconfirmation';
 		        } else if (data.status == "ERROR") {
 
 		        }

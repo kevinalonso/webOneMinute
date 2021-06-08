@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Code;
 use App\Entity\Email;
 use App\Entity\Sale;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CodeController extends AbstractController
@@ -48,13 +49,15 @@ class CodeController extends AbstractController
         $msg = str_replace("@[code]", $codeGenerate, $msg);
 
         //get user email
+        $user = $this->getDoctrine()->getRepository(User::class)
+            ->getUserById($idUser);
 
-        /*$message = (new \Swift_Message($obj))
+        $message = (new \Swift_Message($obj))
             ->setFrom($email)
-            ->setTo($authenticationUtils->getLastUsername())
+            ->setTo($user[0]->getEmail())
             ->setBody($msg);
 
-        $mailer->send($message);*/
+        $mailer->send($message);
 
 
         //Page a afficher qui contient un zone de saisie et un bouton d'envoi
@@ -82,25 +85,27 @@ class CodeController extends AbstractController
             $codeValid = true;
 
             //Update sale
-            $command = "PRLU8LWC7V";
+            //$command = "PRLU8LWC7V";
 
             $this->getDoctrine()->getRepository(Sale::class)
             ->updateSale($command,"Service fait");
-
         }
 
-        
-
         //Afficher confirmation de la saisie du code si OK sinon afficher une page d'erreur avec un bouton regénérer un code
-
-        
-
         if ($codeValid) {
            return new JsonResponse(array('status' => 'OK',),200);
         } else {
             return new JsonResponse(array('status' => 'ERROR',),500);
         }
         
+    }
+
+    /**
+    * @Route("/codeconfirmation")
+    */
+    public function codeConfirmation(Request $request): Response
+    {
+        return $this->render('codeconfirmation.html.twig', []);
     }
 
     private function generateRandomCode($length) {

@@ -43,4 +43,12 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         $em->merge($user);
         $em->flush();
     }
+
+    public function getUserById(int $id)
+    {
+        $dql = 'SELECT u FROM App\Entity\User u WHERE u.id =:id';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('id',$id);
+        return $query->execute();
+    }
 }

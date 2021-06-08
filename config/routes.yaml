@@ -79,3 +79,6 @@ codepayment:
 codesend:
     path: /codesend
     controller: App\Controller\CodeController::sendCode
+codeconfirmation:
+    path: /codeconfirmation
+    controller: App\Controller\CodeController::codeConfirmation

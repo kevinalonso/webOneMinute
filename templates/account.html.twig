@@ -144,12 +144,34 @@
 			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
 				<div class="card-body">
 					<!--I have paie-->
-					
+					<div class="row">
+						{% for announcement in buyList %}
+							<div class="col-lg-4 col-md-6 mb-4 ml-5">
+								<div class="card h-100">
+									<img class="card-img-top" src="{#{announcement.Image}#}" alt="">
+									<div class="card-body">
+										<h4 class="card-title">
+											<a href="{#{ path('announcement', {'id': announcement.id}) }#}">{#{announcement.Title}#}</a>
+										</h4>
+										<h5>{#{announcement.Price}#}€</h5>
+										<p class="card-text">{#{announcement.Description|length > 200 ? announcement.Description|slice(0, 200) ~ '...' : announcement.Description}#}</p>
+									</div>
+
+									<div class="card-footer d-inline-block">
+										<span>{{announcement.State}}</span>
+										<small class="text-muted"></small>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
 </div>
+
+{{dump(buyList)}}
 
 {% endblock %}

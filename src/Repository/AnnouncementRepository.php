@@ -56,6 +56,15 @@ class AnnouncementRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
+    public function getAnnouncementBuy(int $idUser): array
+    {
+
+        $dql = 'SELECT a, s.State FROM App\Entity\Announcement a INNER JOIN App\Entity\Sale s WITH a.id = s.IdAnnouncement WHERE s.IdBuyer =:id';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('id',$idUser);
+        return $query->execute();
+    }
+
     public function deleteAnnouncement(int $id)
     {
         $dql = 'DELETE App\Entity\Announcement a WHERE a.id =:id';
