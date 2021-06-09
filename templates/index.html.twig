@@ -50,18 +50,19 @@
       </div>
 
       <div class="container">
-        <div class="row">
+        <div class="mt-10 row">
           <div class="w-100 text-center mb-20">
             <h4>Nos 10 dernières annonces :</h4>
           </div>
         </div>
       </div>
 
-      <div class="row col-lg-10 d-flex flex-row-reverse ml-2">
+      <!--col-lg-10 ml-2-->
+      <div class="row col-12 d-flex flex-row-reverse ml-3">
         {% for announcement in announcements %}
           {% if announcement.IsActive %}
 
-            <div class="col-lg-4 col-md-6 mb-4 ml-5">
+            <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-100">
                 <!--http://placehold.it/700x400-->
                 <a href="#"><img class="card-img-top" src="{{ announcement.image }}" alt=""></a>

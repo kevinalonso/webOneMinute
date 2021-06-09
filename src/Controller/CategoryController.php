@@ -35,7 +35,7 @@ class CategoryController extends AbstractController
         } else {
             return $this->render('category.html.twig', [
                 'announcements' => $announcements,
-                'titleCat' => 'Aucune annonce pour cette catégorie'
+                'titleCat' => 'Aucunes annonces pour cette catégorie'
             ]);
         }
         
