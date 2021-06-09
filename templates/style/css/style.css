@@ -19,3 +19,16 @@
   -moz-border-radius: 50% !important;
   border-radius: 50% !important;
 }
+
+.navbar,.footer{
+  background-color: #fd1589;
+}
+
+.logo{
+  width: 250px;
+  height: 250px;
+}
+
+.nav-link:hover{
+  color: white !important;
+}

@@ -80,10 +80,10 @@
 </div>
 
 
-<div class="container">
+<div class="container mb-4">
 
 	<div class="accordion" id="accordionExample">
-		<div class="card">
+		<div class="card mb-3">
 			<div class="card-header" id="headingOne">
 				<h2 class="mb-0">
 					<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -148,13 +148,13 @@
 						{% for announcement in buyList %}
 							<div class="col-lg-4 col-md-6 mb-4 ml-5">
 								<div class="card h-100">
-									<img class="card-img-top" src="{#{announcement.Image}#}" alt="">
+									<img class="card-img-top" src="{{announcement[0].Image}}" alt="">
 									<div class="card-body">
 										<h4 class="card-title">
-											<a href="{#{ path('announcement', {'id': announcement.id}) }#}">{#{announcement.Title}#}</a>
+											<h3>{{announcement[0].Title}}</h3>
 										</h4>
-										<h5>{#{announcement.Price}#}€</h5>
-										<p class="card-text">{#{announcement.Description|length > 200 ? announcement.Description|slice(0, 200) ~ '...' : announcement.Description}#}</p>
+										<h5>{{announcement[0].Price}}€</h5>
+										<p class="card-text">{{announcement[0].Description|length > 200 ? announcement[0].Description|slice(0, 200) ~ '...' : announcement[0].Description}}</p>
 									</div>
 
 									<div class="card-footer d-inline-block">
@@ -172,6 +172,5 @@
 
 </div>
 
-{{dump(buyList)}}
 
 {% endblock %}
