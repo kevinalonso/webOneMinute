@@ -171,12 +171,12 @@ class PaymentController extends AbstractController
     public function confirmation(Request $request,\Swift_Mailer $mailer,AuthenticationUtils $authenticationUtils): Response
     {	
     	//get response paybox
-    	$montant = $request->request->get('montant');
-    	$ref_com = $request->request->get('ref');
-    	$auto = $request->request->get('auto');
-    	$trans = $request->request->get('trans');
+    	$montant = $request->query->get('Mt')/100;
+    	$ref_com = $request->query->get('Ref');
+    	$auto = $request->query->get('Auto');
+    	$trans = $request->query->get('trans');
 
-    	$ttc = $montant * 1.20;
+    	//$ttc = $montant * 1.20;
 
     	//Send mail confirmation
     	$emailData = $this->getDoctrine()->getRepository(Email::class)
@@ -191,7 +191,7 @@ class PaymentController extends AbstractController
 		$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $userBuyerId = $this->getUser()->getId();
 
-        $msg = str_replace("@[link]", "http://localhost/oneminute/public/code/".$codeGenerated."/".$userBuyerId, $msg);
+        $msg = str_replace("@[link]", "http://localhost/oneminute/public/code/".$this->codeGenerated."/".$userBuyerId, $msg);
 
         $message = (new \Swift_Message($obj))
             ->setFrom($email)
@@ -205,8 +205,7 @@ class PaymentController extends AbstractController
     		'ref_com' => $ref_com,
     		'auto' => $auto,
     		'trans' => $trans,
-    		'ttc' => $ttc,
-    		'data' => $request->request->get('montant')
+    		'data' => $request->query
         ]);
     }
 

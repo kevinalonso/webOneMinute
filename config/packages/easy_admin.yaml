@@ -117,3 +117,23 @@ easy_admin:
                     - { property: 'Command', label: 'Commande',type_options: { disabled: true }}
                     - { property: 'DateStart', type: datetime, label: 'Date Début Validité',type_options: { disabled: true }}
                     - { property: 'DateEnd',type: datetime, label: 'Date Fin Validité',type_options: { disabled: true }}
+
+        Offer:
+            class: App\Entity\Offer
+            label: 'Paramètre abonnement'
+            form:
+                fields:
+                    - { property: 'Label', label: 'Nom Abonnement'}
+                    - { property: 'Price', label: 'Prix Abonnement'}
+                    - { property: 'Photo', label: 'Nombre de Photos'}
+
+        Subscription:
+            class: App\Entity\Subscription
+            label: 'Abonnement Souscrit'
+            form:
+                fields:
+                    - { property: 'Email', label: 'Email'}
+                    - { property: 'DateStart', type: datetime, label: 'Date Début Validité'}
+                    - { property: 'DateEnd',type: datetime, label: 'Date Fin Validité'}
+                    - { property: 'IsEnabled', label: 'Valide/Expiré'}
+                    - { property: 'Offer', label: 'Abonnement'}
