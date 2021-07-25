@@ -24,7 +24,7 @@ class Offer
     private $Label;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $Price;
 
@@ -32,6 +32,26 @@ class Offer
      * @ORM\Column(type="integer", nullable=true)
      */
     private $Photo;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $IsUp;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $Year;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $Month;
+
+    /**
+     * @ORM\Column(type="text", length=65535)
+     */
+    private $Description;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="Offer")
@@ -60,12 +80,12 @@ class Offer
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): ?float
     {
         return $this->Price;
     }
 
-    public function setPrice(?int $Price): self
+    public function setPrice(?float $Price): self
     {
         $this->Price = $Price;
 
@@ -87,5 +107,53 @@ class Offer
     public function __toString()
     {   
         return $this->Label;
+    }
+
+    public function getIsUp(): ?bool
+    {
+        return $this->IsUp;
+    }
+
+    public function setIsUp(?bool $IsUp): self
+    {
+        $this->IsUp = $IsUp;
+
+        return $this;
+    }
+
+    public function getYear(): ?bool
+    {
+        return $this->Year;
+    }
+
+    public function setYear(?bool $Year): self
+    {
+        $this->Year = $Year;
+
+        return $this;
+    }
+
+    public function getMonth(): ?bool
+    {
+        return $this->Month;
+    }
+
+    public function setMonth(?bool $Month): self
+    {
+        $this->Month = $Month;
+
+        return $this;
+    }
+
+     public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(string $Description): self
+    {
+        $this->Description = $Description;
+
+        return $this;
     }
 }

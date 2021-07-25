@@ -126,6 +126,10 @@ easy_admin:
                     - { property: 'Label', label: 'Nom Abonnement'}
                     - { property: 'Price', label: 'Prix Abonnement'}
                     - { property: 'Photo', label: 'Nombre de Photos'}
+                    - { property: 'IsUp', label: 'Permet de mettre en avant (Oui/Non)'}
+                    - { property: 'Year', label: 'Abonnement par An'}
+                    - { property: 'Month', label: 'Abonnement par Mois'}
+                    - { property: 'Description', label: 'Description'}
 
         Subscription:
             class: App\Entity\Subscription

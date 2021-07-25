@@ -19,6 +19,18 @@ class OfferRepository extends ServiceEntityRepository
         parent::__construct($registry, Offer::class);
     }
 
+    public function allOffers(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT offer
+            FROM App\Entity\Offer offer');
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Offer[] Returns an array of Offer objects
     //  */
