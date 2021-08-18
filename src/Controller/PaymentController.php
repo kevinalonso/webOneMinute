@@ -12,6 +12,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use App\Entity\Announcement;
 use App\Entity\Email;
 use App\Entity\Sale;
+use App\Entity\Offer;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class PaymentController extends AbstractController
@@ -20,28 +21,52 @@ class PaymentController extends AbstractController
 	private $codeGenerated;
 
 	/**
-	* @Route("/payment/{id}")
+	* @Route("/payment/{id}/{type}")
 	*/
-	public function payment(int $id): RedirectResponse
+	public function payment(int $id, bool $type): RedirectResponse
     {
-    	$announcement = $this->getDoctrine()->getRepository(Announcement::class)
-            ->getAnnouncementById($id);
+    	$price = 0;
+    	$cmd = "";
+    	if ($type) {
+    		
+	    	$announcement = $this->getDoctrine()->getRepository(Announcement::class)
+	            ->getAnnouncementById($id);
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $userBuyer = $this->getUser();
+	        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+	        $userBuyer = $this->getUser();
 
-         //Create command
-    	$cmd = $this->generateRandomString(10);
-    	$this->codeGenerated = $cmd;
-    	$command = $this->getDoctrine()->getRepository(Sale::class)
-            ->insertSale($cmd,$announcement, $userBuyer);
+	        //Create command
+	    	$cmd = $this->generateRandomString(10);
+	    	$this->codeGenerated = $cmd;
+	    	$command = $this->getDoctrine()->getRepository(Sale::class)
+	            ->insertSale($cmd,$announcement, $userBuyer,$type);
+
+	        //Important il faut multiplier le prix par cent
+	        $price = strval($announcement[0]->getPrice()*100);
+    	}
+    	else
+    	{
+    		$offer = $this->getDoctrine()->getRepository(Offer::class)
+    			->getOfferById($id);
+
+    		$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+	        $userBuyer = $this->getUser();
+
+	        //Create command
+	    	$cmd = $this->generateRandomString(10);
+	    	$command = $this->getDoctrine()->getRepository(Sale::class)
+	            ->insertSale($cmd,$offer, $userBuyer,$type);
+
+	    	//Insert offer in database
+	    	
+	    	
+	        //Important il faut multiplier le prix par cent
+	        $price = strval($offer[0]->getPrice()*100);
+    	}
 
     	//Paybox
     	$settingPbx = $this->getDoctrine()->getRepository(Payment::class)
             ->getSettingPbx();
-
-        //Important il faut multiplier le prix par cent
-        $price = strval($announcement[0]->getPrice()*100);
 
     	$pbx_site = $settingPbx[0]->getPbxSite();//'1999888'; //variable de test 1999888
 		$pbx_rang = $settingPbx[0]->getPbxRang();//'32'; //variable de test 32
@@ -160,12 +185,29 @@ class PaymentController extends AbstractController
 	*/
     public function cart(int $id): Response
     {
+
     	 $announcement = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnouncementById($id);
 
-    	return $this->render('cart.html.twig', [
-    		'announcement' => $announcement
-        ]);
+    	if ($announcement == null) {
+
+    		$offer = $this->getDoctrine()->getRepository(Offer::class)
+    			->getOfferById($id);
+    	}
+
+    	if ($announcement != null) {
+    		
+    		return $this->render('cart.html.twig', [
+    			'announcement' => $announcement
+        	]);
+    	}
+
+    	if ($offer != null) {
+    		return $this->render('cart.html.twig', [
+    			'offer' => $offer
+        	]);
+    	}
+    	
     }
 
     public function confirmation(Request $request,\Swift_Mailer $mailer,AuthenticationUtils $authenticationUtils): Response

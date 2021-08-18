@@ -145,7 +145,7 @@ class Offer
         return $this;
     }
 
-     public function getDescription(): ?string
+    public function getDescription(): ?string
     {
         return $this->Description;
     }
@@ -156,4 +156,18 @@ class Offer
 
         return $this;
     }
+
+    private $Sale;
+    public function getSale(): ?Sale
+    {
+        return $this->Sale;
+    }
+
+    public function setSale(Sale $Sale): self
+    {
+        $this->Sale = $Sale;
+
+        return $this;
+    }
+
 }

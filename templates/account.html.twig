@@ -50,7 +50,25 @@
 								<p><strong>BIC: </strong> {{ rib.getBic }} </p>
 							{% endfor %}
 						</div>
-					</div>           
+					</div>
+
+					<div class="col-sm-12">
+						<div class="col-xs-12 col-sm-8">
+							<h2 class="d-inline-block">Abonnement</h2>
+
+							{% if offer|length == 0 %}
+								<p>Aucun abonnement en cours</p>
+							{% else %}
+								<p>{{ offer[0].Description }}</p>
+								<p> Abonnement payé le {{ offer[1].DateofSale|date("d/m/Y") }}</p>
+								<p><strong>{{offerState}}</strong></p>
+								<p>Valide jusqu'au {{valide|date("d/m/Y")}}</p>
+								
+							{% endif %}
+
+						</div>
+					</div>
+
 				</div>               
 			</div>
 

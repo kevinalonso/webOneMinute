@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Announcement;
 use App\Entity\User;
 use App\Entity\Bank;
+use App\Entity\Offer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -30,20 +31,36 @@ class AccountController extends AbstractController
         $buyList = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnouncementBuy($user->getId());
 
-        /*$arrayBuyAnnouncement = new array();
+        $offer = $this->getDoctrine()->getRepository(Offer::class)
+            ->getOfferBuy($user->getId());
 
-        foreach ($item as $buyList) {
-            $result = $this->getDoctrine()->getRepository(Bank::class)
-            ->getAnnouncementById($item->getId());
+        
+        $stateOffer = "";
+        if (!empty($offer)) {
+            
+            $endDate = clone $offer[1]->getDateofSale();
+            $endDate = $endDate->modify('+1 month');
 
-            array_push($arrayBuyAnnouncement,$result);
-        }*/
-
+            if ($offer[1]->getDateofSale() < $endDate) {
+                $stateOffer = "Abonnement valide";
+            } else {
+                $stateOffer = "Abonnement expiré merci de renouveler";
+            }  
+        } else {
+            $stateOffer = "Pas d'abonnement";
+        }
+        
+        $valide = clone $offer[1]->getDateofSale();
+        $valide = $valide->modify('+1 month');
+        
     	return $this->render('account.html.twig', [
             'announcements'=> $announcements,
             'buyList'=> $buyList,
             'user' => $user,
-            'ribs' => $ribs
+            'ribs' => $ribs,
+            'offer' => $offer,
+            'offerState' => $stateOffer,
+            'valide' => $valide
         ]);
     }
 

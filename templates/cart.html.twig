@@ -28,10 +28,15 @@
 	              <div>
 	                <div class="d-flex justify-content-between">
 	                  <div>
-	                    <h5>{{announcement[0].Title}}</h5>
-	                    <p class="mb-3 text-muted text-uppercase small">{{announcement[0].Description|length > 200 ? announcement[0].Description|slice(0, 200) ~ '...' : announcement[0].Description}}</p>
-	                    <p class="mb-2 text-muted text-uppercase small">{{announcement[0].User}}</p>
-	                    <p class="mb-3 text-muted text-uppercase small">Prix: {{announcement[0].Price}}€</p>
+	                    <h5>{{ announcement[0] is defined ? announcement[0].Title : offer[0].Label }}</h5>
+	                    {% if arrayVariable[0] is defined %}
+	                    	<p class="mb-3 text-muted text-uppercase small">{{announcement[0].Description|length > 200 ? announcement[0].Description|slice(0, 200) ~ '...' : announcement[0].Description}}</p>	
+	                    {% else %}
+	                    	<p class="mb-3 text-muted text-uppercase small">{{offer[0].Description|length > 200 ? offer[0].Description|slice(0, 200) ~ '...' : offer[0].Description}}</p>
+	                    {% endif %}
+	                    
+	                    <p class="mb-2 text-muted text-uppercase small">{{announcement[0] is defined ? announcement[0].User : ""}}</p>
+	                    <p class="mb-3 text-muted text-uppercase small">Prix: {{ announcement[0] is defined ? announcement[0].Price : offer[0].Price}}€</p>
 	                  </div>
 	                </div>
 	                
@@ -78,7 +83,7 @@
 	          <ul class="list-group list-group-flush">
 	            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
 	              Total
-	              <span>{{announcement[0].Price}}€</span>
+	              <span>{{ announcement[0] is defined ? announcement[0].Price : offer[0].Price}}€</span>
 	            </li>
 	            <!--<li class="list-group-item d-flex justify-content-between align-items-center px-0">
 	              TVA
@@ -99,9 +104,11 @@
 	          	<input class="form-check-input" type="radio" name="cgv" id="cgv" value="option2" onclick="cgvRadio(this)">
               	<label class="form-check-label" for="cgv">J'accepte les CGV pour payer*</label>
            	  </div>
-	          
-	          <a id="payment-button" href="{{ path('payment', {'id': announcement[0].Id}) }}"class="btn btn-success btn-block disabled" type="button">Payer</a>
-
+	          {% if arrayVariable[0] is defined %}
+	          	<a id="payment-button" href="{{ path('payment', {'id': announcement[0].Id,'type': 1}) }}"class="btn btn-success btn-block disabled" type="button">Payer</a>
+	          {% else %}
+	          	<a id="payment-button" href="{{ path('payment', {'id': offer[0].Id, 'type': 0}) }}"class="btn btn-success btn-block disabled" type="button">Payer</a>
+	      	  {% endif %}
 	        </div>
 	      </div>
 	      <!-- Card -->

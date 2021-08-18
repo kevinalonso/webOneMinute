@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Offer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,14 +17,24 @@ class AnnouncementController extends AbstractController
 	/**
     * @Route("/account/create/announcement")
     */
-    public function createView(): Response
+    public function createView(UserInterface $user): Response
     {
 
     	$categories = $this->getDoctrine()->getRepository(Category::class)
             ->allCategories();
 
+        //Check if user has subcribe to offer
+        $offer = $this->getDoctrine()->getRepository(Offer::class)
+            ->getOfferBuy($user->getId());
+
+        $hasOffer = false;
+        if (!empty($offer)) {
+            $hasOffer = true;
+        }
+
         return $this->render('createformannouncement.html.twig', [
-        	'categories'=>$categories
+        	'categories' => $categories,
+            'hasOffer' => $hasOffer
         ]);
     }
 

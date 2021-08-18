@@ -28,6 +28,15 @@
                 <label for="price" class="">Prix</label>
 			</div>
 
+
+			{% if (hasOffer) %}
+
+				<div class="row mt-5">
+					<label for="price" class="">Photos Complémentaires</label>
+				</div>
+
+			{% endif %}
+
 			 <div class="row mt-5 mb-5">
                 <a class="btn btn-primary" onclick="createAnnouncement()">Créer l'annonce</a>
             </div>

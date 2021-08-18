@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Offer;
+use App\Entity\Sale;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,22 @@ class OfferRepository extends ServiceEntityRepository
         parent::__construct($registry, Offer::class);
     }
 
+
+    public function getOfferById(int $id): array
+    {
+        $dql = 'SELECT o FROM App\Entity\Offer o WHERE o.id =:id';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('id',$id);
+        return $query->execute();
+    }
+
+    public function insertOffer(Offer $offer)
+    {
+        $o = new Offer();
+
+        
+    }
+
     public function allOffers(): array
     {
         $entityManager = $this->getEntityManager();
@@ -29,6 +46,15 @@ class OfferRepository extends ServiceEntityRepository
 
         // returns an array of Product objects
         return $query->getResult();
+    }
+
+    public function getOfferBuy(int $idUser): array
+    {
+
+        $dql = 'SELECT o, s FROM App\Entity\Offer o INNER JOIN App\Entity\Sale s WITH o.id = s.IdAnnouncement WHERE s.IdBuyer =:id';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('id',$idUser);
+        return $query->execute();
     }
 
     // /**

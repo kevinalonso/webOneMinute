@@ -21,26 +21,45 @@ class SaleRepository extends ServiceEntityRepository
         parent::__construct($registry, Sale::class);
     }
 
-    public function insertSale(string $cmd,Array $announcement, User $userBuyer)
+    public function insertSale(string $cmd,Array $announcement, User $userBuyer, bool $type)
     {
         //Get relationship with category and annoucenemnt
         $sale = new Sale();
 
-        $sale->setDateofSale(new \DateTime('now'));
-        $sale->setCommand($cmd);
-        $sale->setIdAnnouncement($announcement[0]->getId());
-        $sale->setPrice($announcement[0]->getPrice());
-        $sale->setCgv(true);
-        $sale->setState("Service non réalisé");
+        if ($type) {
+            $sale->setDateofSale(new \DateTime('now'));
+            $sale->setCommand($cmd);
+            $sale->setIdAnnouncement($announcement[0]->getId());
+            $sale->setPrice($announcement[0]->getPrice());
+            $sale->setCgv(true);
+            $sale->setState("Service non réalisé");
 
-        $sale->setIdSeller($announcement[0]->getUser()->getId());
-        $firstLastName = $announcement[0]->getUser()->getFirstName()." ".$announcement[0]->getUser()->getLastName();
-        $sale->setSellerName($firstLastName);
+            $sale->setIdSeller($announcement[0]->getUser()->getId());
+            $firstLastName = $announcement[0]->getUser()->getFirstName()." ".$announcement[0]->getUser()->getLastName();
+            $sale->setSellerName($firstLastName);
 
-        $firstLastNameBuyer = $userBuyer->getFirstName()." ".$userBuyer->getLastName();
+            $firstLastNameBuyer = $userBuyer->getFirstName()." ".$userBuyer->getLastName();
 
-        $sale->setBuyerName($firstLastNameBuyer);
-        $sale->setIdBuyer($userBuyer->getId());
+            $sale->setBuyerName($firstLastNameBuyer);
+            $sale->setIdBuyer($userBuyer->getId());
+        } else {
+            $sale->setDateofSale(new \DateTime('now'));
+            $sale->setCommand($cmd);
+            $sale->setIdAnnouncement($announcement[0]->getId());
+            $sale->setPrice($announcement[0]->getPrice());
+            $sale->setCgv(true);
+            $sale->setState("Abonnement valide");
+
+            //$sale->setIdSeller($announcement[0]->getUser()->getId());
+            //$firstLastName = $announcement[0]->getUser()->getFirstName()." ".$announcement[0]->getUser()->getLastName();
+            //$sale->setSellerName($firstLastName);
+
+            $firstLastNameBuyer = $userBuyer->getFirstName()." ".$userBuyer->getLastName();
+
+            $sale->setBuyerName($firstLastNameBuyer);
+            $sale->setIdBuyer($userBuyer->getId());
+        }
+        
 
         //insert in table announcement new item
         $em = $this->getEntityManager();
