@@ -174,4 +174,160 @@ class Announcement
         return $this;
     }
     
+
+    /*Image Annoucement*/
+
+    /**
+     * @ORM\Column(type="blob", length=null, nullable=false)
+     */
+    private $Image1;
+
+    public function setImage1($Image1)
+    {
+        $this->Image1 = $Image1;
+
+        return $this;
+    }
+    
+    public function getImage1()
+    {
+        return $this->Image1;
+    }
+
+    /**
+     * @ORM\Column(type="blob", length=null, nullable=true)
+     */
+    private $Image2;
+
+    public function setImage2($Image2)
+    {
+        $this->Image2 = $Image2;
+
+        return $this;
+    }
+    
+    public function getImage2()
+    {
+        return $this->Image2;
+    }
+
+    /**
+     * @ORM\Column(type="blob", length=null, nullable=true)
+     */
+    private $Image3;
+
+    public function setImage3($Image3)
+    {
+        $this->Image3 = $Image3;
+
+        return $this;
+    }
+    
+    public function getImage3()
+    {
+        return $this->Image3;
+    }
+
+    /**
+     * @ORM\Column(type="blob", length=null, nullable=true)
+     */
+    private $Image4;
+
+    public function setImage4($Image4)
+    {
+        $this->Image4 = $Image4;
+
+        return $this;
+    }
+    
+    public function getImage4()
+    {
+        return $this->Image4;
+    }
+
+    /**
+     * @ORM\Column(type="blob", length=null, nullable=true)
+     */
+    private $Image5;
+
+    public function setImage5($Image5)
+    {
+        $this->Image5 = $Image5;
+
+        return $this;
+    }
+    
+    public function getImage5()
+    {
+        return $this->Image5;
+    }
+
+    /**
+     * @ORM\Column(type="blob", length=null, nullable=true)
+     */
+    private $Image6;
+
+    public function setImage6($Image6)
+    {
+        $this->Image6 = $Image6;
+
+        return $this;
+    }
+    
+    public function getImage6()
+    {
+        return $this->Image6;
+    }
+
+    /**
+     * @ORM\Column(type="blob", length=null, nullable=true)
+     */
+    private $Image7;
+
+    public function setImage7($Image7)
+    {
+        $this->Image7 = $Image7;
+
+        return $this;
+    }
+    
+    public function getImage7()
+    {
+        return $this->Image7;
+    }
+
+    /**
+     * @ORM\Column(type="blob", length=null, nullable=true)
+     */
+    private $Image8;
+
+    public function setImage8($Image8)
+    {
+        $this->Image8 = $Image8;
+
+        return $this;
+    }
+    
+    public function getImage8()
+    {
+        return $this->Image8;
+    }
+
+    /**
+     * @ORM\Column(type="blob", length=null, nullable=true)
+     */
+    private $Image9;
+
+    public function setImage9($Image9)
+    {
+        $this->Image9 = $Image9;
+
+        return $this;
+    }
+    
+    public function getImage9()
+    {
+        return $this->Image9;
+    }
+
 }

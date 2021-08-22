@@ -27,12 +27,38 @@ function createRib(){
 	}
 }
 
+img1.onchange = evt => {
+  const [file] = img1.files
+  if (file) {
+    blah.src = URL.createObjectURL(file)
+  }
+}
+
+
+function readFile() {
+  
+  if (this.files && this.files[0]) {
+    
+    var fileReader = new FileReader();
+    
+    fileReader.addEventListener("load", function(e) {
+      = e.target.result;
+    }); 
+    fileReader.readAsDataURL( this.files[0] );
+  }
+  
+}
+
+document.getElementById("img1").addEventListener("change", readFile);
+
 function createAnnouncement(){
 
 	var title = $("#title").val();
 	var category = $("#category").val();
 	var description = $("#desc").val();
 	var price = $("#price").val();
+	//var img1 = document.getElementById("img1").files[0].name;
+
 
 	if (typeof title != "undefined" && typeof category != "undefined" && typeof description != "undefined" && typeof price != "undefined" ) {
 
@@ -43,7 +69,8 @@ function createAnnouncement(){
 		    	title: title,
 	            category: category,
 	            description: description,
-	            price: price
+	            price: price,
+	            img1: img1.src
 	    	}
 		})
 		.done(function(data){

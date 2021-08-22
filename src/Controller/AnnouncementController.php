@@ -34,7 +34,8 @@ class AnnouncementController extends AbstractController
 
         return $this->render('createformannouncement.html.twig', [
         	'categories' => $categories,
-            'hasOffer' => $hasOffer
+            'hasOffer' => $hasOffer,
+            'offer' => $offer
         ]);
     }
 
@@ -53,6 +54,20 @@ class AnnouncementController extends AbstractController
     	$announcement->setImage("");
     	$announcement->setDatePublish(new \DateTime('now'));
     	$announcement->setIsActive(true);
+
+        $blob = fopen($request->get('img1'), 'r');
+
+        //$announcement->setImage1(file_get_contents($request->get('img1')));
+        $announcement->setImage1($blob);
+        /*$announcement->setImage2();
+        $announcement->setImage3();
+        $announcement->setImage4();
+        $announcement->setImage5();
+        $announcement->setImage6();
+        $announcement->setImage7();
+        $announcement->setImage8();
+        $announcement->setImage9();*/
+        
 
     	$this->getDoctrine()->getRepository(Announcement::class)
             ->insert($announcement,$request->request->get('category'));

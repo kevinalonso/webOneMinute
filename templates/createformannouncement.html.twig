@@ -28,10 +28,22 @@
                 <label for="price" class="">Prix</label>
 			</div>
 
-
 			{% if (hasOffer) %}
 
 				<div class="row mt-5">
+					<input class="form-control" id="img1" type="file" name="myFile1"/>
+					<img id="blah" src="#" alt="your image" />
+
+					<input class="form-control" id="img2" type="file" name="myFile2"/>
+					<input class="form-control" id="img3" type="file" name="myFile3"/>
+					<input class="form-control" id="img4" type="file" name="myFile4"/>
+					<input class="form-control" id="img5" type="file" name="myFile5"/>
+					<input class="form-control" id="img6" type="file" name="myFile6"/>
+					{% if (offer[0].Photo > 6) %}
+						<input class="form-control" id="img7" type="file" name="myFile7"/>
+						<input class="form-control" id="img8" type="file" name="myFile8"/>
+						<input class="form-control" id="img9" type="file" name="myFile9"/>
+					{% endif %}
 					<label for="price" class="">Photos Complémentaires</label>
 				</div>
 
@@ -45,6 +57,7 @@
 
 	{% block javascripts %} 
 	    <script type="text/javascript" src="/oneminute/src/js/ajaxCreate.js"></script>
+	    <script src="https://unpkg.com/blob-util@2.0.2/dist/blob-util.js"></script>
 	{% endblock %}
 
 {% endblock %}
