@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Offer;
+use App\Entity\ImageCategory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,9 +55,11 @@ class AnnouncementController extends AbstractController
 
 
         //Get image from category selected
-        
+        $imageCat = $this->getDoctrine()->getRepository(ImageCategory::class)
+            ->getImageFromCategory($request->request->get('category'));
 
-    	$announcement->setImage("");
+    	$announcement->setImage($imageCat[0]->getPath());
+
     	$announcement->setDatePublish(new \DateTime('now'));
     	$announcement->setIsActive(true);
 

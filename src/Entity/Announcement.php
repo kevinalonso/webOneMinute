@@ -178,7 +178,7 @@ class Announcement
     /*Image Annoucement*/
 
     /**
-     * @ORM\Column(type="text", nullable=false)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $Image1;
 

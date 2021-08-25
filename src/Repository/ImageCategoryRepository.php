@@ -19,32 +19,11 @@ class ImageCategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, ImageCategory::class);
     }
 
-    // /**
-    //  * @return ImageCategory[] Returns an array of ImageCategory objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getImageFromCategory(int $idCat): array
     {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $dql = 'SELECT a FROM App\Entity\ImageCategory a WHERE a.Category =:idCat';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('idCat',$idCat);
+        return $query->execute();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?ImageCategory
-    {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
