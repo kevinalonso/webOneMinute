@@ -51,22 +51,25 @@ class AnnouncementController extends AbstractController
     	$announcement->setDescription($request->request->get('description'));
     	$announcement->setUser($user);
     	$announcement->setPrice($request->request->get('price'));
+
+
+        //Get image from category selected
+        
+
     	$announcement->setImage("");
     	$announcement->setDatePublish(new \DateTime('now'));
     	$announcement->setIsActive(true);
 
-        $blob = fopen($request->get('img1'), 'r');
-
         //$announcement->setImage1(file_get_contents($request->get('img1')));
-        $announcement->setImage1($blob);
-        /*$announcement->setImage2();
-        $announcement->setImage3();
-        $announcement->setImage4();
-        $announcement->setImage5();
-        $announcement->setImage6();
-        $announcement->setImage7();
-        $announcement->setImage8();
-        $announcement->setImage9();*/
+        $announcement->setImage1($request->request->get('img1'));
+        $announcement->setImage2($request->request->get('img2'));
+        $announcement->setImage3($request->request->get('img3'));
+        $announcement->setImage4($request->request->get('img4'));
+        $announcement->setImage5($request->request->get('img5'));
+        $announcement->setImage6($request->request->get('img6'));
+        $announcement->setImage7($request->request->get('img7'));
+        $announcement->setImage8($request->request->get('img8'));
+        $announcement->setImage9($request->request->get('img9'));
         
 
     	$this->getDoctrine()->getRepository(Announcement::class)

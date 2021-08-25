@@ -178,7 +178,7 @@ class Announcement
     /*Image Annoucement*/
 
     /**
-     * @ORM\Column(type="blob", length=null, nullable=false)
+     * @ORM\Column(type="text", nullable=false)
      */
     private $Image1;
 
@@ -195,7 +195,7 @@ class Announcement
     }
 
     /**
-     * @ORM\Column(type="blob", length=null, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $Image2;
 
@@ -212,7 +212,7 @@ class Announcement
     }
 
     /**
-     * @ORM\Column(type="blob", length=null, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $Image3;
 
@@ -229,7 +229,7 @@ class Announcement
     }
 
     /**
-     * @ORM\Column(type="blob", length=null, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $Image4;
 
@@ -246,7 +246,7 @@ class Announcement
     }
 
     /**
-     * @ORM\Column(type="blob", length=null, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $Image5;
 
@@ -263,7 +263,7 @@ class Announcement
     }
 
     /**
-     * @ORM\Column(type="blob", length=null, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $Image6;
 
@@ -280,7 +280,7 @@ class Announcement
     }
 
     /**
-     * @ORM\Column(type="blob", length=null, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $Image7;
 
@@ -297,7 +297,7 @@ class Announcement
     }
 
     /**
-     * @ORM\Column(type="blob", length=null, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $Image8;
 
@@ -314,7 +314,7 @@ class Announcement
     }
 
     /**
-     * @ORM\Column(type="blob", length=null, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $Image9;
 
