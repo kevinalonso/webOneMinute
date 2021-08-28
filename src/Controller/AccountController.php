@@ -42,7 +42,7 @@ class AccountController extends AbstractController
             $endDate = $endDate->modify('+1 month');
 
             if ($offer[1]->getDateofSale() < $endDate) {
-                $stateOffer = "Abonnement valide";
+                $stateOffer = "Abonnement toujours valide";
             } else {
                 $stateOffer = "Abonnement expiré merci de renouveler";
             }  
