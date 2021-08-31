@@ -80,7 +80,7 @@
 			
 
 			<div class="mb-3 mt-20">
-				{% if offer|length == 0 %}
+				{% if ribs|length > 0 %}
 					<a class="btn btn-primary btn-block" href="{{ path('createannouncementview') }}">Créer Annonce</a>
 				{% else %}
 					<div class="alert alert-danger text-center" role="alert">

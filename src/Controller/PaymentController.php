@@ -189,6 +189,7 @@ class PaymentController extends AbstractController
     	 $announcement = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnouncementById($id);
 
+        $offer = null;
     	if ($announcement == null) {
 
     		$offer = $this->getDoctrine()->getRepository(Offer::class)
@@ -198,7 +199,8 @@ class PaymentController extends AbstractController
     	if ($announcement != null) {
     		
     		return $this->render('cart.html.twig', [
-    			'announcement' => $announcement
+    			'announcement' => $announcement,
+    			'offer' => $offer
         	]);
     	}
 
@@ -233,7 +235,11 @@ class PaymentController extends AbstractController
 		$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $userBuyerId = $this->getUser()->getId();
 
-        $msg = str_replace("@[link]", "http://localhost/oneminute/public/code/".$this->codeGenerated."/".$userBuyerId, $msg);
+        $codeLink = "http://localhost/oneminute/public/code/".$this->codeGenerated."/".$userBuyerId;
+
+        $msg = str_replace("@[link]", $codeLink, $msg);
+
+        $msg = strip_tags($msg);
 
         $message = (new \Swift_Message($obj))
             ->setFrom($email)
@@ -247,7 +253,8 @@ class PaymentController extends AbstractController
     		'ref_com' => $ref_com,
     		'auto' => $auto,
     		'trans' => $trans,
-    		'data' => $request->query
+    		'data' => $request->query,
+    		'msg' => $codeLink
         ]);
     }
 

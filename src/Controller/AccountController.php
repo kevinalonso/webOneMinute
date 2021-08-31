@@ -50,8 +50,11 @@ class AccountController extends AbstractController
             $stateOffer = "Pas d'abonnement";
         }
         
-        $valide = clone $offer[1]->getDateofSale();
-        $valide = $valide->modify('+1 month');
+        $valide = "";
+        if (!empty($offer)) {
+            $valide = clone $offer[1]->getDateofSale();
+            $valide = $valide->modify('+1 month');
+        }
         
     	return $this->render('account.html.twig', [
             'announcements'=> $announcements,
