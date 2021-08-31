@@ -235,7 +235,12 @@ class PaymentController extends AbstractController
 		$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $userBuyerId = $this->getUser()->getId();
 
-        $codeLink = "http://localhost/oneminute/public/code/".$this->codeGenerated."/".$userBuyerId;
+
+        //Get las command
+        $code = $this->getDoctrine()->getRepository(Sale::class)
+            ->getSale($this->getUser());
+
+        $codeLink = "http://localhost/oneminute/public/code/".$code[0]->getCommand()."/".$userBuyerId;
 
         $msg = str_replace("@[link]", $codeLink, $msg);
 
@@ -254,7 +259,7 @@ class PaymentController extends AbstractController
     		'auto' => $auto,
     		'trans' => $trans,
     		'data' => $request->query,
-    		'msg' => $codeLink
+    		'msg' => $message
         ]);
     }
 

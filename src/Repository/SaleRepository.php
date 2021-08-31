@@ -80,4 +80,15 @@ class SaleRepository extends ServiceEntityRepository
         $em->merge($sale);
         $em->flush();*/
     }
+
+    public function getSale(User $userBuyer)
+    {
+        $idUser = $userBuyer->getId();
+
+        $dql = 'SELECT s FROM App\Entity\Sale s WHERE s.IdBuyer =:id ORDER BY s.id DESC';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('id',$idUser)
+            ->setMaxResults(1);
+        return $query->execute();
+    }
 }
