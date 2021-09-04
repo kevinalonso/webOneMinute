@@ -81,3 +81,11 @@
 .carousel-control-prev-icon {
   filter: invert(1);
 }
+
+.footer {
+  position: relative;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}

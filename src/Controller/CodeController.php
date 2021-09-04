@@ -75,11 +75,11 @@ class CodeController extends AbstractController
         $codeSend = $request->request->get('code');
         $codeValid = false;
 
+        $command = "";
+
         $codeFind = $this->getDoctrine()->getRepository(Code::class)
             ->getCode($codeSend);
 
-        dump($codeSend);
-        dump($codeFind);
 
         if ($codeFind[0]->getCode() == $codeSend) {
             $codeValid = true;
