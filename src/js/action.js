@@ -40,7 +40,7 @@ function sendCodeClick(){
 		        {
 		            location.href = '/oneminute/public/codeconfirmation';
 		        } else if (data.status == "ERROR") {
-
+		        	location.href = '/oneminute/public/errorcode';
 		        }
 		    }
 		});

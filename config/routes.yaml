@@ -82,6 +82,9 @@ codesend:
 codeconfirmation:
     path: /codeconfirmation
     controller: App\Controller\CodeController::codeConfirmation
+errorcode:
+    path: /errorcode
+    controller: App\Controller\CodeController::errorCode
 offer:
     path: /offer
     controller: App\Controller\OfferController::offerList

@@ -108,6 +108,14 @@ class CodeController extends AbstractController
         return $this->render('codeconfirmation.html.twig', []);
     }
 
+    /**
+    * @Route("/errorcode")
+    */
+    public function errorCode(Request $request): Response
+    {
+        return $this->render('errorcode.html.twig', []);
+    }
+
     private function generateRandomCode($length) {
         $characters = '0123456789';
         $charactersLength = strlen($characters);
