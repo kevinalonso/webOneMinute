@@ -19,6 +19,25 @@ class IndexController extends AbstractController
         $categories = $this->getDoctrine()->getRepository(Category::class)
             ->allCategories();
 
+        $subMenu = [];
+        foreach ($categories as $item) {
+            if ($item->getCategory() != null) {
+                array_push($subMenu,$item);
+            }
+        }
+
+        $final = [];
+        foreach ($categories as $item) {
+            foreach ($subMenu as $l) {
+                if ($item->getId() == $l->getCategory()->getId()) {
+                    $item->setCategories($l);
+                }
+            }
+            array_push($final, $item);
+        }
+
+        $categories = $final;
+
         $announcements = $this->getDoctrine()->getRepository(Announcement::class)
             ->getTop10Annoucement();
 

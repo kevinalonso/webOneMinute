@@ -15,6 +15,8 @@ easy_admin:
                 fields:
                     - { property: 'Name', label: 'Nom de la catégorie'}
                     - { property: 'IsActive', label: 'Catégorie active (oui/non)'}
+                    - { property: 'Level', label: 'Niveau du menu'}
+                    - { property: 'Category', label: 'Mettre cette catégorie dans'}
 
         Announcement:
             class: App\Entity\Announcement

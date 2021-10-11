@@ -29,6 +29,16 @@ class Category
     private $IsActive;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $Level;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="Category")
+     */
+    private $Category;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Announcement", mappedBy="Category")
      */
     private $Announcements;
@@ -37,6 +47,8 @@ class Category
      * @ORM\OneToMany(targetEntity="App\Entity\ImageCategory", mappedBy="Category")
      */
     private $Images;
+
+    private $Categories;
 
     public function getId(): ?int
     {
@@ -78,6 +90,7 @@ class Category
     {
         $this->Announcements = new ArrayCollection();
         $this->Images = new ArrayCollection();
+        $this->Categories = new ArrayCollection();
     }
 
     /**
@@ -96,8 +109,47 @@ class Category
         return $this->Images;
     }
 
+    /**
+     * @return Collection|Categories[]
+     */
+    public function getCategories()
+    {
+        return $this->Categories;
+    }
+
+    public function setCategories(Category $Category): self
+    {
+        $this->Categories[] = $Category;
+
+        return $this;
+    }
+
     public function __toString()
     {
         return $this->Name;
+    }
+
+    public function getLevel(): ?int
+    {
+        return $this->Level;
+    }
+
+    public function setLevel(int $Level): self
+    {
+        $this->Level = $Level;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->Category;
+    }
+
+    public function setCategory(?Category $Category): self
+    {
+        $this->Category = $Category;
+
+        return $this;
     }
 }
