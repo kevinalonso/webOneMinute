@@ -45,3 +45,39 @@ function sendCodeClick(){
 		    }
 		});
 }
+
+
+var temp = 0;
+var openDropMenu;
+$(document).ready(function() 
+{
+   $('li').click(function(e) 
+   {
+    	var ulWidth = $('.second-menu')[0].offsetWidth;
+		var i = 0;
+		var height = 0;
+		$('.dropdown-menu').each(function(){
+			if ( $('.dropdown-menu')[i].offsetHeight > 0) {			
+				$('.dropdown-menu')[i].style.width = '100%';
+				$('.dropdown-menu')[i].style.display = 'block';
+				openDropMenu = $('.dropdown-menu')[i];
+				height = $('.dropdown-menu')[i].offsetHeight;
+
+				if (temp != i) {
+					$('.dropdown-menu')[temp].style.display = 'none';
+					$('.dropdown-menu')[temp].style.visibility = 'hidden';
+				}
+				
+				$('.dropdown-menu')[i].style.visibility = 'visible';
+
+				temp = i;
+			}
+			i = i + 1;
+		});
+
+		if (height > 0) {
+			height = height + 10;
+		}
+		$('.add-menu-item')[0].style.height = height.toString()+'px';
+   });
+});

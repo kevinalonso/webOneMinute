@@ -9,12 +9,12 @@
     </div>
     
       <div class="container">
-        <div class="row">
+        <div class="row" style="margin-bottom: 50px;">
 
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav">
+              <ul class="navbar-nav" style="flex-wrap: wrap; justify-content: space-between;">
                
                 {% for category in categories %}
 
@@ -51,7 +51,7 @@
     
       <div class="container">
         <div class="row justify-content-center">
-        	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+        	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -92,7 +92,7 @@
       <!--col-lg-10 ml-2-->
       <div class="container">
         <div class="row">
-          <div class="row col-12 d-flex flex-row-reverse ml-3">
+          <div class="row col-12 d-flex flex-row-reverse ml-3 ml-sm-n1">
         {% for announcement in announcements %}
           {% if announcement.IsActive %}
 
@@ -120,4 +120,9 @@
       </div>
 
     </div>
+
+    
+
 {% endblock %}
+
+
