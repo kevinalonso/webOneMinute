@@ -30,7 +30,9 @@
 
                         <div class="dropdown-menu" aria-labelledby="{{ category.id }}">
                         {% for categoryLv1 in category.Categories %}
-                          <a class="dropdown-item" href="{{ path('category', {'id': categoryLv1.id}) }}">{{categoryLv1.Name}}<span class="sr-only"></span></a>  
+                          {% if categoryLv1.IsActive %}
+                            <a class="dropdown-item" href="{{ path('category', {'id': categoryLv1.id}) }}">{{categoryLv1.Name}}<span class="sr-only"></span></a>
+                          {% endif %}
                         {% endfor %}
                         </div>
 
