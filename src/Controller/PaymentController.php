@@ -191,8 +191,7 @@ class PaymentController extends AbstractController
             ->getAnnouncementById($id);
 
             return $this->render('cart.html.twig', [
-    			'announcement' => $announcement,
-    			'offer' => $offer
+    			'announcement' => $announcement
         	]);
     	} else {
     		$offer = $this->getDoctrine()->getRepository(Offer::class)
