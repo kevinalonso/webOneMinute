@@ -44,7 +44,7 @@ payment:
     path: /payment/{id}/{type}
     controller: App\Controller\PaymentController::payment
 cart:
-    path: /cart/{id}
+    path: /cart/{id}/{type}
     controller: App\Controller\PaymentController::cart
 confirmation:
     path: /confirmation

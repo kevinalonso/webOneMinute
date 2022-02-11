@@ -71,7 +71,12 @@
 						
 						<div class="action mb-3">
 							{% if app.user %}
-								<a href="{{ path('cart', {'id': announcement[0].Id}) }}"class="btn btn-success btn-block" type="button">Payer le service</a>
+								{% if announcement[0] is defined %}
+									<a href="{{ path('cart', {'id': announcement[0].Id,'type': 1} ) }}"class="btn btn-success btn-block" type="button">Payer le service</a>
+								{% else %}
+									<a href="{{ path('cart', {'id': offer[0].Id,'type': 0} ) }}"class="btn btn-success btn-block" type="button">Payer le service</a>
+								{% endif %}
+								
 							{% else %}
 								<div class="alert alert-danger text-center" role="alert">
   									<span>Veuillez vous connecter pour payer</span>

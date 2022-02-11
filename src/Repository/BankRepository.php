@@ -21,7 +21,7 @@ class BankRepository extends ServiceEntityRepository
 
     public function getRibFromUser(int $idBank): array
     {
-        $dql = 'SELECT b FROM App\Entity\Bank b WHERE b.id =:idBank';
+        $dql = 'SELECT b FROM App\Entity\Bank b WHERE b.User =:idBank';
         $query = $this->getEntityManager()->createQuery($dql)
             ->setParameter('idBank',$idBank);
         return $query->execute();

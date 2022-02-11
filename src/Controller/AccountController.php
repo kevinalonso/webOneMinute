@@ -39,7 +39,15 @@ class AccountController extends AbstractController
         if (!empty($offer)) {
             
             $endDate = clone $offer[1]->getDateofSale();
-            $endDate = $endDate->modify('+1 month');
+
+            if ($offer[0]->getMonth()) {
+                $endDate = $endDate->modify('+1 month');
+            }
+
+            if ($offer[0]->getYear()) {
+                $endDate = $endDate->modify('+1 year');
+            }
+            
 
             if ($offer[1]->getDateofSale() < $endDate) {
                 $stateOffer = "Abonnement toujours valide";
@@ -52,8 +60,18 @@ class AccountController extends AbstractController
         
         $valide = "";
         if (!empty($offer)) {
-            $valide = clone $offer[1]->getDateofSale();
-            $valide = $valide->modify('+1 month');
+            if ($offer[0]->getMonth()) {
+
+                $valide = clone $offer[1]->getDateofSale();
+                $valide = $valide->modify('+1 month');
+            }
+
+            if ($offer[0]->getYear()) {
+                
+                $valide = clone $offer[1]->getDateofSale();
+                $valide = $valide->modify('+1 year');
+            }
+            
         }
         
     	return $this->render('account.html.twig', [

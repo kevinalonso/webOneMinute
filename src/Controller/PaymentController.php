@@ -183,32 +183,42 @@ class PaymentController extends AbstractController
     /**
 	* @Route("/cart/{id}")
 	*/
-    public function cart(int $id): Response
+    public function cart(int $id, bool $type): Response
     {
 
-    	 $announcement = $this->getDoctrine()->getRepository(Announcement::class)
+    	if ($type) {
+    		$announcement = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnouncementById($id);
 
-        $offer = null;
-    	if ($announcement == null) {
-
+            return $this->render('cart.html.twig', [
+    			'announcement' => $announcement,
+    			'offer' => $offer
+        	]);
+    	} else {
     		$offer = $this->getDoctrine()->getRepository(Offer::class)
     			->getOfferById($id);
+
+    		return $this->render('cart.html.twig', [
+    			'offer' => $offer
+        	]);
+    	}
+
+    	 
+
+        /*$offer = null;
+    	if ($announcement == null) {
+
+    		
     	}
 
     	if ($announcement != null) {
     		
-    		return $this->render('cart.html.twig', [
-    			'announcement' => $announcement,
-    			'offer' => $offer
-        	]);
+    		
     	}
 
     	if ($offer != null) {
-    		return $this->render('cart.html.twig', [
-    			'offer' => $offer
-        	]);
-    	}
+    		
+    	}*/
     	
     }
 
