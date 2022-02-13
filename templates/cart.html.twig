@@ -103,6 +103,10 @@
 	          <div class="ml-4 mb-15">
 	          	<input class="form-check-input" type="radio" name="cgv" id="cgv" value="option2" onclick="cgvRadio(this)">
               	<label class="form-check-label" for="cgv">J'accepte les CGV pour payer*</label>
+
+              	<p><a href="#exampleModal" data-toggle="modal" data-target="#myModal">Lire les conditions générales de vente</a>
+
+              	
            	  </div>
 	          {% if announcement[0] is defined %}
 	          	<a id="payment-button" href="{{ path('payment', {'id': announcement[0].Id,'type': 1}) }}"class="btn btn-success btn-block disabled" type="button">Payer</a>
@@ -110,6 +114,25 @@
 	          	<a id="payment-button" href="{{ path('payment', {'id': offer[0].Id, 'type': 0}) }}"class="btn btn-success btn-block disabled" type="button">Payer</a>
 	      	  {% endif %}
 	        </div>
+
+	        <!--Modal pour les cgv-->
+			<div class="modal fade" id="myModal" role="dialog">
+			    <div class="modal-dialog">
+			      <!-- Modal content-->
+			      <div class="modal-content">
+			        <div class="modal-header">
+			          <h4 class="modal-title">Conditions générale de vente</h4>
+			        </div>
+			        <div class="modal-body">
+			          <p>{{cgv}}</p>
+			        </div>
+			        <div class="modal-footer">
+			          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        </div>
+			      </div>
+			    </div>
+			</div>
+
 	      </div>
 	      <!-- Card -->
 

@@ -143,3 +143,9 @@ easy_admin:
                     - { property: 'DateEnd',type: datetime, label: 'Date Fin Validité'}
                     - { property: 'IsEnabled', label: 'Valide/Expiré'}
                     - { property: 'Offer', label: 'Abonnement'}
+
+        Cgs:
+            class: App\Entity\Cgs
+            label: 'Conditions génrale de vente'
+            form:
+                - { property: 'textCgs', type: 'fos_ckeditor', label: 'Contenu CGV'}

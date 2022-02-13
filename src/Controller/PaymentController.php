@@ -13,6 +13,7 @@ use App\Entity\Announcement;
 use App\Entity\Email;
 use App\Entity\Sale;
 use App\Entity\Offer;
+use App\Entity\Cgs;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class PaymentController extends AbstractController
@@ -186,40 +187,26 @@ class PaymentController extends AbstractController
     public function cart(int $id, bool $type): Response
     {
     	$offer = null;
+    	$cgv = $this->getDoctrine()->getRepository(Cgs::class)->getCgs();
+
     	if ($type) {
     		$announcement = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnouncementById($id);
 
             return $this->render('cart.html.twig', [
     			'announcement' => $announcement,
-    			'offer' => $offer
+    			'offer' => $offer,
+    			'cgv' => $cgv[0]->getTextCgs()
         	]);
     	} else {
     		$offer = $this->getDoctrine()->getRepository(Offer::class)
     			->getOfferById($id);
 
     		return $this->render('cart.html.twig', [
-    			'offer' => $offer
+    			'offer' => $offer,
+    			'cgv' => $cgv[0]->getTextCgs()
         	]);
     	}
-
-    	 
-
-        /*$offer = null;
-    	if ($announcement == null) {
-
-    		
-    	}
-
-    	if ($announcement != null) {
-    		
-    		
-    	}
-
-    	if ($offer != null) {
-    		
-    	}*/
-    	
     }
 
     public function confirmation(Request $request,\Swift_Mailer $mailer,AuthenticationUtils $authenticationUtils): Response
