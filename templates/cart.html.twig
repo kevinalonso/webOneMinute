@@ -81,9 +81,17 @@
 	          <h5 class="mb-3">Total de la commande</h5>
 
 	          <ul class="list-group list-group-flush">
+	          	<li class="list-group-item d-flex justify-content-between align-items-center px-0">
+	              Frais de dossier
+	              <span>5%</span>
+	            </li>
+	            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+	              Prix prestation
+	              <span>{{ announcement[0] is defined ? announcement[0].Price : offer[0].Price}}€</span>
+	            </li>
 	            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
 	              Total
-	              <span>{{ announcement[0] is defined ? announcement[0].Price : offer[0].Price}}€</span>
+	              <span>{{ announcement[0] is defined ? announcement[0].Price + (announcement[0].Price * 5/100) : offer[0].Price + (offer[0].Price * 5/100)}}€</span>
 	            </li>
 	            <!--<li class="list-group-item d-flex justify-content-between align-items-center px-0">
 	              TVA
@@ -104,7 +112,7 @@
 	          	<input class="form-check-input" type="radio" name="cgv" id="cgv" value="option2" onclick="cgvRadio(this)">
               	<label class="form-check-label" for="cgv">J'accepte les CGV pour payer*</label>
 
-              	<p><a href="#exampleModal" data-toggle="modal" data-target="#myModal">Lire les conditions générales de vente</a>
+              	<p><a href="#myModal" data-toggle="modal" data-target="#myModal">Lire les conditions générales de vente</a>
 
               	
            	  </div>

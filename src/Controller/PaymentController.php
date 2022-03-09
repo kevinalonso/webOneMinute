@@ -43,7 +43,7 @@ class PaymentController extends AbstractController
 	            ->insertSale($cmd,$announcement, $userBuyer,$type);
 
 	        //Important il faut multiplier le prix par cent
-	        $price = strval($announcement[0]->getPrice()*100);
+	        $price = strval(($announcement[0]->getPrice() + ($announcement[0].Price * 5/100))*100);
     	}
     	else
     	{
@@ -62,7 +62,7 @@ class PaymentController extends AbstractController
 	    	
 	    	
 	        //Important il faut multiplier le prix par cent
-	        $price = strval($offer[0]->getPrice()*100);
+	        $price = strval(($offer[0]->getPrice() + ($offer[0].Price * 5/100))*100);
     	}
 
     	//Paybox
