@@ -29,8 +29,17 @@
   height: 250px;
 }
 
-.nav-link:hover{
-  color: white !important;
+.nav-link:hover {
+  color: grey !important;
+}
+
+.nav-link-menu:hover {
+  color: #fd1589 !important;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block !important;
+    visibility: hidden;
 }
 
 .list-group{
@@ -53,8 +62,6 @@
 }
 
 .offer:hover {
-
-
   transform: scale(1.02, 1.02);
   -webkit-transform: scale(1.02, 1.02);
   backface-visibility: hidden; 
@@ -82,10 +89,44 @@
   filter: invert(1);
 }
 
-.footer {
-  position: relative;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: 1030;
+.img-hom-carousel{
+  width: 100%;
+}
+
+.mega-menu{
+  position: static;
+}
+
+.menu-mobile{
+    display: none;
+}
+
+@media only screen and (max-width: 980px) {
+  .menu-mobile{
+    display: block;
+  }
+
+  #carouselExampleIndicators{
+    display: none;
+  }
+
+  .menu-desktop{
+    display: none;
+  }
+
+  .mobile-account{
+    margin-left: 0px !important;
+  }
+
+  .announcement-account-mobile, .payment-account-anoucement{
+    margin-left: 0rem !important;
+  }
+
+  .logo{
+    height: 100% !important;
+  }
+
+  .announcement-list-mobile{
+    margin-left: 0px !important;
+  }
 }

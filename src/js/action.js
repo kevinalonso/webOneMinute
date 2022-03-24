@@ -51,7 +51,7 @@ var temp = 0;
 var openDropMenu;
 $(document).ready(function() 
 {
-   $('li').click(function(e) 
+   $('ul.second-menu li').click(function(e) 
    {
     	var ulWidth = $('.second-menu')[0].offsetWidth;
 		var i = 0;
