@@ -18,9 +18,15 @@ class DetailAnnouncementController extends AbstractController
 
         $announcement = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnouncementById($id);
+
+      
+        $path = str_replace("/home/minutee/www","",$announcement[0]->getImage());
+
+        $announcement[0]->setImage($path);
       
     	return $this->render('detail.html.twig', [
-            'announcement' => $announcement
+            'announcement' => $announcement,
+            'path' => $path
         ]);
     }
 }
