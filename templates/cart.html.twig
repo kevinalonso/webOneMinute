@@ -113,7 +113,6 @@
               	<label class="form-check-label" for="cgv">J'accepte les CGV pour payer*</label>
 
               	<p><a href="#myModal" data-toggle="modal" data-target="#myModal">Lire les conditions générales de vente</a>
-
               	
            	  </div>
 	          {% if announcement[0] is defined %}
@@ -124,12 +123,12 @@
 	        </div>
 
 	        <!--Modal pour les cgv-->
-			<div class="modal fade" id="myModal" role="dialog">
-			    <div class="modal-dialog">
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			    <div class="modal-dialog" role="document">
 			      <!-- Modal content-->
 			      <div class="modal-content">
 			        <div class="modal-header">
-			          <h4 class="modal-title">Conditions générale de vente</h4>
+			          <h4 class="modal-title" id="exampleModalLabel">Conditions générale de vente</h4>
 			        </div>
 			        <div class="modal-body">
 			          <p>{{cgv}}</p>
