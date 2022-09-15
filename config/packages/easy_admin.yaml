@@ -87,6 +87,7 @@ easy_admin:
                     - { property: 'pbx_refuse', label: 'URL page refus paiement'}
                     - { property: 'pbx_repondre_a', label: 'URL backoffice'}
                     - { property: 'pbx_retour', label: 'Clef retour'}
+                    - { property: 'pbx_porteur', label: 'Porteur'}
                     - { property: 'HMAC', label: 'Clef HMAC'}
                     - { property: 'serveur_primaire', label: 'Serveur primaire'}
                     - { property: 'serveur_secondaire', label: 'Serveur Secondaire'}

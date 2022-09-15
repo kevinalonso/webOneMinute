@@ -21,6 +21,12 @@ class CategoryController extends AbstractController
 
         if ($announcements != null) {
 
+            foreach ($announcements as $value) {
+                
+                $path = str_replace("/home/minutee/www","",$value->getImage());
+                $value->setImage($path);
+            }
+            
             $catName = $announcements[0];
 
             $cat = $this->getDoctrine()->getRepository(Category::class)
