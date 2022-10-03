@@ -87,4 +87,35 @@ class AnnouncementRepository extends ServiceEntityRepository
         $em->merge($annoucement);
         $em->flush();
     }
+
+    public function getStatistics(int $idUser): array
+    {
+        $dql = 'SELECT a.id, a.Title, a.Price, s.Command, s.DateofSale, c.Name
+            FROM App\Entity\Announcement a 
+            INNER JOIN App\Entity\Category c WITH a.Category = c.id
+            INNER JOIN App\Entity\Sale s WITH a.id = s.IdAnnouncement 
+            WHERE s.IdBuyer =:idUser AND s.State =:state';
+
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('idUser',$idUser)
+            ->setParameter('state',"Service fait");
+
+        return $query->execute();
+    }
+
+    public function getStatisticsByCat(int $idUser): array
+    {
+        $dql = 'SELECT c.Name, COUNT(c.Name), SUM(a.Price)
+            FROM App\Entity\Announcement a 
+            INNER JOIN App\Entity\Category c WITH a.Category = c.id
+            INNER JOIN App\Entity\Sale s WITH a.id = s.IdAnnouncement 
+            WHERE s.IdBuyer =:idUser AND s.State =:state
+            GROUP BY a.id';
+            
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('idUser',$idUser)
+            ->setParameter('state',"Service fait");
+
+        return $query->execute();
+    }
 }

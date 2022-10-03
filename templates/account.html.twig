@@ -1,7 +1,9 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+
 	
+
 	<div class="container mt-5 mb-80">
 		<div class="row">
 			<div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
@@ -73,7 +75,7 @@
 			</div>
 
 
-			<div class="col-md-2 ml-18 text-center">
+			<div class="mobile-account col-sm-9 col-md-2 ml-18 text-center">
  			<!--<div class="profile-userpic">
 				<img src="https://i.stack.imgur.com/l60Hf.png" class="img-responsive" alt="">
 			</div>-->
@@ -111,7 +113,7 @@
 <div class="container mb-4">
 
 	<div class="accordion" id="accordionExample">
-		<div class="card mb-3">
+		<div class="card col-sm-9 mb-3">
 			<div class="card-header" id="headingOne">
 				<h2 class="mb-0">
 					<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -125,7 +127,7 @@
 					<!--Announcements-->
 					<div class="row">
 						{% for announcement in announcements %}
-							<div class="col-lg-4 col-md-6 mb-4 ml-5">
+							<div class="announcement-account-mobile col-lg-4 col-md-6 mb-4 ml-5">
 								<div class="card h-100">
 									<a href="#"><img class="card-img-top" src="{{announcement.Image}}" alt=""></a>
 									<div class="card-body">
@@ -161,7 +163,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="card">
+		<div class="card col-sm-9">
 			<div class="card-header" id="headingTwo">
 				<h2 class="mb-0">
 					<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -174,7 +176,7 @@
 					<!--I have paie-->
 					<div class="row">
 						{% for announcement in buyList %}
-							<div class="col-lg-4 col-md-6 mb-4 ml-5">
+							<div class="payment-account-anoucement col-lg-4 col-md-6 mb-4 ml-5">
 								<div class="card h-100">
 									<img class="card-img-top" src="{{announcement[0].Image}}" alt="">
 									<div class="card-body">
@@ -197,6 +199,59 @@
 						{% endfor %}
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="card col-sm-9">
+			<div class="card-header" id="headingThree">
+				<h2 class="mb-0">
+					<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+						Tableau récapitulatif
+					</button>
+				</h2>
+			</div>
+			<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">Categorie</th>
+				      <th scope="col">Total annonces catégorie</th>
+				      <th scope="col">Total prix</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	{% for statByCat in statsByCat %}
+				  		<tr>
+				  			<td>{{ statByCat.Name }}</td>
+				  			<td>{{ statByCat.1 }}</td><!--Nombre annonce par cat-->
+				  			<td>{{ statByCat.2 }}€</td><!--Prix total par cat payé-->
+				  		</tr>
+				  	{% endfor %}
+				  </tbody>
+				</table>
+
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">Categorie</th>
+				      <th scope="col">Annonce</th>
+				      <th scope="col">N° Commande</th>
+				      <th scope="col">Date réalisation</th>
+				      <th scope="col">Prix</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	{% for stat in stats %}
+				  		<tr>
+				  			<td>{{ stat.Name }}</td>
+				  			<td>{{ stat.Title }}</td>
+				  			<td>{{ stat.Command }}</td>
+				  			<td>{{ stat.DateofSale|date("d/m/Y") }}</td>
+				  			<td>{{ stat.Price }}</td>
+				  		</tr>
+				  	{% endfor %}
+				  </tbody>
+				</table>
+
 			</div>
 		</div>
 	</div>

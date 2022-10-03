@@ -17,10 +17,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class AccountController extends AbstractController
 {
-	/**
-	* @Route("/account")
-	*/
-	public function account(UserInterface $user): Response
+    /**
+    * @Route("/account")
+    */
+    public function account(UserInterface $user): Response
     {
         $announcements = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnoucementFromUser($user->getId());
@@ -33,6 +33,12 @@ class AccountController extends AbstractController
 
         $offer = $this->getDoctrine()->getRepository(Offer::class)
             ->getOfferBuy($user->getId());
+
+        $stats = $this->getDoctrine()->getRepository(Announcement::class)
+            ->getStatistics($user->getId());
+
+        $statsByCat = $this->getDoctrine()->getRepository(Announcement::class)
+            ->getStatisticsByCat($user->getId());
 
         
         $stateOffer = "";
@@ -49,7 +55,7 @@ class AccountController extends AbstractController
             }
             
 
-            if ($offer[1]->getDateofSale() < $endDate) {
+            if (new \DateTime() < $endDate) {
                 $stateOffer = "Abonnement toujours valide";
             } else {
                 $stateOffer = "Abonnement expiré merci de renouveler";
@@ -74,14 +80,22 @@ class AccountController extends AbstractController
             
         }
         
-    	return $this->render('account.html.twig', [
+        foreach ($announcements as $item) {
+            $path = str_replace("/home/minutee/www","",$item->getImage());
+
+            $item->setImage($path);
+        }
+
+        return $this->render('account.html.twig', [
             'announcements'=> $announcements,
             'buyList'=> $buyList,
             'user' => $user,
             'ribs' => $ribs,
             'offer' => $offer,
             'offerState' => $stateOffer,
-            'valide' => $valide
+            'valide' => $valide,
+            'stats' => $stats,
+            'statsByCat' => $statsByCat
         ]);
     }
 
