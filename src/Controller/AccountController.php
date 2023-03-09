@@ -26,7 +26,7 @@ class AccountController extends AbstractController
             ->getAnnoucementFromUser($user->getId());
 
         $ribs = $this->getDoctrine()->getRepository(Bank::class)
-            ->getRibFromUser($user->getId());
+            ->getRibUser($user->getId());
 
         $buyList = $this->getDoctrine()->getRepository(Announcement::class)
             ->getAnnouncementBuy($user->getId());

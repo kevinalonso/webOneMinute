@@ -26,6 +26,7 @@ class PaymentController extends AbstractController
 	*/
 	public function payment(int $id, bool $type): RedirectResponse
     {
+    	dump($type);
     	$price = 0;
     	$cmd = "";
     	if ($type) {
@@ -43,7 +44,8 @@ class PaymentController extends AbstractController
 	            ->insertSale($cmd,$announcement, $userBuyer,$type);
 
 	        //Important il faut multiplier le prix par cent
-	        $price = strval(($announcement[0]->getPrice() + ($announcement[0].Price * 5/100))*100);
+	        $price = strval(($announcement[0]->getPrice() + ($announcement[0]->getPrice() * 5/100))*100);
+	        dump('announcement',$price);
     	}
     	else
     	{
@@ -58,11 +60,11 @@ class PaymentController extends AbstractController
 	    	$command = $this->getDoctrine()->getRepository(Sale::class)
 	            ->insertSale($cmd,$offer, $userBuyer,$type);
 
-	    	//Insert offer in database
 	    	
+	    	 dump('offer',$price);
 	    	
 	        //Important il faut multiplier le prix par cent
-	        $price = strval(($offer[0]->getPrice() + ($offer[0].Price * 5/100))*100);
+	        $price = strval(($offer[0]->getPrice() + ($offer[0]->getPrice() * 5/100))*100);
     	}
 
     	//Paybox
