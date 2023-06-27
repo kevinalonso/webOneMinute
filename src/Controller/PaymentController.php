@@ -26,7 +26,7 @@ class PaymentController extends AbstractController
 	*/
 	public function payment(int $id, bool $type): RedirectResponse
     {
-    	dump($type);
+    	
     	$price = 0;
     	$cmd = "";
     	if ($type) {

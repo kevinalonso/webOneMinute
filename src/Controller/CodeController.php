@@ -18,8 +18,9 @@ class CodeController extends AbstractController
 	/**
 	* @Route("/code/{command}/{idUser}")
 	*/
-	public function code(string $command,int $idUser,\Swift_Mailer $mailer): Response
+	public function code(string $command,int $idUser,\Swift_Mailer $mailer, Request $request): Response
     {
+        var_dump($request);
         //Code random
         $codeGenerate = $this->generateRandomCode(6);
         $time = new \DateTime('now');
