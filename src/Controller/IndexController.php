@@ -41,6 +41,12 @@ class IndexController extends AbstractController
         $announcements = $this->getDoctrine()->getRepository(Announcement::class)
             ->getTop10Annoucement();
 
+        foreach ($announcements as $value) {
+                
+            $path = str_replace("/home/minutee/www","",$value->getImage());
+            $value->setImage($path);
+        }
+
         return $this->render('index.html.twig', [
             'categories' => $categories,
             'announcements'=>$announcements

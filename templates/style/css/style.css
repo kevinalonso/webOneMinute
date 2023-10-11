@@ -24,9 +24,13 @@
   background-color: #fd1589;
 }
 
-.logo{
-  width: 250px;
+@media only screen and (min-width: 980px){
+  .logo{
+  width: 23% !important;
   height: 250px;
+  margin-left: 35%;
+}
+
 }
 
 .nav-link:hover {
@@ -94,7 +98,7 @@
 }
 
 .mega-menu{
-  position: static;
+	position: static;
 }
 
 .menu-mobile{

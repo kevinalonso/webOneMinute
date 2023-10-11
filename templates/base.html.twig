@@ -8,7 +8,7 @@
   		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
   		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
-		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script>
         <title>{% block title %}OneMinute{% endblock %}</title>
 
         {% block stylesheets %}
@@ -20,7 +20,7 @@
         	<link rel="stylesheet" href="/oneminute/templates/style/css/bootstrap-extras-margins-padding.css">
         	<link rel="stylesheet" href="/oneminute/templates/style/css/style.css">
 
-        	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
@@ -32,36 +32,51 @@
     	<!-- Navigation -->
 		<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 			<div class="container">
-			  <a class="navbar-brand" href="{{ path('index') }}">1minutepresta</a>
-			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-			    <span class="navbar-toggler-icon"></span>
-			  </button>
-			  <div class="collapse navbar-collapse" id="navbarResponsive">
-			    <ul class="navbar-nav ml-auto">
-			      <li class="nav-item active">
-			        <a class="nav-link" href="{{ path('index') }}">Accueil
-			          <span class="sr-only">(current)</span>
-			        </a>
-			      </li>
-			      <li class="nav-item">
-			      	{% if app.user %}
-			      		<a class="nav-link" href="{{ path('account') }}">Mon Compte</a>
-			      	{% else %}
-			      		<a class="nav-link" href="{{ path('login') }}">Connexion</a>
-			      	{% endif %}
-			      </li>
-			      <li class="nav-item">
-			      	<a class="nav-link" href="{{ path('createAccount') }}">Inscription</a>
-			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="{{ path('declaration') }}">Aide déclaration revenues</a>
-			      </li>
-			     
-			      <li class="nav-item">
-			        <a class="nav-link" href="{{ path('contact') }}">Contact</a>
-			      </li>
-			    </ul>
-			  </div>
+				<a class="navbar-brand" href="{{ path('index') }}">1minutepresta</a>
+			  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			    	<span class="navbar-toggler-icon"></span>
+			  	</button>
+
+			  	
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+				  	<div class="align-items-center d-flex justify-content-center w-50">
+						<div class="input-group rounded w-100">
+							<form action="{{ path('searchall') }}" class="input-group w-100" method="post">
+								<input id="search-category" name="txt" type="search" class="form-control rounded" placeholder="Recherche" aria-label="Search" aria-describedby="search-addon" />
+								
+								<button type="submit" class="input-group-text border-0 btn-group" id="search-addon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+									  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+									</svg>
+								</button>
+							</form>
+						</div>
+					</div>
+
+				    <ul class="navbar-nav ml-auto">
+				      <li class="nav-item active">
+				        <a class="nav-link" href="{{ path('index') }}">Accueil
+				          <span class="sr-only">(current)</span>
+				        </a>
+				      </li>
+				      <li class="nav-item">
+				      	{% if app.user %}
+				      		<a class="nav-link" href="{{ path('account') }}">Mon Compte</a>
+				      	{% else %}
+				      		<a class="nav-link" href="{{ path('login') }}">Connexion</a>
+				      	{% endif %}
+				      </li>
+				      <li class="nav-item">
+				      	<a class="nav-link" href="{{ path('createAccount') }}">Inscription</a>
+				      </li>
+				      <li class="nav-item">
+				        <a class="nav-link" href="{{ path('declaration') }}">Aide déclaration revenues</a>
+				      </li>
+				      <li class="nav-item">
+				        <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+				      </li>
+				    </ul>
+				</div>
 			</div>
 		</nav>
 		

@@ -35,6 +35,18 @@ easy_admin:
         User:
             class: App\Entity\User
             label: 'Utilisateurs'
+            list:
+                fields:
+                    - { property: 'FirstName', label: 'Prénom'}
+                    - { property: 'LastName', label: 'Nom'}
+                    - { property: 'Phone', label: 'Téléphone'}
+                    - { property: 'Email', label: 'E-mail'}
+                    - { property: 'Address', label: 'Adresse'}
+                    - { property: 'CodePoste', label: 'Code postale'}
+                    - { property: 'City', label: 'Ville'}
+                    - { property: 'IsActive', label: 'Utilisateur actif'}
+                    - { property: 'IsPro', label: 'Est pro'}
+
             form:  # <-- 'form' is applied to both 'new' and 'edit' views
                 fields:
                     - { property: 'FirstName', label: 'Prénom'}
@@ -50,12 +62,20 @@ easy_admin:
         Sale:
             class: App\Entity\Sale
             label: 'Ventes'
+            list:
+                fields:
+                    - { property: 'State', label: 'Status'}
+                    - { property: 'Command', label: 'Commande'}
+                    - { property: 'SellerName', label: 'Vendeur'}
+                    - { property: 'BuyerName', label: 'Acheteur'}
+                    - { property: 'DateofSale', label: 'Date de la vente'}
+                    - { property: 'Price', label: 'Montant de la commande'}
+                    - { property: 'Cgv', label: 'CGV'}
             form:
                 fields:
                     - { property: 'Command', label: 'Commande', type_options: { disabled: true }}
                     - { property: 'IdAnnouncement', label: 'Id Annonce', type_options: { disabled: true }}
                     - { property: 'SellerName', label: 'Vendeur', type_options: { disabled: true }}
-                    - { property: 'IdSeller', label: 'Identifiant Vendeur', type_options: { disabled: true }}
                     - { property: 'BuyerName', label: 'Acheteur', type_options: { disabled: true }}
                     - { property: 'IdBuyer', label: 'Identifiant Acheteur', type_options: { disabled: true }}
                     - { property: 'DateofSale', label: 'Date de la vente', type_options: { disabled: true }}
@@ -133,18 +153,6 @@ easy_admin:
                     - { property: 'Year', label: 'Abonnement par An'}
                     - { property: 'Month', label: 'Abonnement par Mois'}
                     - { property: 'Description', label: 'Description'}
-
-        Subscription:
-            class: App\Entity\Subscription
-            label: 'Abonnement Souscrit'
-            form:
-                fields:
-                    - { property: 'Email', label: 'Email'}
-                    - { property: 'DateStart', type: datetime, label: 'Date Début Validité'}
-                    - { property: 'DateEnd',type: datetime, label: 'Date Fin Validité'}
-                    - { property: 'IsEnabled', label: 'Valide/Expiré'}
-                    - { property: 'Offer', label: 'Abonnement'}
-
         Cgs:
             class: App\Entity\Cgs
             label: 'Conditions génrale de vente'

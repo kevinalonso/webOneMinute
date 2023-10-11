@@ -20,6 +20,25 @@ function cgvRadio(radioVal){
 	}
 }
 
+function searchCatrgory(){
+
+	var search = $("#search-category").val();
+	var idCat = document.querySelector("#search-addon").dataset.categoryId;
+
+	$.ajax({
+	    type: "POST",
+	    url: "/oneminute/public/search/category/"+idCat,
+	    data: {
+		    	search: search
+	    	}
+		}).done(function(data){
+			document.open();
+			document.write(data.html);
+			document.close();
+		});
+
+}
+
 function sendCodeClick(){
 
 	var code = $("#code").val();
@@ -46,19 +65,36 @@ function sendCodeClick(){
 		});
 }
 
-
+/*$('.dropdown').hover(
+	function(event){
+		var ulWidth = $('.second-menu')[0].offsetWidth;
+		var i = 0;
+		var height = 0;
+		$('.dropdown-menu').each(function(){
+			if ( $('.dropdown-menu')[i].offsetHeight > 0) {
+				height = $('.dropdown-menu')[i].offsetHeight;
+				$('.dropdown-menu')[i].style.width = '100%';
+			}
+			i = i + 1;
+		});
+		if (height > 0) {
+			height = height + 10;
+		}
+		$('.add-menu-item')[0].style.height = height.toString()+'px';
+	}
+)*/
 var temp = 0;
 var openDropMenu;
 $(document).ready(function() 
 {
-   $('ul.second-menu li').click(function(e) 
+   $('li').click(function(e) 
    {
     	var ulWidth = $('.second-menu')[0].offsetWidth;
 		var i = 0;
 		var height = 0;
 		$('.dropdown-menu').each(function(){
 			if ( $('.dropdown-menu')[i].offsetHeight > 0) {			
-				$('.dropdown-menu')[i].style.width = '100%';
+				$('.dropdown-menu')[i].style.width = 'auto';
 				$('.dropdown-menu')[i].style.display = 'block';
 				openDropMenu = $('.dropdown-menu')[i];
 				height = $('.dropdown-menu')[i].offsetHeight;
@@ -76,8 +112,18 @@ $(document).ready(function()
 		});
 
 		if (height > 0) {
-			height = height + 10;
+			height = height + 80;
 		}
 		$('.add-menu-item')[0].style.height = height.toString()+'px';
    });
 });
+
+
+$( "#menu-item-desk" ).on("click","li.nav-item", function(event){    
+    console.log('testing');
+});
+/*document.addEventListener("click", function(evt) {
+
+	var clickPlace = targetEl = evt.target;
+	
+});*/

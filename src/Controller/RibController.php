@@ -54,15 +54,12 @@ class RibController extends AbstractController
 
     public function editBank(Request $request, UserInterface $user): Response
     {
-        dump(1);
         $updateBank = new Bank();
 
         $updateBank->setId($request->request->get('id'));
         $updateBank->setIban($request->request->get('iban'));
         $updateBank->setBic($request->request->get('bic'));
         $updateBank->setUser($user);
-
-        dump($updateBank);
 
         $this->getDoctrine()->getRepository(Bank::class)
             ->updateBank($updateBank);        

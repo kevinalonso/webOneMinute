@@ -1,6 +1,20 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+	{% if announcements != null %}
+		<div class="align-items-center d-flex justify-content-center mt-10 row">
+			<div class="input-group rounded w-50">
+				<input id="search-category" type="search" class="form-control rounded" placeholder="Recherche" aria-label="Search" aria-describedby="search-addon" />
+				
+				<a href="#" onclick="searchCatrgory()" data-category-id="{{cat}}" class="input-group-text border-0 btn-group" id="search-addon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+					  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+					</svg>
+				</a>
+			</div>
+		</div>
+	{% endif %}
+	
 	<div class="row mt-10 mb-10">
 		{% if announcements != null %}
 			<h5 class="w-100 text-center">Annonces de {{titleCat.Category.Name}}</h5>
@@ -10,29 +24,36 @@
 		
 	</div>
 
-	<div class="row">
-		{% for announcement in announcements %}
-			{% if announcement.IsActive %}
+	<div class="container">
+		
+		<div class="row">
+			{% for announcement in announcements %}
+				{% if announcement.IsActive %}
 
-				<div class="col-lg-4 col-md-6 mb-4 ml-5">
-					<div class="card h-100">
-						<!--http://placehold.it/700x400-->
-						<a href="#"><img class="card-img-top" src="{{ announcement.image }}" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-							  <a href="{{ path('announcement', {'id': announcement.id}) }}">{{announcement.Title}}</a>
-							</h4>
-							<h5>{{announcement.Price}}€</h5>
-							<p class="card-text">{{announcement.Description|length > 200 ? announcement.Description|slice(0, 200) ~ '...' : announcement.Description}}</p>
-						</div>
-						<div class="card-footer">
-							<small class="text-muted"></small>
+					<div class="announcement-list-mobile col-lg-4 col-md-6 mb-4 ml-5">
+						<div class="card h-100">
+							<!--http://placehold.it/700x400-->
+							<a href="#"><img class="card-img-top" src="{{ announcement.image }}" alt=""></a>
+							<div class="card-body">
+								<h4 class="card-title">
+								  <a href="{{ path('announcement', {'id': announcement.id}) }}">{{announcement.Title}}</a>
+								</h4>
+								<span class="card-text">{{ announcement.User.IsPro ? "Professionnel" : "Particulier" }}</span>
+								<p class="card-text">{{ announcement.City }}</p>
+								<h5>{{announcement.Price}}€</h5>
+								<p class="card-text">{{announcement.Description|length > 200 ? announcement.Description|slice(0, 200) ~ '...' : announcement.Description}}</p>
+							</div>
+							<div class="card-footer">
+								<small class="text-muted"></small>
+							</div>
 						</div>
 					</div>
-				</div>
 
-			{% endif %}
-		{% endfor %}
+				{% endif %}
+			{% endfor %}
+		</div>
+
 	</div>
+	
 
 {% endblock %}

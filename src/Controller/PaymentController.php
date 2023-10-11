@@ -26,7 +26,6 @@ class PaymentController extends AbstractController
 	*/
 	public function payment(int $id, bool $type): RedirectResponse
     {
-    	
     	$price = 0;
     	$cmd = "";
     	if ($type) {
@@ -45,7 +44,6 @@ class PaymentController extends AbstractController
 
 	        //Important il faut multiplier le prix par cent
 	        $price = strval(($announcement[0]->getPrice() + ($announcement[0]->getPrice() * 5/100))*100);
-	        dump('announcement',$price);
     	}
     	else
     	{
@@ -60,8 +58,8 @@ class PaymentController extends AbstractController
 	    	$command = $this->getDoctrine()->getRepository(Sale::class)
 	            ->insertSale($cmd,$offer, $userBuyer,$type);
 
+	    	//Insert offer in database
 	    	
-	    	 dump('offer',$price);
 	    	
 	        //Important il faut multiplier le prix par cent
 	        $price = strval(($offer[0]->getPrice() + ($offer[0]->getPrice() * 5/100))*100);
@@ -179,8 +177,8 @@ class PaymentController extends AbstractController
       	
       	$httpClient = HttpClient::create();
       	/*$response = $httpClient->request('POST','https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?'. $params);*/
-
-		return new RedirectResponse('https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi?'. $params);
+      	//https://tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi
+		return new RedirectResponse('https://tpeweb.e-transactions.fr/php/?'. $params);
     }
 
     /**
@@ -239,7 +237,7 @@ class PaymentController extends AbstractController
         $code = $this->getDoctrine()->getRepository(Sale::class)
             ->getSale($this->getUser());
 
-        $codeLink = "http://localhost/oneminute/public/code/".$code[0]->getCommand()."/".$userBuyerId;
+        $codeLink = "https://www.1minutepresta.fr/oneminute/public/code/".$code[0]->getCommand()."/".$userBuyerId;
 
         $msg = str_replace("@[link]", $codeLink, $msg);
 
@@ -260,6 +258,16 @@ class PaymentController extends AbstractController
     		'data' => $request->query,
     		'msg' => $message
         ]);
+    }
+
+    public function paymentRefused(): Response
+    {
+    	return $this->render('paymentrefuse.html.twig', []);
+    }
+
+    public function paymentCanceled(): Response
+    {
+    	return $this->render('paymentannule.html.twig', []);
     }
 
     private function generateRandomString($length) {

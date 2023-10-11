@@ -29,9 +29,9 @@ class ContactController extends AbstractController
         $obj = $request->request->get('obj');
         $msg = $request->request->get('msg');
 
-        $message = (new \Swift_Message($obj))
+        $message = (new \Swift_Message('Site - '.$obj))
             ->setFrom($email)
-            ->setTo('k.alonso@outlook.fr')
+            ->setTo('infocontact@1minutepresta.fr')
             ->setBody($msg);
 
         $mailer->send($message);

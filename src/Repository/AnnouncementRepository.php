@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Announcement;
 use App\Entity\Category;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -34,7 +35,8 @@ class AnnouncementRepository extends ServiceEntityRepository
 
     public function getAnnoucementFromCategory(int $idCat): array
     {
-        $dql = 'SELECT a FROM App\Entity\Announcement a WHERE a.Category =:idCat';
+        $dql = 'SELECT a FROM App\Entity\Announcement a
+        WHERE a.Category =:idCat';
         $query = $this->getEntityManager()->createQuery($dql)
             ->setParameter('idCat',$idCat);
         return $query->execute();
@@ -116,6 +118,34 @@ class AnnouncementRepository extends ServiceEntityRepository
             ->setParameter('idUser',$idUser)
             ->setParameter('state',"Service fait");
 
+        return $query->execute();
+    }
+
+    public function searchInCategory(int $idCat, string $title, string $description, string $city)
+    {
+        $dql = 'SELECT a FROM App\Entity\Announcement a WHERE a.Category =:idCat 
+        AND (
+            a.Title LIKE :title
+            OR
+            a.Description LIKE :description
+            OR
+            a.City LIKE :city
+        )';
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('idCat',$idCat)
+            ->setParameter('title','%'.$title.'%')
+            ->setParameter('description','%'.$description.'%')
+            ->setParameter('city','%'.$city.'%');
+        return $query->execute();
+    }
+
+    public function searchAllAnnoucement(string $title)
+    {
+        $dql = 'SELECT a FROM App\Entity\Announcement a WHERE a.Title LIKE :title'
+        ;
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('title','%'.$title.'%');
+            
         return $query->execute();
     }
 }

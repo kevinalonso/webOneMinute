@@ -30,7 +30,18 @@ class AnnouncementController extends AbstractController
 
         $hasOffer = false;
         if (!empty($offer)) {
-            $hasOffer = true;
+            $endDate = clone $offer[1]->getDateofSale();
+            if ($offer[0]->getMonth()) {
+                $endDate = $endDate->modify('+1 month');
+            }
+
+            if ($offer[0]->getYear()) {
+                $endDate = $endDate->modify('+1 year');
+            }
+
+            if (new \DateTime() < $endDate){
+                $hasOffer = true;
+            }
         }
 
         return $this->render('createformannouncement.html.twig', [
@@ -49,6 +60,7 @@ class AnnouncementController extends AbstractController
 
        
     	$announcement->setTitle($request->request->get('title'));
+        $announcement->setCity($request->request->get('city'));
     	$announcement->setDescription($request->request->get('description'));
     	$announcement->setUser($user);
     	$announcement->setPrice($request->request->get('price'));
@@ -81,10 +93,10 @@ class AnnouncementController extends AbstractController
     	return new JsonResponse(array(
             'status' => 'OK',
         ),
-        200);	
+        200);
     }
 
-    public function editAnnoucementView(int $id): Response
+    public function editAnnoucementView(int $id,UserInterface $user): Response
     {
 
         $announcement = $this->getDoctrine()->getRepository(Announcement::class)
@@ -93,13 +105,31 @@ class AnnouncementController extends AbstractController
         $categories = $this->getDoctrine()->getRepository(Category::class)
             ->allCategories();
 
-        $test = $this->getDoctrine()->getRepository(Category::class)
-            ->getCategory("14");
+        //Check if user has subcribe to offer
+        $offer = $this->getDoctrine()->getRepository(Offer::class)
+            ->getOfferBuy($user->getId());
+
+        $hasOffer = false;
+        if (!empty($offer)) {
+            $endDate = clone $offer[1]->getDateofSale();
+            if ($offer[0]->getMonth()) {
+                $endDate = $endDate->modify('+1 month');
+            }
+
+            if ($offer[0]->getYear()) {
+                $endDate = $endDate->modify('+1 year');
+            }
+
+            if (new \DateTime() < $endDate){
+                $hasOffer = true;
+            }
+        }
       
         return $this->render('editformannouncement.html.twig', [
             'announcement' => $announcement,
             'categories'=>$categories,
-            'test'=>$test
+            'hasOffer' => $hasOffer,
+            'offer' => $offer
         ]);
     }
 
@@ -110,11 +140,27 @@ class AnnouncementController extends AbstractController
 
         $updateAnnouncement->setId($request->request->get('id'));
         $updateAnnouncement->setTitle($request->request->get('title'));
+        $updateAnnouncement->setCity($request->request->get('city'));
         $updateAnnouncement->setDescription($request->request->get('desc'));
         $updateAnnouncement->setPrice($request->request->get('price'));
         $updateAnnouncement->setDatePublish(new \DateTime('now'));
         $updateAnnouncement->setIsActive(true);
-        $updateAnnouncement->setImage("");
+        
+        //Get image from category selected
+        $imageCat = $this->getDoctrine()->getRepository(ImageCategory::class)
+            ->getImageFromCategory($request->request->get('category'));
+
+        $updateAnnouncement->setImage($imageCat[0]->getPath());
+
+        $updateAnnouncement->setImage1($request->request->get('img1'));
+        $updateAnnouncement->setImage2($request->request->get('img2'));
+        $updateAnnouncement->setImage3($request->request->get('img3'));
+        $updateAnnouncement->setImage4($request->request->get('img4'));
+        $updateAnnouncement->setImage5($request->request->get('img5'));
+        $updateAnnouncement->setImage6($request->request->get('img6'));
+        $updateAnnouncement->setImage7($request->request->get('img7'));
+        $updateAnnouncement->setImage8($request->request->get('img8'));
+        $updateAnnouncement->setImage9($request->request->get('img9'));
 
         $dataCat = $this->getDoctrine()->getRepository(Category::class)
             ->getCategory($request->request->get('category'));

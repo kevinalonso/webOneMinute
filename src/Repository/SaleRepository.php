@@ -71,9 +71,6 @@ class SaleRepository extends ServiceEntityRepository
     public function updateSale(string $command,string $value)
     {
 
-        dump($command);
-         dump($value);
-
         $dql = 'UPDATE App\Entity\Sale s SET s.State =:value WHERE s.Command =:command';
         $query = $this->getEntityManager()->createQuery($dql)
             ->setParameter('command', $command)

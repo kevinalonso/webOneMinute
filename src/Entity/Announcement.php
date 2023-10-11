@@ -23,6 +23,11 @@ class Announcement
     private $Title;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $City;
+
+    /**
      * @ORM\Column(type="text", length=65535)
      */
     private $Description;
@@ -110,6 +115,18 @@ class Announcement
     public function setTitle(string $Title): self
     {
         $this->Title = $Title;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->City;
+    }
+
+    public function setCity(string $City): self
+    {
+        $this->City = $City;
 
         return $this;
     }

@@ -134,6 +134,8 @@
 										<h4 class="card-title">
 											<a href="{{ path('announcement', {'id': announcement.id}) }}">{{announcement.Title}}</a>
 										</h4>
+										<span class="card-text">{{ announcement.User.IsPro ? "Professionnel" : "Particulier" }}</span>
+										<p class="card-text">{{ announcement.City }}</p>
 										<h5>{{announcement.Price}}€</h5>
 										<p class="card-text">{{announcement.Description|length > 200 ? announcement.Description|slice(0, 200) ~ '...' : announcement.Description}}</p>
 									</div>
@@ -183,6 +185,8 @@
 										<h4 class="card-title">
 											<h3>{{announcement[0].Title}}</h3>
 										</h4>
+										<span class="card-text">{{ announcement[0].User.IsPro ? "Professionnel" : "Particulier" }}</span>
+										<p class="card-text">{{ announcement[0].City }}</p>
 										<h5>{{announcement[0].Price}}€</h5>
 										<p class="card-text">{{announcement[0].Description|length > 200 ? announcement[0].Description|slice(0, 200) ~ '...' : announcement[0].Description}}</p>
 									</div>
@@ -213,8 +217,8 @@
 				<table class="table">
 				  <thead>
 				    <tr>
-				      <th scope="col">Categorie</th>
-				      <th scope="col">Total annonces catégorie</th>
+				      <th scope="col">Catégorie</th>
+				      <th scope="col">Total annonces</th>
 				      <th scope="col">Total prix</th>
 				    </tr>
 				  </thead>
@@ -232,7 +236,7 @@
 				<table class="table">
 				  <thead>
 				    <tr>
-				      <th scope="col">Categorie</th>
+				      <th scope="col">Catégorie</th>
 				      <th scope="col">Annonce</th>
 				      <th scope="col">N° Commande</th>
 				      <th scope="col">Date réalisation</th>
@@ -246,7 +250,7 @@
 				  			<td>{{ stat.Title }}</td>
 				  			<td>{{ stat.Command }}</td>
 				  			<td>{{ stat.DateofSale|date("d/m/Y") }}</td>
-				  			<td>{{ stat.Price }}</td>
+				  			<td>{{ stat.Price }}€</td>
 				  		</tr>
 				  	{% endfor %}
 				  </tbody>

@@ -164,6 +164,7 @@ function createAnnouncement(){
 	var category = $("#category").val();
 	var description = $("#desc").val();
 	var price = $("#price").val();
+	var city = $("#city").val();
 
 
 	if (typeof title != "undefined" && typeof category != "undefined" && typeof description != "undefined" && typeof price != "undefined" ) {
@@ -173,6 +174,7 @@ function createAnnouncement(){
 	    url: "/oneminute/public/createannouncement",
 	    data: {
 		    	title: title,
+		    	city: city,
 	            category: category,
 	            description: description,
 	            price: price,

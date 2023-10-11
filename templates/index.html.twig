@@ -152,6 +152,8 @@
                   <h4 class="card-title">
                     <a href="{{ path('announcement', {'id': announcement.id}) }}">{{announcement.Title}}</a>
                   </h4>
+                  <span class="card-text">{{ announcement.User.IsPro ? "Professionnel" : "Particulier" }}</span>
+                  <p class="card-text">{{ announcement.User.City }} - {{ announcement.User.CodePoste }}</p>
                   <h5>{{announcement.Price}}€</h5>
                   <p class="card-text">{{announcement.Description|length > 200 ? announcement.Description|slice(0, 200) ~ '...' : announcement.Description}}</p>
                 </div>

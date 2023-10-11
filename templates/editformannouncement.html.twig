@@ -11,6 +11,10 @@
                 <label for="title" class="">Titre</label>
 			</div>
 			<div class="row mt-5">
+				<input type="text" id="city" name="city" class="form-control" required="required"value="{{ announcement[0].City }}">
+                <label for="city" class="">Ville</label>
+			</div>
+			<div class="row mt-5">
 				<select id="category" class="form-control">
   					<option name="category">Catégorie</option>
   					{% for category in categories %}
@@ -28,6 +32,41 @@
 				<input type="text" id="price" name="price" class="form-control" required="required" value="{{ announcement[0].Price }}">
                 <label for="price" class="">Prix</label>
 			</div>
+
+			{% if (hasOffer) %}
+
+				<div class="row mt-5">
+					<input class="form-control" id="img1" type="file" name="myFile1"/>
+					<img class="form-control" id="preview1" src="#" alt="aucune image"/>
+
+					<input class="form-control" id="img2" type="file" name="myFile2"/>
+					<img class="form-control" id="preview2" src="#" alt="aucune image"/>
+
+					<input class="form-control" id="img3" type="file" name="myFile3"/>
+					<img class="form-control" id="preview3" src="#" alt="aucune image"/>
+
+					<input class="form-control" id="img4" type="file" name="myFile4"/>
+					<img class="form-control" id="preview4" src="#" alt="aucune image"/>
+
+					<input class="form-control" id="img5" type="file" name="myFile5"/>
+					<img class="form-control" id="preview5" src="#" alt="aucune image"/>
+
+					<input class="form-control" id="img6" type="file" name="myFile6"/>
+					<img class="form-control" id="preview6" src="#" alt="aucune image"/>
+					{% if (offer[0].Photo <= 6) %}
+						<input class="form-control" type="{{ (offer[0].Photo > 6) ? 'file' : 'hidden' }}" id="img7" name="myFile7"/>
+						<img class="form-control" style="{{ (offer[0].Photo > 6) ? 'visibility: visible;' : 'display: none;' }}" id="preview7" src="#" alt="aucune image"/>
+
+						<input class="form-control" id="img8" type="{{ (offer[0].Photo > 6) ? 'file' : 'hidden' }}" name="myFile8"/>
+						<img class="form-control" id="preview8" src="#" style="{{ (offer[0].Photo > 6) ? 'visibility: visible;' : 'display: none;' }}" alt="aucune image"/>
+
+						<input class="form-control" id="img9" type="{{ (offer[0].Photo > 6) ? 'file' : 'hidden' }}" name="myFile9"/>
+						<img class="form-control" id="preview9" src="#" style="{{ (offer[0].Photo > 6) ? 'visibility: visible;' : 'display: none;' }}" alt="aucune image"/>
+					{% endif %}
+					<label for="price" class="">Photos Complémentaires</label>
+				</div>
+
+			{% endif %}
 
 			 <div class="row mt-5 mb-5">
                 <button class="btn btn-primary" type="submit">Modifier l'annonce</button>

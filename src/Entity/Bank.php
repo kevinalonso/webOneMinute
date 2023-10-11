@@ -28,7 +28,7 @@ class Bank
     private $Bic;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="Banks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="Announcements")
      */
     private $User;
 

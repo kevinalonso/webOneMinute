@@ -181,7 +181,7 @@ class AccountController extends AbstractController
             $updateUser->setFactory($request->request->get('factory'));
             $updateUser->setIsPro($request->request->get('pro'));
         } else {
-             $updateUser->setIsPro($request->request->get('individual'));
+             $updateUser->setIsPro(false);
         }
 
 

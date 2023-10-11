@@ -49,6 +49,12 @@ cart:
 confirmation:
     path: /confirmation
     controller: App\Controller\PaymentController::confirmation
+refuse:
+    path: /refuse
+    controller: App\Controller\PaymentController::paymentRefused
+annule:
+    path: /annule
+    controller: App\Controller\PaymentController::paymentCanceled
 createribview:
     path: /account/create/rib
     controller: App\Controller\RibController::createView
@@ -88,3 +94,9 @@ errorcode:
 offer:
     path: /offer
     controller: App\Controller\OfferController::offerList
+searchcategory:
+    path: search/category/{idCat}
+    controller: App\Controller\CategoryController::search
+searchall:
+    path: /search
+    controller: App\Controller\SearchController::searchAll

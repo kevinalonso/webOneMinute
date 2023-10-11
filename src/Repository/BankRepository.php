@@ -47,6 +47,5 @@ class BankRepository extends ServiceEntityRepository
         $em = $this->getEntityManager();
         $em->merge($bank);
         $em->flush();
-
     }
 }
